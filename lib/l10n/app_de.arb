@@ -1,0 +1,6 @@
+{
+    "hello": "Hallo Welt!",
+    "@hello": {
+      "description": "Die allseits bekannte Hallo"
+    }
+}
