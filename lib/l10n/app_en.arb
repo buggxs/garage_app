@@ -1,6 +1,15 @@
 {
-    "hello": "Hello World!",
+    "hello": "Hallo Welt!",
     "@hello": {
-      "description": "The conventional newborn programmer greeting"
-    }
+      "description": "Die allseits bekannte Hallo"
+    },
+    "air_conditioner": "Klimaanlage",
+    "oil": "ÖL",
+    "brake": "Bremsen",
+    "timing_belt": "Zahnriemen",
+    "car_hello": "Hello Car",
+    "oil_card_heading": "Actuel oil data",
+    "last_change": "Last change",
+    "next_change": "Next change",
+    "technical_card_heading": "Technische Daten"
 }

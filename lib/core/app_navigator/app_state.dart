@@ -2,25 +2,37 @@ part of 'app_cubit.dart';
 
 @immutable
 abstract class AppState {
-  AppState(this.bottomNavigationIndex);
+  const AppState({this.bottomNavigationIndex});
 
-  int bottomNavigationIndex;
+  final int? bottomNavigationIndex;
 }
 
 class MyGarageScreenState extends AppState {
-  MyGarageScreenState(this.bottomNavigationIndex) : super(bottomNavigationIndex);
+  const MyGarageScreenState({
+    int? bottomNavigationIndex
+  }) : super(bottomNavigationIndex: bottomNavigationIndex);
 
-  int bottomNavigationIndex;
 }
 
 class DashboardScreenState extends AppState {
-  DashboardScreenState(this.bottomNavigationIndex) : super(bottomNavigationIndex);
+  const DashboardScreenState({
+    int? bottomNavigationIndex
+  }) : super(bottomNavigationIndex: bottomNavigationIndex);
 
-  int bottomNavigationIndex;
 }
 
 class SettingsScreenState extends AppState {
-  SettingsScreenState(this.bottomNavigationIndex) : super(bottomNavigationIndex);
+  const SettingsScreenState({
+    int? bottomNavigationIndex
+  }) : super(bottomNavigationIndex: bottomNavigationIndex);
 
-  int bottomNavigationIndex;
+}
+
+class MyCarDetailsState extends AppState {
+  const MyCarDetailsState({
+    int? bottomNavigationIndex,
+    this.carId
+  }) : super(bottomNavigationIndex: bottomNavigationIndex);
+
+  final int? carId;
 }

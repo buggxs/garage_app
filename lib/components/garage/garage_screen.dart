@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:garage_app/components/authentication/session/session_cubit.dart';
 import 'package:garage_app/components/widgets/garage_scaffold.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:garage_app/core/app_navigator/app_cubit.dart';
+
 
 class GarageScreen extends StatelessWidget {
   GarageScreen({Key? key}) : super(key: key);
@@ -25,7 +28,7 @@ class GarageScreen extends StatelessWidget {
                 child: garageParkingPWidget()
               );
             }
-            return carCardWidget(index);
+            return carCardWidget(index, context);
           },
           separatorBuilder: (BuildContext context, int index) => garageDividerWidget(),
         ),
@@ -70,16 +73,14 @@ class GarageScreen extends StatelessWidget {
     );
   }
 
-  Widget carCardWidget(int index) {
+  Widget carCardWidget(int index, BuildContext context) {
     return Container(
       margin: const EdgeInsets.fromLTRB(0, 8.0, 8.0, 8.0),
       child: Card(
         color: Colors.grey[400],
         child: InkWell(
           splashColor: Colors.blue.withAlpha(30),
-          onTap: () {
-            print('Card tapped.');
-          },
+          onTap: () => context.read<AppCubit>().showCarScreen(1, 1),
           onLongPress: () {
 
           },
@@ -101,50 +102,70 @@ class GarageScreen extends StatelessWidget {
                       child: Text("Mein cooles Auto dot com", style: TextStyle(fontSize: 18),),
                       padding: EdgeInsets.all(8.0),
                     ),
-                    Container(
-                      padding: EdgeInsets.symmetric(horizontal: 8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Wrap(
-                            crossAxisAlignment: WrapCrossAlignment.center,
+                    Row(
+                      children: [
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: 8.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Icon(Icons.ac_unit, color: Colors.green, size: 20.0,),
-                              Text("Klimaanlage")
+                              Wrap(
+                                crossAxisAlignment: WrapCrossAlignment.center,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.only(right: 5.0),
+                                    child: Icon(Icons.ac_unit, color: Colors.green[800], size: 20.0,),
+                                  ),
+                                  Text(AppLocalizations.of(context)!.air_conditioner)
+                                ],
+                              ),
+                              const SizedBox(height: 5,),
+                              Wrap(
+                                crossAxisAlignment: WrapCrossAlignment.center,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.only(right: 5.0),
+                                    child: ImageIcon(AssetImage("assets/icons/car-oil.png"), color: Colors.green[800], size: 20.0,),
+                                  ),
+                                  Text(AppLocalizations.of(context)!.oil)
+                                ],
+                              )
                             ],
                           ),
-                          Wrap(
-                            crossAxisAlignment: WrapCrossAlignment.center,
+                        ),
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Icon(Icons.ac_unit, color: Colors.green, size: 20.0,),
-                              Text("Klimaanlage")
+                              Wrap(
+                                crossAxisAlignment: WrapCrossAlignment.center,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.only(right: 5.0),
+                                    child: ImageIcon(AssetImage("assets/icons/brake.png"), color: Colors.green[800], size: 20.0,),
+                                  ),
+                                  Text(AppLocalizations.of(context)!.brake)
+                                ],
+                              ),
+                              const SizedBox(height: 5,),
+                              Wrap(
+                                crossAxisAlignment: WrapCrossAlignment.center,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.only(right: 5.0),
+                                    child: ImageIcon(AssetImage("assets/icons/timing-belt.png"), color: Colors.green[800], size: 20.0,),
+                                  ),
+                                  Text(AppLocalizations.of(context)!.timing_belt)
+                                ],
+                              )
                             ],
-                          )
-                        ],
-                      ),
+                          ),
+                        ),
+                      ],
                     ),
-                    Container(
-                      padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Wrap(
-                            crossAxisAlignment: WrapCrossAlignment.center,
-                            children: [
-                              Icon(Icons.ac_unit, color: Colors.green, size: 20.0,),
-                              Text("Klimaanlage")
-                            ],
-                          ),
-                          Wrap(
-                            crossAxisAlignment: WrapCrossAlignment.center,
-                            children: [
-                              Icon(Icons.ac_unit, color: Colors.green, size: 20.0,),
-                              Text("Klimaanlage")
-                            ],
-                          )
-                        ],
-                      ),
-                    )
                   ],
                 ),
               )

@@ -2,5 +2,14 @@
     "hello": "Hallo Welt!",
     "@hello": {
       "description": "Die allseits bekannte Hallo"
-    }
+    },
+    "air_conditioner": "Klimaanlage",
+    "oil": "ÖL",
+    "brake": "Bremsen",
+    "timing_belt": "Zahnriemen",
+    "car_hello": "Hallo Car",
+    "oil_card_heading": "Aktuelle Öl-Daten",
+    "last_change": "Letzter wechsel:",
+    "next_change": "Nächster wechsel:",
+    "technical_card_heading": "Technische Daten"
 }

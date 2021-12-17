@@ -49,7 +49,7 @@ class GarageScaffold extends StatelessWidget {
                 label: 'Settings'
               ),
             ],
-            currentIndex: state.bottomNavigationIndex,
+            currentIndex: state.bottomNavigationIndex!,
             selectedItemColor: Colors.amber[800],
             onTap: context.read<AppCubit>().navigateTo,
           ),
