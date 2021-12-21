@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:garage_app/components/authentication/session/session_cubit.dart';
+import 'package:garage_app/components/car/widget/property_card.dart';
 import 'package:garage_app/components/widgets/garage_scaffold.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:garage_app/core/app_navigator/app_cubit.dart';
@@ -45,12 +46,10 @@ class CarScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 16.0),
               child: CarouselSlider(
                 options: CarouselOptions(
-                    enlargeCenterPage: true,
-                    enableInfiniteScroll: false,
-                    autoPlay: true
+                  enlargeCenterPage: true,
+                  enableInfiniteScroll: false,
                 ),
                 items: imageList.map((imageUrl) {
-                  print(imageUrl);
                   return Builder(
                     builder: (BuildContext context) {
                       return ClipRRect(
@@ -94,6 +93,18 @@ class CarScreen extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Column(
+                          children: const <Text>[
+                            Text("Kilometerstand: ", style: TextStyle(fontWeight: FontWeight.bold),),
+                            Text("145.000")
+                          ]
+                      ),
+                    ),
+                  ),
+                  Card(
+                    color: Colors.white,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
                         children: const <Text>[
                           Text("Baujahr: ", style: TextStyle(fontWeight: FontWeight.bold),),
                           Text("2013")
@@ -104,10 +115,22 @@ class CarScreen extends StatelessWidget {
                 ],
               ),
             ),
-            oilCard(context),
-            oilCard(context),
-            oilCard(context),
-            oilCard(context),
+            PropertyCard(
+              property: 'oil',
+              type: 'success',
+            ),
+            PropertyCard(
+              property: 'air_conditioner',
+              type: 'success',
+            ),
+            PropertyCard(
+              property: 'brake',
+              type: 'success',
+            ),
+            PropertyCard(
+              property: 'timing_belt',
+              type: 'success',
+            ),
             technicalCard(context),
           ],
         )
@@ -116,100 +139,6 @@ class CarScreen extends StatelessWidget {
   }
 
 
-
-  Widget oilCard(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 16.0),
-      child: Card(
-        color: Colors.white,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              padding: const EdgeInsets.all(5.0),
-              decoration: BoxDecoration(
-                borderRadius: const BorderRadius.only(
-                    topRight: Radius.circular(4.0),
-                    topLeft: Radius.circular(4.0),
-                ),
-                color: Colors.greenAccent.shade700
-              ),
-              width: double.infinity,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Padding(
-                    padding: EdgeInsets.only(right: 5.0),
-                    child: ImageIcon(AssetImage("assets/icons/car-oil.png"), size: 20.0,),
-                  ),
-                  Text(
-                    AppLocalizations.of(context)!.oil_card_heading,
-                    style: const TextStyle(
-                        fontSize: 17,
-                        fontWeight: FontWeight.bold
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              color: Colors.greenAccent.shade200,
-              child: const SizedBox(
-                height: 3,
-                width: double.infinity,
-              ),
-            ),
-            Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.centerRight,
-                  end: Alignment.centerLeft,
-                  colors: [Colors.greenAccent.shade200, Colors.greenAccent.shade400]
-                )
-              ),
-              padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        AppLocalizations.of(context)!.last_change,
-                        style: const TextStyle(fontWeight: FontWeight.w500),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      const Text("100.00 km /"),
-                      const Text("08.12.2021"),
-                    ],
-                  ),
-                  const SizedBox(
-                    width: 30,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        AppLocalizations.of(context)!.next_change,
-                        style: const TextStyle(fontWeight: FontWeight.w500),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      const Text("160.000 km oder"),
-                      const Text("08.12.2022"),
-                    ],
-                  )
-                ],
-              ),
-            )
-          ],
-        ),
-      ),
-    );
-  }
 
 
   Widget technicalCard(BuildContext context) {
@@ -231,7 +160,7 @@ class CarScreen extends StatelessWidget {
                 children: [
                   const Padding(
                     padding: EdgeInsets.only(right: 5.0),
-                    child: ImageIcon(AssetImage("assets/icons/car-oil.png"), size: 20.0,),
+                    child: ImageIcon(AssetImage("assets/icons/settings-gears.png"), size: 20.0,),
                   ),
                   Text(
                     AppLocalizations.of(context)!.technical_card_heading,

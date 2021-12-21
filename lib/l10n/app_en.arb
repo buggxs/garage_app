@@ -9,6 +9,9 @@
     "timing_belt": "Zahnriemen",
     "car_hello": "Hello Car",
     "oil_card_heading": "Actuel oil data",
+    "brake_card_heading": "Actuel brake data",
+    "timing_belt_card_heading": "Actuel timing belt data",
+    "air_conditioner_card_heading": "Actuel air conditioner data",
     "last_change": "Last change",
     "next_change": "Next change",
     "technical_card_heading": "Technische Daten"
