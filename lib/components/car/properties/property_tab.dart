@@ -16,113 +16,114 @@ class PropertyTab extends StatelessWidget {
     ];
 
     return SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16.0),
-              child: CarouselSlider(
-                options: CarouselOptions(
-                  enlargeCenterPage: true,
-                  enableInfiniteScroll: false,
-                ),
-                items: imageList.map((imageUrl) {
-                  return Builder(
-                    builder: (BuildContext context) {
-                      return ClipRRect(
-                        borderRadius: BorderRadius.circular(8.0),
-                        child: Stack(
-                            fit: StackFit.expand,
-                            children: [
-                              Image(
-                                image: AssetImage(imageUrl),
-                                width: 1050,
-                                height: 350,
-                                fit: BoxFit.cover,
-                              ),
-                            ]
-                        ),
-                      );
-                    },
-                  );
-                }).toList(),
+      padding: const EdgeInsets.symmetric(vertical: 16.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(bottom: 16.0),
+            child: CarouselSlider(
+              options: CarouselOptions(
+                enlargeCenterPage: true,
+                enableInfiniteScroll: false,
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 16.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Card(
-                    color: Colors.white,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                          children: const <Text>[
-                            Text("TÜV bis: ", style: TextStyle(fontWeight: FontWeight.bold),),
-                            Text("08.2022")
+              items: imageList.map((imageUrl) {
+                return Builder(
+                  builder: (BuildContext context) {
+                    return ClipRRect(
+                      borderRadius: BorderRadius.circular(8.0),
+                      child: Stack(
+                          fit: StackFit.expand,
+                          children: [
+                            Image(
+                              image: AssetImage(imageUrl),
+                              width: 1050,
+                              height: 350,
+                              fit: BoxFit.cover,
+                            ),
                           ]
                       ),
+                    );
+                  },
+                );
+              }).toList(),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 16.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Card(
+                  color: Colors.white,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                        children: const <Text>[
+                          Text("TÜV bis: ", style: TextStyle(fontWeight: FontWeight.bold),),
+                          Text("08.2022")
+                        ]
                     ),
                   ),
-                  Card(
-                    color: Colors.white,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                          children: const <Text>[
-                            Text("Kilometerstand: ", style: TextStyle(fontWeight: FontWeight.bold),),
-                            Text("145.000")
-                          ]
-                      ),
+                ),
+                Card(
+                  color: Colors.white,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                        children: const <Text>[
+                          Text("Kilometerstand: ", style: TextStyle(fontWeight: FontWeight.bold),),
+                          Text("145.000")
+                        ]
                     ),
                   ),
-                  Card(
-                    color: Colors.white,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                          children: const <Text>[
-                            Text("Baujahr: ", style: TextStyle(fontWeight: FontWeight.bold),),
-                            Text("2013")
-                          ]
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ),
-            const Padding(
-              padding: EdgeInsets.only(left: 16.0, bottom: 5.0, top: 16.0),
-              child: Text(
-                "Daten zu deinem Auto",
-                style: TextStyle(
-                    fontSize: 22,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold
                 ),
+                Card(
+                  color: Colors.white,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                        children: const <Text>[
+                          Text("Baujahr: ", style: TextStyle(fontWeight: FontWeight.bold),),
+                          Text("2013")
+                        ]
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
+          const Padding(
+            padding: EdgeInsets.only(left: 16.0, bottom: 5.0, top: 16.0),
+            child: Text(
+              "Daten zu deinem Auto",
+              style: TextStyle(
+                  fontSize: 22,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold
               ),
             ),
-            PropertyCard(
-              property: 'oil',
-              type: 'success',
-            ),
-            PropertyCard(
-              property: 'air_conditioner',
-              type: 'success',
-            ),
-            PropertyCard(
-              property: 'brake',
-              type: 'warning',
-            ),
-            PropertyCard(
-              property: 'timing_belt',
-              type: 'success',
-            ),
-            technicalCard(context),
-          ],
-        )
+          ),
+          PropertyCard(
+            property: 'oil',
+            type: 'success',
+          ),
+          PropertyCard(
+            property: 'air_conditioner',
+            type: 'success',
+          ),
+          PropertyCard(
+            property: 'brake',
+            type: 'warning',
+          ),
+          PropertyCard(
+            property: 'timing_belt',
+            type: 'success',
+          ),
+          technicalCard(context),
+        ],
+      )
     );
   }
 

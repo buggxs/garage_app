@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:garage_app/components/authentication/session/session_cubit.dart';
+import 'package:garage_app/components/car/documents/document_tab.dart';
 import 'package:garage_app/components/car/properties/property_tab.dart';
 import 'package:garage_app/components/car/properties/widget/property_card.dart';
 import 'package:garage_app/components/widgets/garage_scaffold.dart';
@@ -33,20 +34,12 @@ class CarScreen extends StatelessWidget {
           backgroundColor: Colors.white,
           foregroundColor: Colors.black,
           title: const Text("MyCar"),
-          actions: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: InkWell(
-                child: const Icon(Icons.edit),
-                onTap: () => print("Nöö"),
-              ),
-            ),
-          ],
           bottom: const TabBar(
+            indicatorColor: Colors.grey,
             tabs: <Widget>[
               Tab(
                 icon: Icon(Icons.directions_car),
-                text: "Eigenschaften",
+                text: "Stellplatz",
                 iconMargin: EdgeInsets.all(0),
               ),
               Tab(
@@ -60,9 +53,7 @@ class CarScreen extends StatelessWidget {
         body: const TabBarView(
           children: <Widget>[
             PropertyTab(),
-            Center(
-              child: Text("It's rainy here"),
-            ),
+            DocumentTab(),
           ],
         ),
       ),

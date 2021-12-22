@@ -14,5 +14,7 @@
     "air_conditioner_card_heading": "Aktuelle Klimaanlagen-Daten",
     "last_change": "Letzter wechsel:",
     "next_change": "Nächster wechsel:",
-    "technical_card_heading": "Technische Daten"
+    "technical_card_heading": "Technische Daten",
+    "invoice_documents_heading": "Rechnungen",
+    "general_documents_heading": "Allgemeine Dokumente"
 }
