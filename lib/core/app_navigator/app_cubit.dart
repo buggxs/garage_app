@@ -20,7 +20,7 @@ class AppCubit extends Cubit<AppState> {
   void showSettingsScreen(int index) =>
       emit(SettingsScreenState(bottomNavigationIndex: index));
 
-  void showCarScreen(int index, int carId) =>
+  void showCarScreen({required int index, required int carId}) =>
       emit(MyCarDetailsState(bottomNavigationIndex: index, carId: carId));
 
   void navigateTo(int index) {
