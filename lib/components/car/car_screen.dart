@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:garage_app/components/authentication/session/session_cubit.dart';
 import 'package:garage_app/components/car/documents/document_tab.dart';
+import 'package:garage_app/components/car/notes/notes_tab.dart';
 import 'package:garage_app/components/car/properties/property_tab.dart';
 import 'package:garage_app/components/car/properties/widget/property_card.dart';
 import 'package:garage_app/components/widgets/garage_scaffold.dart';
@@ -23,7 +24,7 @@ class CarScreen extends StatelessWidget {
 
     return DefaultTabController(
       initialIndex: 0,
-      length: 2,
+      length: 3,
       child: Scaffold(
         backgroundColor: Colors.grey[800],
         appBar: AppBar(
@@ -47,6 +48,11 @@ class CarScreen extends StatelessWidget {
                 text: "Dokumente",
                 iconMargin: EdgeInsets.all(0),
               ),
+              Tab(
+                icon: Icon(Icons.note_add),
+                text: "Notizen",
+                iconMargin: EdgeInsets.all(0),
+              ),
             ],
           ),
         ),
@@ -54,6 +60,7 @@ class CarScreen extends StatelessWidget {
           children: <Widget>[
             PropertyTab(),
             DocumentTab(),
+            NotesTab()
           ],
         ),
       ),
