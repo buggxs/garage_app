@@ -1,17 +1,44 @@
 import 'package:flutter/material.dart';
+import 'package:garage_app/components/car/widget/car_list_item_empty.dart';
 import 'package:garage_app/components/widgets/garage_scaffold.dart';
 
 class SettingsScreen extends StatelessWidget {
-  const SettingsScreen({Key? key}) : super(key: key);
+  SettingsScreen({Key? key}) : super(key: key);
+
+  final List<String> entries = <String>[
+    'A', 'B', 'C', 'D', 'E',
+    'Logout'
+  ];
+  final List<int> colorCodes = <int>[600, 500, 100, 600, 500, 100];
 
   @override
   Widget build(BuildContext context) {
     return GarageScaffold(
       title: 'Deine Settings',
       child: Container(
-        padding: const EdgeInsets.fromLTRB(0, 16.0, 16.0, 16.0),
-        child: const Center(
-          child: Text("Hello Settings"),
+        child: ListView.separated(
+          itemCount: entries.length,
+          itemBuilder: (BuildContext context, int index) {
+            if (entries[index].isEmpty) {
+              return CarListItemEmpty();
+            }
+            return Container(
+              padding: const EdgeInsets.all(10.0),
+              color: Colors.white,
+              child: Text(
+                entries[index],
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18
+                ),
+              )
+            );
+          },
+          separatorBuilder: (BuildContext context, int index) => const Divider(
+            color: Colors.black,
+            height: 3,
+            thickness: 3,
+          ),
         ),
       ),
     );

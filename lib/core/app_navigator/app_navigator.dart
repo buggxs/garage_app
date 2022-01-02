@@ -26,7 +26,7 @@ class AppNavigator extends StatelessWidget {
                 ),
 
               if (state is SettingsScreenState)
-                const MaterialPage(
+                MaterialPage(
                     child: SettingsScreen()
                 ),
 

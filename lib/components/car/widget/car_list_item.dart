@@ -46,15 +46,16 @@ class CarListItem extends StatelessWidget {
   Widget carImage() {
     return Container(
       padding: const EdgeInsets.all(8.0),
-      child: const CircleAvatar(
-        radius: 40,
-        backgroundImage: Image(
-          image: FadeInImage(
+      child: ClipRRect(
+        child: Container(
+          height: 100,
+          width: 100,
+          child: FadeInImage(
             fit: BoxFit.cover,
-            placeholder: AssetImage('assets/placeholder.png'),
-            image: CacheImage('gs://your-project.appspot.com/image.jpg'),
+            placeholder: const AssetImage('assets/img/car-placeholder.png'),
+            image: CacheImage('https://www.bmw.de/content/dam/bmw/marketDE/bmw_de/navigation/2102_BMW8xADxVogue_01-022%2016-bit%20SP-885_890x500.jpg'),
           ),
-        )
+        ),
       ),
     );
   }

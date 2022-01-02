@@ -21,18 +21,11 @@ class GarageScaffold extends StatelessWidget {
           appBar: AppBar(
             backgroundColor: Colors.white,
             foregroundColor: Colors.black,
-            title: Text(title ?? 'MyGarage App'),
-            actions: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: InkWell(
-                  child: const Icon(Icons.logout),
-                  onTap: () => BlocProvider.of<SessionCubit>(context).signOut(),
-                ),
-              ),
-            ],
+            title: Text(title ?? 'MyGarage App',
+              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+            ),
           ),
-          backgroundColor: Colors.grey[800],
+          backgroundColor: Colors.blueGrey[900],
           body: child,
           bottomNavigationBar: BottomNavigationBar(
             items: const <BottomNavigationBarItem>[
@@ -50,7 +43,8 @@ class GarageScaffold extends StatelessWidget {
               ),
             ],
             currentIndex: state.bottomNavigationIndex!,
-            selectedItemColor: Colors.amber[800],
+            selectedItemColor: Colors.deepOrange,
+            unselectedItemColor: Colors.blueGrey[900],
             onTap: context.read<AppCubit>().navigateTo,
           ),
         );
