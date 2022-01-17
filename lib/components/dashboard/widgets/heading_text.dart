@@ -12,7 +12,7 @@ class HeadingText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 16.0, bottom: 8.0),
+      padding: const EdgeInsets.only(top: 32.0, bottom: 8.0),
       child: Row(
         children: <Widget>[
           Text(text ?? "Fahrzeug Information",
