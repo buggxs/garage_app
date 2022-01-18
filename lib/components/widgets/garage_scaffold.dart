@@ -7,11 +7,13 @@ class GarageScaffold extends StatelessWidget {
   const GarageScaffold({
     Key? key,
     required this.child,
+    this.floatingActionButton,
     this.title
   }) : super(key: key);
 
   final Widget child;
   final String? title;
+  final Widget? floatingActionButton;
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +32,7 @@ class GarageScaffold extends StatelessWidget {
           ),
           backgroundColor: Colors.blueGrey[900],
           body: child,
+          floatingActionButton: floatingActionButton,
           bottomNavigationBar: BottomNavigationBar(
             items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(
