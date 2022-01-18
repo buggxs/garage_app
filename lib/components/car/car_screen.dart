@@ -11,6 +11,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:garage_app/core/app_navigator/app_cubit.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
+import 'bloc/car_bloc.dart';
+
 class CarScreen extends StatelessWidget {
   const CarScreen({Key? key}) : super(key: key);
 
@@ -22,48 +24,61 @@ class CarScreen extends StatelessWidget {
       'assets/img/bmw3.jpg',
     ];
 
-    return DefaultTabController(
-      initialIndex: 0,
-      length: 3,
-      child: Scaffold(
-        backgroundColor: Colors.grey[800],
-        appBar: AppBar(
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () => context.read<AppCubit>().showGarageScreen(1),
+    return BlocBuilder<CarBloc, CarState>(
+      builder: (BuildContext context, state) {
+
+        if (state is CarError) {
+          return DefaultTabController(
+            initialIndex: 0,
+            length: 3,
+            child: Text(state.error ?? "Error."),
+          );
+        }
+
+        return DefaultTabController(
+          initialIndex: 0,
+          length: 3,
+          child: Scaffold(
+            backgroundColor: Colors.grey[800],
+            appBar: AppBar(
+              leading: IconButton(
+                icon: const Icon(Icons.arrow_back),
+                onPressed: () => context.read<AppCubit>().showGarageScreen(1),
+              ),
+              backgroundColor: Colors.white,
+              foregroundColor: Colors.black,
+              title: const Text("MyCar"),
+              bottom: const TabBar(
+                indicatorColor: Colors.grey,
+                tabs: <Widget>[
+                  Tab(
+                    icon: Icon(Icons.directions_car),
+                    text: "Stellplatz",
+                    iconMargin: EdgeInsets.all(0),
+                  ),
+                  Tab(
+                    icon: Icon(Icons.inventory_outlined ),
+                    text: "Dokumente",
+                    iconMargin: EdgeInsets.all(0),
+                  ),
+                  Tab(
+                    icon: Icon(Icons.note_add),
+                    text: "Notizen",
+                    iconMargin: EdgeInsets.all(0),
+                  ),
+                ],
+              ),
+            ),
+            body: const TabBarView(
+              children: <Widget>[
+                PropertyTab(),
+                DocumentTab(),
+                NotesTab()
+              ],
+            ),
           ),
-          backgroundColor: Colors.white,
-          foregroundColor: Colors.black,
-          title: const Text("MyCar"),
-          bottom: const TabBar(
-            indicatorColor: Colors.grey,
-            tabs: <Widget>[
-              Tab(
-                icon: Icon(Icons.directions_car),
-                text: "Stellplatz",
-                iconMargin: EdgeInsets.all(0),
-              ),
-              Tab(
-                icon: Icon(Icons.inventory_outlined ),
-                text: "Dokumente",
-                iconMargin: EdgeInsets.all(0),
-              ),
-              Tab(
-                icon: Icon(Icons.note_add),
-                text: "Notizen",
-                iconMargin: EdgeInsets.all(0),
-              ),
-            ],
-          ),
-        ),
-        body: const TabBarView(
-          children: <Widget>[
-            PropertyTab(),
-            DocumentTab(),
-            NotesTab()
-          ],
-        ),
-      ),
+        );
+      }
     );
   }
 }

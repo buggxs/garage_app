@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:garage_app/components/car/bloc/car_bloc.dart';
 import 'package:garage_app/components/car/car_screen.dart';
 import 'package:garage_app/components/dashboard/dashboard_screen.dart';
 import 'package:garage_app/components/garage/garage_screen.dart';
@@ -48,8 +49,12 @@ class AppNavigator extends StatelessWidget {
     if (state is MyCarDetailsState) {
       if (state.carId != null) {
         garageViews.add(
-          const MaterialPage(
-            child: CarScreen()
+          MaterialPage(
+            child: BlocProvider(
+              create: (BuildContext context) => CarBloc()
+                  ..add(LoadingCarEvent(carId: state.carId)),
+              child: const CarScreen()
+            )
           )
         );
       }

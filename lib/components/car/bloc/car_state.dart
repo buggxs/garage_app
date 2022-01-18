@@ -8,3 +8,33 @@ class CarInitial extends CarState {
   @override
   List<Object> get props => [];
 }
+
+class CarLoading extends CarState {
+  @override
+  List<Object?> get props => [];
+}
+
+class CarLoaded extends CarState {
+
+  final Car car;
+
+  const CarLoaded({
+    required this.car,
+  });
+
+  @override
+  List<Object?> get props => [];
+
+}
+
+class CarError extends CarState {
+  final String? error;
+
+  const CarError({
+    this.error
+  });
+
+  @override
+  List<Object?> get props => [];
+
+}

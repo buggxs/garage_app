@@ -10,47 +10,47 @@ import 'package:garage_app/components/car/model/car.dart';
 
 abstract class CarService {
 
-  Future<Car> getCarById({required String carId});
+  Future<Car> getCarById({required int carId});
 
 }
 
 class OnlineCarService extends CarService {
 
-  Car _car = new Car(
+  final Car _car = Car(
     id: 1,
     name: "Giggolo",
     mileage: 132000,
-    date: new DateTime(2003, 4, 12),
+    date: DateTime(2003, 4, 12),
     vintage: 2003,
-    oilData: new OilData(
+    oilData: OilData(
       id: 1,
-      lastChangeDate: new DateTime(2020, 7, 5),
+      lastChangeDate: DateTime(2020, 7, 5),
       lastChangeMileage: 124000,
-      nextChangeDate: new DateTime(2022, 7, 5),
+      nextChangeDate: DateTime(2022, 7, 5),
       nextChangeMileage: 140000
     ),
-    airConditioner: new AirConditionerData(
+    airConditioner: AirConditionerData(
       id: 1,
-      lastChangeDate: new DateTime(2020, 7, 5),
+      lastChangeDate: DateTime(2020, 7, 5),
       lastChangeMileage: 124000,
-      nextChangeDate: new DateTime(2022, 7, 5),
+      nextChangeDate: DateTime(2022, 7, 5),
       nextChangeMileage: 140000
     ),
-    brakeData: new BrakeData(
+    brakeData: BrakeData(
       id: 1,
-      lastChangeDate: new DateTime(2020, 7, 5),
+      lastChangeDate: DateTime(2020, 7, 5),
       lastChangeMileage: 124000,
-      nextChangeDate: new DateTime(2022, 7, 5),
+      nextChangeDate: DateTime(2022, 7, 5),
       nextChangeMileage: 140000
     ),
-    timingBeltData: new TimingBeltData(
+    timingBeltData: TimingBeltData(
       id: 1,
-      lastChangeDate: new DateTime(2020, 7, 5),
+      lastChangeDate: DateTime(2020, 7, 5),
       lastChangeMileage: 124000,
-      nextChangeDate: new DateTime(2022, 7, 5),
+      nextChangeDate: DateTime(2022, 7, 5),
       nextChangeMileage: 140000
     ),
-    technicalData: new TechnicalData(
+    technicalData: TechnicalData(
       id: 1,
       brand: "Audi",
       model: "A3",
@@ -61,12 +61,12 @@ class OnlineCarService extends CarService {
   );
 
   @override
-  Future<Car> getCarById({required String carId}) async {
+  Future<Car> getCarById({required int carId}) async {
     final response = await http
         .get(Uri.parse('https://jsonplaceholder.typicode.com/albums/1'));
     String objString = jsonEncode(_car);
     // return Car.fromJson(jsonDecode(response.body));
-    Future.delayed(Duration(seconds: 2));
+    Future.delayed(const Duration(seconds: 2));
 
     return Car.fromJson(jsonDecode(objString));
   }
