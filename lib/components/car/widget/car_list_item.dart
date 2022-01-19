@@ -1,45 +1,54 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:garage_app/components/car/widget/car_data_input.dart';
 import 'package:garage_app/core/app_navigator/app_cubit.dart';
 import 'package:cache_image/cache_image.dart';
 
+import 'car_list_item_divider.dart';
+
 class CarListItem extends StatelessWidget {
 
-  const CarListItem({
+  Function? onLongPress;
+
+  CarListItem({
     Key? key,
-    dynamic car
+    dynamic car,
+    this.onLongPress,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.fromLTRB(0, 8.0, 8.0, 8.0),
-      child: Card(
-        color: Colors.grey[400],
-        child: InkWell(
-          splashColor: Colors.blue.withAlpha(30),
-          onTap: () => BlocProvider.of<AppCubit>(context).showCarScreen(index: 1, carId: 1),
-          onLongPress: () {
-            print("Long press CarCard");
-          },
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              carImage(),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    carHeading(),
-                    carProperties(context),
-                  ],
-                ),
-              )
-            ],
+    return Column(
+      children: [
+        Container(
+          margin: const EdgeInsets.fromLTRB(0, 8.0, 8.0, 8.0),
+          child: Card(
+            color: Colors.grey[400],
+            child: InkWell(
+              splashColor: Colors.blue.withAlpha(30),
+              onTap: () => BlocProvider.of<AppCubit>(context).showCarScreen(index: 1, carId: 1),
+              onLongPress: () => _showUpdateModal(context),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  carImage(),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        carHeading(),
+                        carProperties(context),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
           ),
         ),
-      ),
+        const CarListItemDivider(),
+      ],
     );
   }
 
@@ -134,4 +143,61 @@ class CarListItem extends StatelessWidget {
     );
   }
 
+  _showUpdateModal(
+      BuildContext context
+      ) {
+    showModalBottomSheet<void>(
+        context: context,
+        builder: (BuildContext context) {
+          return Container(
+            height: 350,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          Text(
+                            "Mein cooles Auto dot com",
+                            style: const TextStyle(
+                                fontSize: 17,
+                                fontWeight: FontWeight.bold
+                            ),
+                          )
+                        ],
+                      ),
+                      InkWell(
+                        onTap: () => Navigator.pop(context),
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 5.0),
+                          child: Icon(Icons.close),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SingleChildScrollView(
+                    child: Form(
+                      child: Column(
+                        children: [
+                          CarDataInput(),
+                          ElevatedButton(
+                              onPressed: () => {},
+                              child: Text("PopUp")
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        }
+    );
+  }
 }

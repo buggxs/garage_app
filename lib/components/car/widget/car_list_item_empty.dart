@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:garage_app/components/car/widget/car_list_item_divider.dart';
 
 class CarListItemEmpty extends StatelessWidget {
   const CarListItemEmpty({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 115,
-      width: double.infinity,
-      child: garageParkingPWidget()
+    return Column(
+      children: [
+        SizedBox(
+          height: 115,
+          width: double.infinity,
+          child: garageParkingPWidget()
+        ),
+        const CarListItemDivider(),
+      ],
     );
   }
 

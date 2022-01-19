@@ -12,8 +12,7 @@ import 'package:garage_app/core/app_navigator/app_cubit.dart';
 class GarageScreen extends StatelessWidget {
   GarageScreen({Key? key}) : super(key: key);
 
-  final List<String> entries = <String>['A', 'B', '', 'D', 'E', 'F'];
-  final List<int> colorCodes = <int>[600, 500, 100, 600, 500, 100];
+  final List<String> entries = <String>['A', ''];
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +20,7 @@ class GarageScreen extends StatelessWidget {
       title: 'Deine Garage',
       child: Container(
         padding: const EdgeInsets.fromLTRB(0, 16.0, 16.0, 16.0),
-        child: ListView.separated(
+        child: ListView.builder(
           itemCount: entries.length,
           itemBuilder: (BuildContext context, int index) {
             if (entries[index].isEmpty) {
@@ -29,7 +28,6 @@ class GarageScreen extends StatelessWidget {
             }
             return CarListItem(car: "Auto",);
           },
-          separatorBuilder: (BuildContext context, int index) => const CarListItemDivider(),
         ),
       ),
       floatingActionButton: floatingParkingButton(),
@@ -81,4 +79,5 @@ class GarageScreen extends StatelessWidget {
       ),
     );
   }
+
 }
