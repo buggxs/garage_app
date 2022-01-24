@@ -184,10 +184,26 @@ class CarListItem extends StatelessWidget {
                     child: Form(
                       child: Column(
                         children: [
-                          CarDataInput(),
+                          CarDataInput(
+                            hintText: 'Aktueller Kilometerstand',
+                            buttonText: 'Speichern',
+                            textInputType: TextInputType.number,
+                          ),
+                          CarDataInput(
+                            hintText: 'TÜV',
+                            buttonText: 'Aktualisieren',
+                            textInputType: TextInputType.datetime,
+                            readOnly: true,
+                          ),
                           ElevatedButton(
-                              onPressed: () => {},
-                              child: Text("PopUp")
+                            style: ButtonStyle(
+                              backgroundColor:
+                                MaterialStateProperty.all<Color>(
+                                    Colors.blueGrey.shade900
+                                ),
+                            ),
+                            onPressed: () => {},
+                            child: Text("Aktualisieren")
                           )
                         ],
                       ),
