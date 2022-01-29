@@ -22,11 +22,11 @@ class GarageScreen extends StatelessWidget {
         padding: const EdgeInsets.fromLTRB(0, 16.0, 16.0, 16.0),
         child: ListView.builder(
           itemCount: entries.length,
-          itemBuilder: (BuildContext context, int index) {
-            if (entries[index].isEmpty) {
-              return CarListItemEmpty();
+          itemBuilder: (BuildContext context, int itemIndex) {
+            if (entries[itemIndex].isEmpty) {
+              return const CarListItemEmpty();
             }
-            return CarListItem(car: "Auto",);
+            return CarListItem(car: "Auto", index: itemIndex,);
           },
         ),
       ),

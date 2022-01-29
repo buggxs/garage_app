@@ -7,7 +7,7 @@ class IconText extends StatelessWidget {
     this.assetImage,
     this.iconData,
     this.size,
-    this.iconColor
+    this.iconColor,
   });
 
   String text;
