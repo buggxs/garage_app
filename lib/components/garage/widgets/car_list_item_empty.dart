@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:garage_app/components/car/widget/car_list_item_divider.dart';
+import 'package:garage_app/components/garage/widgets/car_list_item_divider.dart';
 
 class CarListItemEmpty extends StatelessWidget {
   const CarListItemEmpty({Key? key}) : super(key: key);

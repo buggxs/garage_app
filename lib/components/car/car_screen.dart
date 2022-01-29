@@ -6,7 +6,7 @@ import 'package:garage_app/components/car/documents/document_tab.dart';
 import 'package:garage_app/components/car/notes/notes_tab.dart';
 import 'package:garage_app/components/car/properties/property_tab.dart';
 import 'package:garage_app/components/car/properties/widget/property_card.dart';
-import 'package:garage_app/components/widgets/garage_scaffold.dart';
+import 'package:garage_app/common/widgets/garage_scaffold.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:garage_app/core/app_navigator/app_cubit.dart';
 import 'package:carousel_slider/carousel_slider.dart';

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:garage_app/shared/common/service/app_service.dart';
-import 'package:garage_app/shared/common/service/popup_service.dart';
+import 'package:garage_app/common/service/app_service.dart';
+import 'package:garage_app/common/service/popup_service.dart';
 
 class CarDataInput extends StatefulWidget {
   CarDataInput({

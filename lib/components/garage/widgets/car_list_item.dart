@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:garage_app/components/car/widget/car_data_input.dart';
+import 'package:garage_app/components/garage/widgets/car_data_input.dart';
 import 'package:garage_app/core/app_navigator/app_cubit.dart';
 import 'package:cache_image/cache_image.dart';
 

@@ -27,38 +27,53 @@ class GarageScaffold extends StatelessWidget {
               style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             ),
             actions: [
-              _buildAction()
+              _buildLogoutAction(context)
             ],
           ),
           backgroundColor: Colors.blueGrey[900],
           body: child,
           floatingActionButton: floatingActionButton,
-          bottomNavigationBar: BottomNavigationBar(
-            items: const <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                label: 'Dashboard'
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.garage),
-                label: 'Garage'
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.settings),
-                label: 'Settings'
-              ),
-            ],
-            currentIndex: state.bottomNavigationIndex!,
-            selectedItemColor: Colors.deepOrange,
-            unselectedItemColor: Colors.blueGrey[900],
-            onTap: context.read<AppCubit>().navigateTo,
-          ),
         );
       },
     );
   }
 
-  Widget _buildAction() {
+  BottomNavigationBar _buildBottomNavigationBar(BuildContext context, AppState state) {
+    return BottomNavigationBar(
+      items: const <BottomNavigationBarItem>[
+        BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Dashboard'
+        ),
+        BottomNavigationBarItem(
+            icon: Icon(Icons.garage),
+            label: 'Garage'
+        ),
+        BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            label: 'Settings'
+        ),
+      ],
+      currentIndex: state.bottomNavigationIndex!,
+      selectedItemColor: Colors.deepOrange,
+      unselectedItemColor: Colors.blueGrey[900],
+      onTap: context.read<AppCubit>().navigateTo,
+    );
+  }
+
+  Widget _buildLogoutAction(BuildContext context) {
+    return InkWell(
+      onTap: () {
+        context.read<AppCubit>().sessionCubit.signOut();
+      },
+      child: const Padding(
+        padding: EdgeInsets.all(4.0),
+        child: Icon(Icons.logout),
+      ),
+    );
+  }
+
+  Widget _buildPointAction() {
     return InkWell(
       onTap: () {
         print("Hello");

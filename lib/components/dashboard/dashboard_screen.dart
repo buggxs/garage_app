@@ -4,7 +4,7 @@ import 'package:garage_app/components/dashboard/widgets/counselor_card.dart';
 import 'package:garage_app/components/dashboard/widgets/heading_text.dart';
 import 'package:garage_app/components/dashboard/widgets/info_card.dart';
 import 'package:garage_app/components/dashboard/widgets/point_card.dart';
-import 'package:garage_app/components/widgets/garage_scaffold.dart';
+import 'package:garage_app/common/widgets/garage_scaffold.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DashboardScreen extends StatelessWidget {

@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:garage_app/components/authentication/session/session_cubit.dart';
+import 'package:garage_app/components/garage/garage_screen.dart';
 import 'package:meta/meta.dart';
 
 part 'app_state.dart';
@@ -7,7 +8,7 @@ part 'app_state.dart';
 class AppCubit extends Cubit<AppState> {
   AppCubit({
     required this.sessionCubit
-  }) : super(const DashboardScreenState(bottomNavigationIndex: 0));
+  }) : super(const MyGarageScreenState());
 
   final SessionCubit sessionCubit;
 
