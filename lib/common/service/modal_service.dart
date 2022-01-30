@@ -44,22 +44,25 @@ class ModalService {
                   child: Form(
                     child: Column(
                       children: [
-                        CarDataInput(
-                          hintText: 'Aktueller Kilometerstand',
-                          buttonText: 'Speichern',
-                          textInputType: TextInputType.number,
-                        ),
-                        CarDataInput(
-                          hintText: 'TÜV',
-                          buttonText: 'Aktualisieren',
-                          textInputType: TextInputType.datetime,
-                          readOnly: true,
+                        Row(
+                          children: [
+                            CarDataInput(
+                              hintText: 'Kilometerstand',
+                              buttonText: 'Speichern',
+                              textInputType: TextInputType.number,
+                            ),
+                            CarDataInput(
+                              hintText: 'TÜV',
+                              buttonText: 'Aktualisieren',
+                              textInputType: TextInputType.datetime,
+                              readOnly: true,
+                            ),
+                          ],
                         ),
                         ElevatedButton(
                           style: ButtonStyle(
-                            backgroundColor:
-                            MaterialStateProperty.all<Color>(
-                                Colors.blueGrey.shade900
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                              Colors.blueGrey.shade900
                             ),
                           ),
                           onPressed: () => {},
