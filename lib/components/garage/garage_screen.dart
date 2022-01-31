@@ -8,6 +8,8 @@ import 'package:garage_app/common/widgets/garage_scaffold.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:garage_app/core/app_navigator/app_cubit.dart';
 
+import 'bloc/garage_bloc.dart';
+
 
 class GarageScreen extends StatelessWidget {
   GarageScreen({Key? key}) : super(key: key);
@@ -30,13 +32,15 @@ class GarageScreen extends StatelessWidget {
           },
         ),
       ),
-      floatingActionButton: floatingParkingButton(),
+      floatingActionButton: floatingParkingButton(context),
     );
   }
 
-  Widget floatingParkingButton() {
+  Widget floatingParkingButton(BuildContext context) {
     return InkWell(
-      onTap: () { print("Hello"); },
+      onTap: () {
+        GarageBloc.of(context).add(GarageParkingCarEvent());
+      },
       borderRadius: BorderRadius.all(Radius.circular(10.0)),
       child: Container(
         decoration: BoxDecoration(

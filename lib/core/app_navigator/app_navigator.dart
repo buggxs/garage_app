@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:garage_app/components/car/bloc/car_bloc.dart';
 import 'package:garage_app/components/car/car_screen.dart';
 import 'package:garage_app/components/dashboard/dashboard_screen.dart';
+import 'package:garage_app/components/garage/bloc/garage_bloc.dart';
 import 'package:garage_app/components/garage/garage_screen.dart';
 import 'package:garage_app/components/settings/settings_screen.dart';
 
@@ -42,7 +43,11 @@ class AppNavigator extends StatelessWidget {
     List<MaterialPage> garageViews = [
       if (state is MyGarageScreenState)
         MaterialPage(
-          child: GarageScreen(),
+          child: BlocProvider(
+            create: (BuildContext context) => GarageBloc()
+              ..add(const GarageLoadingParkedCars()),
+            child: GarageScreen()
+          ),
         )
     ];
 
