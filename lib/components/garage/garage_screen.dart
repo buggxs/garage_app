@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:garage_app/components/authentication/session/session_cubit.dart';
+import 'package:garage_app/components/car/model/car.dart';
 import 'package:garage_app/components/garage/widgets/car_list_item.dart';
 import 'package:garage_app/components/garage/widgets/car_list_item_divider.dart';
 import 'package:garage_app/components/garage/widgets/car_list_item_empty.dart';
@@ -18,19 +19,22 @@ class GarageScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    GarageBloc bloc = context.watch<GarageBloc>();
+    GarageState state = bloc.state;
+
+    Widget? child;
+
+    if(state is GarageLoadedState) {
+      child = _carList(state.cars);
+    }
+
+
     return GarageScaffold(
       title: 'Deine Garage',
       child: Container(
         padding: const EdgeInsets.fromLTRB(0, 16.0, 16.0, 16.0),
-        child: ListView.builder(
-          itemCount: entries.length,
-          itemBuilder: (BuildContext context, int itemIndex) {
-            if (entries[itemIndex].isEmpty) {
-              return const CarListItemEmpty();
-            }
-            return CarListItem(car: "Auto", index: itemIndex,);
-          },
-        ),
+        child: child,
       ),
       floatingActionButton: floatingParkingButton(context),
     );
@@ -81,6 +85,19 @@ class GarageScreen extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+
+  Widget _carList(List<Car> carList) {
+    return ListView.builder(
+      itemCount: carList.length,
+      itemBuilder: (BuildContext context, int itemIndex) {
+        if (carList[itemIndex] == null) {
+          return const CarListItemEmpty();
+        }
+        return CarListItem(car: carList[itemIndex], index: itemIndex,);
+      },
     );
   }
 

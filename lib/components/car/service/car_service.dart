@@ -131,14 +131,15 @@ class LocalCarService implements CarService{
   @override
   Future<Car> getCarById({required int carId}) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return Car.fromJson(prefs.get('car_${_car.id}'));
+    String carString = prefs.get('car_${_car.id}');
+    return Car.fromJson(jsonDecode(carString));
   }
 
   @override
   void saveCar({Car? car}) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     print('saved car');
-    prefs.setString('car_${_car.id}', _car.toJson().toString());
+    prefs.setString('car_${_car.id}', jsonEncode(_car));
   }
 
 }

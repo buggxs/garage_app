@@ -5,7 +5,12 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:garage_app/common/service/app_service.dart';
+import 'package:garage_app/components/car/model/air_conditioner_data.dart';
+import 'package:garage_app/components/car/model/brake_data.dart';
 import 'package:garage_app/components/car/model/car.dart';
+import 'package:garage_app/components/car/model/oil_data.dart';
+import 'package:garage_app/components/car/model/technical_data.dart';
+import 'package:garage_app/components/car/model/timing_belt_data.dart';
 import 'package:garage_app/components/car/service/car_service.dart';
 
 part 'garage_event.dart';

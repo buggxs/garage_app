@@ -4,7 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:garage_app/common/service/app_service.dart';
 import 'package:garage_app/common/service/modal_service.dart';
 import 'package:garage_app/common/widgets/icon_text.dart';
-import 'package:garage_app/components/garage/widgets/car_data_input.dart';
+import 'package:garage_app/components/car/model/car.dart';
 import 'package:garage_app/core/app_navigator/app_cubit.dart';
 import 'package:cache_image/cache_image.dart';
 
@@ -21,14 +21,14 @@ class CarListItem extends StatelessWidget {
 
   final Function? onLongPress;
   final int index;
-  final dynamic car;
+  final Car? car;
 
 
 
   @override
   Widget build(BuildContext context) {
 
-    return Column(
+    return car != null ? Column(
       children: [
         Container(
           margin: const EdgeInsets.fromLTRB(0, 8.0, 8.0, 8.0),
@@ -47,7 +47,7 @@ class CarListItem extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        _carHeading(car),
+                        _carHeading(car!),
                         _carProperties(context),
                       ],
                     ),
@@ -59,7 +59,7 @@ class CarListItem extends StatelessWidget {
         ),
         const CarListItemDivider(),
       ],
-    );
+    ) : const SizedBox(height: 10,);
   }
 
   Widget _carImage() {
@@ -79,9 +79,9 @@ class CarListItem extends StatelessWidget {
     );
   }
 
-  Widget _carHeading(dynamic car) {
+  Widget _carHeading(Car car) {
     return Container(
-      child: const Text("Mein cooles Auto dot com", style: TextStyle(fontSize: 18),),
+      child: Text(car.name ?? '', style: const TextStyle(fontSize: 18),),
       padding: const EdgeInsets.all(8.0),
     );
   }
