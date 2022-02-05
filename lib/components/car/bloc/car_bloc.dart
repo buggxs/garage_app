@@ -11,9 +11,9 @@ part 'car_event.dart';
 part 'car_state.dart';
 
 class CarBloc extends Bloc<CarEvent, CarState> {
-  CarBloc() : super(CarInitial());
+  CarBloc({required this.car}) : super(CarLoaded(car: car));
 
-  Car? car;
+  Car car;
 
   @override
   Stream<CarState> mapEventToState(CarEvent event) async* {

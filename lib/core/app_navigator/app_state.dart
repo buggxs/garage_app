@@ -31,8 +31,8 @@ class SettingsScreenState extends AppState {
 class MyCarDetailsState extends AppState {
   const MyCarDetailsState({
     int? bottomNavigationIndex,
-    this.carId
+    required this.car
   }) : super(bottomNavigationIndex: bottomNavigationIndex);
 
-  final int? carId;
+  final Car car;
 }

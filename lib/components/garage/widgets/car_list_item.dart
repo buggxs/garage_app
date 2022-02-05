@@ -37,7 +37,7 @@ class CarListItem extends StatelessWidget {
             child: InkWell(
               splashColor: Colors.blue.withAlpha(30),
               onTap: () => BlocProvider.of<AppCubit>(context)
-                  .showCarScreen(index: index, carId: 1),
+                  .showCarScreen(index: index, car: car!),
               onLongPress: () => app<ModalService>().showUpdateModal(context),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -81,7 +81,7 @@ class CarListItem extends StatelessWidget {
 
   Widget _carHeading(Car car) {
     return Container(
-      child: Text(car.name ?? '', style: const TextStyle(fontSize: 18),),
+      child: Text('${car.name} - ${car.technicalData?.brand} ${car.technicalData?.model}', style: const TextStyle(fontSize: 18),),
       padding: const EdgeInsets.all(8.0),
     );
   }

@@ -24,61 +24,52 @@ class CarScreen extends StatelessWidget {
       'assets/img/bmw3.jpg',
     ];
 
-    return BlocBuilder<CarBloc, CarState>(
-      builder: (BuildContext context, state) {
+    CarBloc bloc = context.watch<CarBloc>();
+    CarState state = bloc.state;
 
-        if (state is CarError) {
-          return DefaultTabController(
-            initialIndex: 0,
-            length: 3,
-            child: Text(state.error ?? "Error."),
-          );
-        }
-
-        return DefaultTabController(
-          initialIndex: 0,
-          length: 3,
-          child: Scaffold(
-            backgroundColor: Colors.grey[800],
-            appBar: AppBar(
-              leading: IconButton(
-                icon: const Icon(Icons.arrow_back),
-                onPressed: () => context.read<AppCubit>().showGarageScreen(1),
-              ),
-              backgroundColor: Colors.white,
-              foregroundColor: Colors.black,
-              title: const Text("MyCar"),
-              bottom: const TabBar(
-                indicatorColor: Colors.grey,
-                tabs: <Widget>[
-                  Tab(
-                    icon: Icon(Icons.directions_car),
-                    text: "Stellplatz",
-                    iconMargin: EdgeInsets.all(0),
-                  ),
-                  Tab(
-                    icon: Icon(Icons.inventory_outlined ),
-                    text: "Dokumente",
-                    iconMargin: EdgeInsets.all(0),
-                  ),
-                  Tab(
-                    icon: Icon(Icons.note_add),
-                    text: "Notizen",
-                    iconMargin: EdgeInsets.all(0),
-                  ),
-                ],
-              ),
-            ),
-            body: const TabBarView(
-              children: <Widget>[
-                PropertyTab(),
-                DocumentTab(),
-                NotesTab()
-              ],
-            ),
+    return DefaultTabController(
+      initialIndex: 0,
+      length: 3,
+      child: Scaffold(
+        backgroundColor: Colors.grey[800],
+        appBar: AppBar(
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () => context.read<AppCubit>().showGarageScreen(1),
           ),
-        );
-      }
+          backgroundColor: Colors.white,
+          foregroundColor: Colors.black,
+          title: const Text("MyCar"),
+          bottom: const TabBar(
+            indicatorColor: Colors.grey,
+            tabs: <Widget>[
+              Tab(
+                icon: Icon(Icons.directions_car),
+                text: "Stellplatz",
+                iconMargin: EdgeInsets.all(0),
+              ),
+              Tab(
+                icon: Icon(Icons.inventory_outlined ),
+                text: "Dokumente",
+                iconMargin: EdgeInsets.all(0),
+              ),
+              Tab(
+                icon: Icon(Icons.note_add),
+                text: "Notizen",
+                iconMargin: EdgeInsets.all(0),
+              ),
+            ],
+          ),
+        ),
+        body: TabBarView(
+          children: <Widget>[
+            PropertyTab(car: bloc.car),
+            DocumentTab(),
+            NotesTab()
+          ],
+        ),
+      ),
     );
   }
+
 }

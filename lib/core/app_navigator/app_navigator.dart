@@ -52,17 +52,14 @@ class AppNavigator extends StatelessWidget {
     ];
 
     if (state is MyCarDetailsState) {
-      if (state.carId != null) {
-        garageViews.add(
-          MaterialPage(
-            child: BlocProvider(
-              create: (BuildContext context) => CarBloc()
-                  ..add(LoadingCarEvent(carId: state.carId)),
-              child: const CarScreen()
-            )
+      garageViews.add(
+        MaterialPage(
+          child: BlocProvider(
+            create: (BuildContext context) => CarBloc(car: state.car),
+            child: const CarScreen()
           )
-        );
-      }
+        )
+      );
     }
 
     return garageViews;

@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:garage_app/components/authentication/session/session_cubit.dart';
+import 'package:garage_app/components/car/model/car.dart';
 import 'package:garage_app/components/garage/garage_screen.dart';
 import 'package:meta/meta.dart';
 
@@ -21,8 +22,8 @@ class AppCubit extends Cubit<AppState> {
   void showSettingsScreen(int index) =>
       emit(SettingsScreenState(bottomNavigationIndex: index));
 
-  void showCarScreen({required int index, required int carId}) =>
-      emit(MyCarDetailsState(bottomNavigationIndex: index, carId: carId));
+  void showCarScreen({required int index, required Car car}) =>
+      emit(MyCarDetailsState(bottomNavigationIndex: index, car: car));
 
   void navigateTo(int index) {
     switch(index) {
