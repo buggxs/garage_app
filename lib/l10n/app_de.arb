@@ -17,5 +17,10 @@
     "technical_card_heading": "Technische Daten",
     "invoice_documents_heading": "Rechnungen",
     "general_documents_heading": "Allgemeine Dokumente",
-    "oil_changes": "Öl wechsel stehen an."
+    "oil_changes": "Öl wechsel stehen an.",
+    "brand": "Marke",
+    "model": "Model",
+    "type": "Typ",
+    "hsn": "HSN",
+    "tsn": "TSN"
 }

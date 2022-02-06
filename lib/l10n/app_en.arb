@@ -17,5 +17,10 @@
     "technical_card_heading": "Technische Daten",
     "invoice_documents_heading": "Invoices",
     "general_documents_heading": "General documents",
-    "oil_changes": "Oil changes are on the road."
+    "oil_changes": "Oil changes are on the road.",
+    "brand": "Brand",
+    "model": "Model",
+    "type": "Type",
+    "hsn": "HSN",
+    "tsn": "TSN"
 }
