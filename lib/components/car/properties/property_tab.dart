@@ -5,6 +5,7 @@ import 'package:garage_app/components/car/model/car.dart';
 import 'package:garage_app/components/car/properties/bloc/car_property_cubit.dart';
 import 'package:garage_app/components/car/properties/widget/property_card.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:garage_app/components/car/properties/widget/technical_card.dart';
 import 'package:garage_app/core/utils/text_formatter.dart';
 
 class PropertyTab extends StatelessWidget {
@@ -36,6 +37,8 @@ class PropertyTabContent extends StatelessWidget {
 
     CarPropertyCubit cubit = context.watch<CarPropertyCubit>();
     CarPropertyState state = cubit.state;
+
+    Car _car = cubit.car;
 
     return SingleChildScrollView(
       padding: const EdgeInsets.symmetric(vertical: 16.0),
@@ -81,17 +84,17 @@ class PropertyTabContent extends StatelessWidget {
                   context,
                   "TÜV bis: ",
                   TextFormatter
-                    .formatDateToMonthAndYear(cubit.car.date)
+                    .formatDateToMonthAndYear(_car.date)
                 ),
                 infoCard(
                   context,
                   "Kilometerstand: ",
-                  "145.000"
+                  _car.mileage.toString()
                 ),
                 infoCard(
                   context,
                   "Baujahr: ",
-                  "2013"
+                  _car.vintage.toString()
                 ),
               ],
             ),
@@ -108,22 +111,22 @@ class PropertyTabContent extends StatelessWidget {
             ),
           ),
           PropertyCard(
-            property: 'oil',
-            type: 'success',
+            _car.oilData,
+            type: _car.calculateCarType(_car.oilData),
           ),
           PropertyCard(
-            property: 'air_conditioner',
-            type: 'success',
+            _car.airConditioner,
+            type: _car.calculateCarType(_car.airConditioner),
           ),
           PropertyCard(
-            property: 'brake',
-            type: 'warning',
+            _car.brakeData,
+            type: _car.calculateCarType(_car.brakeData),
           ),
           PropertyCard(
-            property: 'timing_belt',
-            type: 'success',
+            _car.timingBeltData,
+            type: _car.calculateCarType(_car.brakeData),
           ),
-          technicalCard(context),
+          TechnicalCard(technicalData: _car.technicalData,),
         ],
       )
     );
@@ -152,107 +155,4 @@ class PropertyTabContent extends StatelessWidget {
     );
   }
 
-
-  Widget technicalCard(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 16.0),
-      child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
-        color: Colors.white,
-        child: Container(
-          padding: const EdgeInsets.all(8.0),
-          width: double.infinity,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Wrap(
-                crossAxisAlignment: WrapCrossAlignment.center,
-                children: [
-                  const Padding(
-                    padding: EdgeInsets.only(right: 5.0),
-                    child: ImageIcon(AssetImage("assets/icons/settings-gears.png"), size: 20.0,),
-                  ),
-                  Text(
-                    AppLocalizations.of(context)!.technical_card_heading,
-                    style: const TextStyle(
-                        fontSize: 17,
-                        fontWeight: FontWeight.bold
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 10,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        AppLocalizations.of(context)!.last_change,
-                        style: const TextStyle(fontWeight: FontWeight.w500),
-                      ),
-                      const Text("100.00 km /"),
-                      const SizedBox(height: 10),
-                      Text(
-                        AppLocalizations.of(context)!.last_change,
-                        style: const TextStyle(fontWeight: FontWeight.w500),
-                      ),
-                      const Text("100.00 km /"),
-                      const SizedBox(height: 10),
-                      Text(
-                        AppLocalizations.of(context)!.last_change,
-                        style: const TextStyle(fontWeight: FontWeight.w500),
-                      ),
-                      const Text("100.00 km /"),
-                      const SizedBox(height: 10),
-                      Text(
-                        AppLocalizations.of(context)!.last_change,
-                        style: const TextStyle(fontWeight: FontWeight.w500),
-                      ),
-                      const Text("100.00 km /"),
-                    ],
-                  ),
-                  const SizedBox(
-                    width: 30,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text(
-                        AppLocalizations.of(context)!.next_change,
-                        style: const TextStyle(fontWeight: FontWeight.w500),
-                      ),
-                      const Text("08.12.2022"),
-                      const SizedBox(height: 10,),
-                      Text(
-                        AppLocalizations.of(context)!.next_change,
-                        style: const TextStyle(fontWeight: FontWeight.w500),
-                      ),
-                      const Text("08.12.2022"),
-                      const SizedBox(height: 10,),
-                      Text(
-                        AppLocalizations.of(context)!.next_change,
-                        style: const TextStyle(fontWeight: FontWeight.w500),
-                      ),
-                      const Text("08.12.2022"),
-                      const SizedBox(height: 10,),
-                      Text(
-                        AppLocalizations.of(context)!.next_change,
-                        style: const TextStyle(fontWeight: FontWeight.w500),
-                      ),
-                      const Text("08.12.2022"),
-                    ],
-                  )
-                ],
-              )
-            ],
-          ),
-        ),
-      ),
-    );
-  }
 }

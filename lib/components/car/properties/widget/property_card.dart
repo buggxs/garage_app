@@ -1,16 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:garage_app/components/car/model/air_conditioner_data.dart';
+import 'package:garage_app/components/car/model/brake_data.dart';
+import 'package:garage_app/components/car/model/oil_data.dart';
+import 'package:garage_app/components/car/model/timing_belt_data.dart';
 
 class PropertyCard extends StatelessWidget {
 
-  PropertyCard({
+  PropertyCard(
+    this.data, {
     Key? key,
-    required this.property,
-    this.type = 'danger'
-  }) : super(key: key);
+    this.type = 'danger',
+    this.property = 'oil'
+  }) : super(key: key) {
+    if(data is OilData) {
+      property = 'oil';
+    }
+    else if(data is AirConditionerData) {
+      property = 'air_conditioner';
+    }
+    else if(data is BrakeData) {
+      property = 'brake';
+    }
+    else if(data is TimingBeltData) {
+      property = 'timing_belt';
+    }
+  }
 
   final String? type;
-  final String property;
+  String? property;
+  final dynamic data;
+
 
   final Map<String, Map<String, dynamic>> colorType = {
     'success': {

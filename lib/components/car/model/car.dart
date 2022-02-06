@@ -46,4 +46,111 @@ class Car {
 
   Map<String, dynamic> toJson() => _$CarToJson(this);
 
+  String calculateCarType(dynamic data) {
+    if(data is OilData) {
+      return _calculateOilData();
+    }
+    else if(data is AirConditionerData) {
+      return _calculateAirConditionerData();
+    }
+    else if(data is BrakeData) {
+      return _calculateBrakeData();
+    }
+    else if(data is TimingBeltData) {
+      return _calculateTimingBeltData();
+    }
+    return 'success';
+  }
+
+  String _calculateOilData() {
+    double carMileage = mileage ?? 0.0;
+    double lastChange = oilData?.lastChangeMileage ?? 0.0;
+    double nextChange = oilData?.nextChangeMileage ?? 0.0;
+
+    if(carMileage == 0.0) {
+      return 'success';
+    }
+
+    if(lastChange == 0.0) {
+      if(nextChange > carMileage) {
+        if(nextChange - 1000 > carMileage) {
+          return 'success';
+        } else {
+          return 'warning';
+        }
+      } else {
+        return 'danger';
+      }
+    }
+    return 'success';
+  }
+
+  String _calculateAirConditionerData() {
+    double carMileage = mileage ?? 0.0;
+    double lastChange = airConditioner?.lastChangeMileage ?? 0.0;
+    double nextChange = airConditioner?.nextChangeMileage ?? 0.0;
+
+    if(carMileage == 0.0) {
+      return 'success';
+    }
+
+    if(lastChange == 0.0) {
+      if(nextChange > carMileage) {
+        if(nextChange - 1000 > carMileage) {
+          return 'success';
+        } else {
+          return 'warning';
+        }
+      } else {
+        return 'danger';
+      }
+    }
+    return 'success';
+  }
+
+  String _calculateBrakeData() {
+    double carMileage = mileage ?? 0.0;
+    double lastChange = brakeData?.lastChangeMileage ?? 0.0;
+    double nextChange = brakeData?.nextChangeMileage ?? 0.0;
+
+    if(carMileage == 0.0) {
+      return 'success';
+    }
+
+    if(lastChange == 0.0) {
+      if(nextChange > carMileage) {
+        if(nextChange - 1000 > carMileage) {
+          return 'success';
+        } else {
+          return 'warning';
+        }
+      } else {
+        return 'danger';
+      }
+    }
+    return 'success';
+  }
+
+  String _calculateTimingBeltData() {
+    double carMileage = mileage ?? 0.0;
+    double lastChange = timingBeltData?.lastChangeMileage ?? 0.0;
+    double nextChange = timingBeltData?.nextChangeMileage ?? 0.0;
+
+    if(carMileage == 0.0) {
+      return 'success';
+    }
+
+    if(lastChange == 0.0) {
+      if(nextChange > carMileage) {
+        if(nextChange - 1000 > carMileage) {
+          return 'success';
+        } else {
+          return 'warning';
+        }
+      } else {
+        return 'danger';
+      }
+    }
+    return 'success';
+  }
 }
