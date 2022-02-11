@@ -19,9 +19,13 @@ class GarageScreen extends StatelessWidget {
     GarageState state = bloc.state;
 
     Widget? child;
+    Widget? floatingActionButton;
 
     if (state is GarageLoadedState) {
       child = _buildCarList(state.cars);
+      if (state.cars.length < 2) {
+        floatingActionButton = _buildFloatingButton(context);
+      }
     }
 
     return GarageScaffold(
@@ -30,9 +34,13 @@ class GarageScreen extends StatelessWidget {
         padding: const EdgeInsets.fromLTRB(0, 16.0, 16.0, 16.0),
         child: child,
       ),
-      floatingActionButton: ParkingFloatingButton(
-        onTap: () => GarageBloc.of(context).add(GarageParkingCarEvent()),
-      ),
+      floatingActionButton: floatingActionButton,
+    );
+  }
+
+  Widget _buildFloatingButton(BuildContext context) {
+    return ParkingFloatingButton(
+      onTap: () => GarageBloc.of(context).add(GarageParkingCarEvent()),
     );
   }
 
