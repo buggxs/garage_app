@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:garage_app/common/service/app_service.dart';
+import 'package:garage_app/common/service/modal_service.dart';
 import 'package:garage_app/common/widgets/labled_text.dart';
 import 'package:garage_app/components/car/model/air_conditioner_data.dart';
 import 'package:garage_app/components/car/model/brake_data.dart';
@@ -103,86 +105,20 @@ class PropertyCard extends StatelessWidget {
         horizontal: 16.0,
       ),
       child: InkWell(
-        onTap: () => showUpdateModal(
+        onTap: () => app<ModalService>().showPropertyUpdateModal(
           context,
           content,
+          colorType,
+          type!,
+          property!,
         ),
         child: Card(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                padding: const EdgeInsets.all(5.0),
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.only(
-                    topRight: Radius.circular(4.0),
-                    topLeft: Radius.circular(4.0),
-                  ),
-                  color: colorType[type]!['heading'],
-                ),
-                width: double.infinity,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(right: 5.0),
-                      child: content[property]!['card_icon'],
-                    ),
-                    Text(
-                      content[property]!['card_heading'],
-                      style: Theme.of(context).textTheme.headline6,
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                color: colorType[type]!['divider'],
-                child: const SizedBox(
-                  height: 3,
-                  width: double.infinity,
-                ),
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  gradient: colorType[type]!['body'],
-                ),
-                padding: const EdgeInsets.only(
-                  top: 8.0,
-                  bottom: 8.0,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        LabeledText(
-                          caption: content[property]!['last_change_text'],
-                          text: "100.00 km /",
-                          multiLineText: "08.12.2021",
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      width: 30,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          content[property]!['next_change_text'],
-                          style: const TextStyle(fontWeight: FontWeight.w500),
-                        ),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        const Text("160.000 km oder"),
-                        const Text("08.12.2022"),
-                      ],
-                    )
-                  ],
-                ),
-              )
+            children: <Widget>[
+              _buildHeadline(context, content),
+              _buildDivider(),
+              _buildBody(context, content),
             ],
           ),
         ),
@@ -190,90 +126,89 @@ class PropertyCard extends StatelessWidget {
     );
   }
 
-  void showUpdateModal(
-      BuildContext context, Map<String, Map<String, dynamic>> content) {
-    showModalBottomSheet<void>(
-        context: context,
-        builder: (BuildContext context) {
-          return Container(
-            decoration: BoxDecoration(
-              gradient: colorType[type]!['body'],
-            ),
-            height: 350,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(right: 5.0),
-                            child: content[property]!['card_icon'],
-                          ),
-                          Text(
-                            content[property]!['card_heading'],
-                            style: const TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                      InkWell(
-                        onTap: () => Navigator.pop(context),
-                        child: Padding(
-                          padding: const EdgeInsets.only(right: 5.0),
-                          child: Icon(Icons.close),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        const Text('Modal BottomSheet'),
-                        ElevatedButton(
-                          onPressed: () => showDialog(
-                            context: context,
-                            builder: (BuildContext context) =>
-                                _buildPopupDialog(context),
-                          ),
-                          child: Text("PopUp"),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          );
-        });
-  }
-
-  Widget _buildPopupDialog(BuildContext context) {
-    return AlertDialog(
-      title: const Text('Popup example'),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
+  Widget _buildHeadline(
+    BuildContext context,
+    Map<String, Map<String, dynamic>> content,
+  ) {
+    return Container(
+      padding: const EdgeInsets.all(5.0),
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.only(
+          topRight: Radius.circular(4.0),
+          topLeft: Radius.circular(4.0),
+        ),
+        color: colorType[type]!['heading'],
+      ),
+      child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: const <Widget>[
-          Text("Hello"),
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(right: 5.0),
+            child: content[property]!['card_icon'],
+          ),
+          Text(
+            content[property]!['card_heading'],
+            style: Theme.of(context).textTheme.headline6,
+          ),
         ],
       ),
-      actions: <Widget>[
-        FlatButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          textColor: Theme.of(context).primaryColor,
-          child: const Text('Close'),
-        ),
-      ],
+    );
+  }
+
+  Widget _buildDivider() {
+    return Container(
+      color: colorType[type]!['divider'],
+      child: const SizedBox(
+        height: 3,
+        width: double.infinity,
+      ),
+    );
+  }
+
+  Widget _buildBody(
+    BuildContext context,
+    Map<String, Map<String, dynamic>> content,
+  ) {
+    return Container(
+      decoration: BoxDecoration(
+        gradient: colorType[type]!['body'],
+      ),
+      padding: const EdgeInsets.only(
+        top: 8.0,
+        bottom: 8.0,
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              LabeledText(
+                caption: content[property]!['last_change_text'],
+                text: "100.00 km /",
+                multiLineText: "08.12.2021",
+              ),
+            ],
+          ),
+          const SizedBox(
+            width: 30,
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                content[property]!['next_change_text'],
+                style: const TextStyle(fontWeight: FontWeight.w500),
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              const Text("160.000 km oder"),
+              const Text("08.12.2022"),
+            ],
+          )
+        ],
+      ),
     );
   }
 }

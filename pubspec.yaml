@@ -37,6 +37,7 @@ dependencies:
   meta: ^1.7.0
   carousel_slider: ^4.0.0
   shared_preferences: ^0.5.12+4
+  auto_size_text: ^3.0.0
 
 dev_dependencies:
   flutter_test:

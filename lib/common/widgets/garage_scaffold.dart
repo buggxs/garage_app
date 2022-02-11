@@ -1,6 +1,6 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:garage_app/components/authentication/session/session_cubit.dart';
 import 'package:garage_app/core/app_navigator/app_cubit.dart';
 
 class GarageScaffold extends StatelessWidget {
@@ -8,7 +8,7 @@ class GarageScaffold extends StatelessWidget {
     Key? key,
     required this.child,
     this.floatingActionButton,
-    this.title
+    this.title,
   }) : super(key: key);
 
   final Widget child;
@@ -23,12 +23,20 @@ class GarageScaffold extends StatelessWidget {
           appBar: AppBar(
             backgroundColor: Colors.white,
             foregroundColor: Colors.black,
-            title: Text(title ?? 'MyGarage App',
-              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+            title: AutoSizeText(
+              title ?? 'MyGarage App',
+              style: const TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+              ),
+              overflowReplacement: AutoSizeText(
+                title ?? 'MyGarage App',
+                style: const TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
-            actions: [
-              _buildLogoutAction(context)
-            ],
           ),
           backgroundColor: Colors.blueGrey[900],
           body: child,
@@ -38,21 +46,13 @@ class GarageScaffold extends StatelessWidget {
     );
   }
 
-  BottomNavigationBar _buildBottomNavigationBar(BuildContext context, AppState state) {
+  BottomNavigationBar _buildBottomNavigationBar(
+      BuildContext context, AppState state) {
     return BottomNavigationBar(
       items: const <BottomNavigationBarItem>[
-        BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Dashboard'
-        ),
-        BottomNavigationBarItem(
-            icon: Icon(Icons.garage),
-            label: 'Garage'
-        ),
-        BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Settings'
-        ),
+        BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Dashboard'),
+        BottomNavigationBarItem(icon: Icon(Icons.garage), label: 'Garage'),
+        BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Settings'),
       ],
       currentIndex: state.bottomNavigationIndex!,
       selectedItemColor: Colors.deepOrange,
@@ -75,27 +75,28 @@ class GarageScaffold extends StatelessWidget {
 
   Widget _buildPointAction() {
     return InkWell(
-      onTap: () {
-        print("Hello");
-      },
+      onTap: () {},
       child: Padding(
         padding: const EdgeInsets.all(4.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
+          children: const <Widget>[
             Center(
               child: FittedBox(
-                child: Icon(Icons.garage, size: 25,)
+                child: Icon(
+                  Icons.garage,
+                  size: 25,
+                ),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 3.0),
-              child: Text("40",
+              padding: EdgeInsets.only(left: 3.0),
+              child: Text(
+                "40",
                 style: TextStyle(
                     color: Colors.black,
                     fontSize: 18,
-                    fontWeight: FontWeight.bold
-                ),
+                    fontWeight: FontWeight.bold),
               ),
             ),
           ],

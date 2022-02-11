@@ -6,7 +6,9 @@ import 'package:meta/meta.dart';
 part 'session_state.dart';
 
 class SessionCubit extends Cubit<SessionState> {
-  SessionCubit({required this.authRepository}) : super(UnknownSessionState()){
+  SessionCubit({
+    required this.authRepository,
+  }) : super(Authenticated(user: 'Demo')) {
     attemptAutoLogin();
   }
 
@@ -35,5 +37,4 @@ class SessionCubit extends Cubit<SessionState> {
     authRepository.signOut();
     emit(Unauthenticated());
   }
-
 }
