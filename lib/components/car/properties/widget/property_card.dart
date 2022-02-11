@@ -14,6 +14,7 @@ class PropertyCard extends StatelessWidget {
     Key? key,
     this.type = 'danger',
     this.property = 'oil',
+    this.onTap,
   }) : super(key: key) {
     if (data is OilData) {
       property = 'oil';
@@ -29,6 +30,7 @@ class PropertyCard extends StatelessWidget {
   final String? type;
   String? property;
   final dynamic data;
+  Function? onTap;
 
   final Map<String, Map<String, dynamic>> colorType = {
     'success': {
@@ -105,7 +107,8 @@ class PropertyCard extends StatelessWidget {
         horizontal: 16.0,
       ),
       child: InkWell(
-        onTap: () => app<ModalService>().showPropertyUpdateModal(
+        onTap: () => onTap!(),
+        onLongPress: () => app<ModalService>().showPropertyUpdateModal(
           context,
           content,
           colorType,

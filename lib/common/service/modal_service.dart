@@ -49,6 +49,41 @@ class ModalService {
                       ),
                     ],
                   ),
+                  Row(
+                    children: [
+                      Form(
+                        child: Expanded(
+                          child: Column(
+                            children: [
+                              Row(
+                                children: [
+                                  CarDataInput(
+                                    hintText: 'Kilometerstand',
+                                    buttonText: 'Speichern',
+                                    textInputType: TextInputType.number,
+                                  ),
+                                  CarDataInput(
+                                    hintText: 'TÜV',
+                                    buttonText: 'Aktualisieren',
+                                    textInputType: TextInputType.datetime,
+                                    readOnly: true,
+                                  ),
+                                ],
+                              ),
+                              ElevatedButton(
+                                  style: ButtonStyle(
+                                    backgroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                            Colors.blueGrey.shade900),
+                                  ),
+                                  onPressed: () => {},
+                                  child: const Text("Aktualisieren"))
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),

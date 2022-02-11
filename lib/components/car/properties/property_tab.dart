@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:garage_app/common/widgets/labled_text.dart';
 import 'package:garage_app/components/car/model/car.dart';
 import 'package:garage_app/components/car/properties/bloc/car_property_cubit.dart';
+import 'package:garage_app/components/car/properties/details/property_details_screen.dart';
 import 'package:garage_app/components/car/properties/widget/property_card.dart';
 import 'package:garage_app/components/car/properties/widget/technical_card.dart';
 import 'package:garage_app/core/utils/number_formatter.dart';
@@ -96,6 +97,12 @@ class PropertyTabContent extends StatelessWidget {
             PropertyCard(
               _car.oilData,
               type: _car.calculateCarType(_car.oilData),
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const PropertyDetailsScreen(),
+                ),
+              ),
             ),
             PropertyCard(
               _car.airConditioner,
