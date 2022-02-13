@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 class LabeledText extends StatelessWidget {
@@ -29,21 +30,40 @@ class LabeledText extends StatelessWidget {
             caption,
             style: captionStyle ?? Theme.of(context).textTheme.caption,
           ),
-          Text(
+          AutoSizeText(
             text,
             style: textStyle ??
                 const TextStyle(
                   fontWeight: FontWeight.bold,
                 ),
+            maxLines: 1,
+            overflowReplacement: AutoSizeText(
+              text,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 10,
+              ),
+              maxLines: 1,
+            ),
           ),
           multiLineText == null
               ? const SizedBox()
-              : Text(
+              : AutoSizeText(
                   multiLineText!,
                   style: textStyle ??
                       const TextStyle(
                         fontWeight: FontWeight.bold,
                       ),
+                  maxLines: 1,
+                  overflowReplacement: AutoSizeText(
+                    multiLineText!,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 10,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                  ),
                 ),
         ],
       ),

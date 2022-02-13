@@ -1,6 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:garage_app/common/service/app_service.dart';
+import 'package:garage_app/common/service/modal_service.dart';
 import 'package:garage_app/common/widgets/labled_text.dart';
 import 'package:garage_app/components/car/model/car.dart';
 import 'package:garage_app/components/car/properties/bloc/car_property_cubit.dart';
@@ -35,7 +37,6 @@ class PropertyTabContent extends StatelessWidget {
     ];
 
     CarPropertyCubit cubit = context.watch<CarPropertyCubit>();
-    CarPropertyState state = cubit.state;
 
     Car _car = cubit.car;
 
@@ -102,6 +103,12 @@ class PropertyTabContent extends StatelessWidget {
                 MaterialPageRoute(
                   builder: (context) => const PropertyDetailsScreen(),
                 ),
+              ),
+              onLongPress: () => app<ModalService>().showPropertyUpdateModal(
+                context,
+                _car.calculateCarType(_car.oilData),
+                'oil',
+                () => print('Hello'),
               ),
             ),
             PropertyCard(

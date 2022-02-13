@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:garage_app/components/car/properties/util/card_content.dart';
 import 'package:garage_app/components/garage/widgets/car_data_input.dart';
 
 class ModalService {
   void showPropertyUpdateModal(
-      BuildContext context,
-      Map<String, Map<String, dynamic>> content,
-      Map<String, Map<String, dynamic>> colorType,
-      String type,
-      String property) {
+      BuildContext context, String type, String property, Function onUpdate) {
     showModalBottomSheet<void>(
         context: context,
         builder: (BuildContext context) {
           return Container(
             decoration: BoxDecoration(
-              gradient: colorType[type]!['body'],
+              gradient: getCardColor(type)!['body'],
             ),
             height: 350,
             child: Padding(
@@ -29,10 +26,11 @@ class ModalService {
                         children: [
                           Padding(
                             padding: const EdgeInsets.only(right: 5.0),
-                            child: content[property]!['card_icon'],
+                            child:
+                                getCardContent(context, property)!['card_icon'],
                           ),
                           Text(
-                            content[property]!['card_heading'],
+                            getCardContent(context, property)!['card_heading'],
                             style: const TextStyle(
                               fontSize: 17,
                               fontWeight: FontWeight.bold,
@@ -76,7 +74,7 @@ class ModalService {
                                         MaterialStateProperty.all<Color>(
                                             Colors.blueGrey.shade900),
                                   ),
-                                  onPressed: () => {},
+                                  onPressed: () => onUpdate,
                                   child: const Text("Aktualisieren"))
                             ],
                           ),
