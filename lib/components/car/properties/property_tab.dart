@@ -108,7 +108,7 @@ class PropertyTabContent extends StatelessWidget {
                 context,
                 _car.calculateCarType(_car.oilData),
                 'oil',
-                () => print('Hello'),
+                cubit.testFunction,
               ),
             ),
             PropertyCard(

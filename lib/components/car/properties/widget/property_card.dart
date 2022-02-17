@@ -5,6 +5,7 @@ import 'package:garage_app/components/car/model/brake_data.dart';
 import 'package:garage_app/components/car/model/oil_data.dart';
 import 'package:garage_app/components/car/model/timing_belt_data.dart';
 import 'package:garage_app/components/car/properties/util/card_content.dart';
+import 'package:garage_app/core/utils/number_formatter.dart';
 import 'package:garage_app/core/utils/text_formatter.dart';
 
 class PropertyCard extends StatelessWidget {
@@ -123,7 +124,9 @@ class PropertyCard extends StatelessWidget {
                 LabeledText(
                   caption:
                       getCardContent(context, property!)!['last_change_text'],
-                  text: "${data.lastChangeMileage} km /",
+                  text:
+                      NumberFormatter.mileageFormatter(data.lastChangeMileage) +
+                          " km /",
                   multiLineText:
                       TextFormatter.formatGermanDate(data.lastChangeDate),
                 ),
@@ -140,7 +143,9 @@ class PropertyCard extends StatelessWidget {
                 LabeledText(
                   caption:
                       getCardContent(context, property!)!['next_change_text'],
-                  text: "${data.nextChangeMileage} km oder",
+                  text:
+                      NumberFormatter.mileageFormatter(data.lastChangeMileage) +
+                          " km oder",
                   multiLineText:
                       TextFormatter.formatGermanDate(data.nextChangeDate),
                 ),

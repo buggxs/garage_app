@@ -9,4 +9,5 @@ class CarPropertyCubit extends Cubit<CarPropertyState> {
 
   final Car car;
 
+  void testFunction() => print('Hello');
 }
