@@ -12,6 +12,13 @@ import 'package:garage_app/components/car/properties/widget/technical_card.dart'
 import 'package:garage_app/core/utils/number_formatter.dart';
 import 'package:garage_app/core/utils/text_formatter.dart';
 
+enum CarProperty {
+  oil,
+  airConditioner,
+  brake,
+  timingBelt,
+}
+
 class PropertyTab extends StatelessWidget {
   const PropertyTab({required this.car, Key? key}) : super(key: key);
 
@@ -20,8 +27,11 @@ class PropertyTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (BuildContext context) => CarPropertyCubit(car),
-        child: const PropertyTabContent());
+      create: (BuildContext context) => CarPropertyCubit(
+        car: car,
+      ),
+      child: const PropertyTabContent(),
+    );
   }
 }
 
@@ -37,8 +47,7 @@ class PropertyTabContent extends StatelessWidget {
     ];
 
     CarPropertyCubit cubit = context.watch<CarPropertyCubit>();
-
-    Car _car = cubit.car;
+    Car _car = cubit.state.car;
 
     return SingleChildScrollView(
         padding: const EdgeInsets.symmetric(vertical: 16.0),
@@ -105,10 +114,10 @@ class PropertyTabContent extends StatelessWidget {
                 ),
               ),
               onLongPress: () => app<ModalService>().showPropertyUpdateModal(
-                context,
-                _car.calculateCarType(_car.oilData),
-                'oil',
-                cubit.testFunction,
+                context: context,
+                type: _car.calculateCarType(_car.oilData),
+                data: _car.oilData,
+                onUpdate: cubit.updateCarProperty,
               ),
             ),
             PropertyCard(

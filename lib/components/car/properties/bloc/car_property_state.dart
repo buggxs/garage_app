@@ -1,12 +1,7 @@
 part of 'car_property_cubit.dart';
 
-abstract class CarPropertyState extends Equatable {
-  const CarPropertyState();
-}
-
-class CarPropertyInitial extends CarPropertyState {
-
-  const CarPropertyInitial(this.car);
+class CarPropertyLoaded {
+  const CarPropertyLoaded(this.car);
 
   final Car car;
 

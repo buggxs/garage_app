@@ -3,6 +3,7 @@ import 'package:garage_app/components/car/model/brake_data.dart';
 import 'package:garage_app/components/car/model/technical_data.dart';
 import 'package:garage_app/components/car/model/timing_belt_data.dart';
 import 'package:garage_app/components/car/notes/model/note.dart';
+import 'package:garage_app/components/car/properties/property_tab.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import 'air_conditioner_data.dart';
@@ -71,6 +72,19 @@ class Car {
       documentList: documentList ?? this.documentList,
       noteList: noteList ?? this.noteList,
     );
+  }
+
+  static CarProperty getCarProperty(dynamic data) {
+    if (data is OilData) {
+      return CarProperty.oil;
+    } else if (data is AirConditionerData) {
+      return CarProperty.airConditioner;
+    } else if (data is BrakeData) {
+      return CarProperty.brake;
+    } else if (data is TimingBeltData) {
+      return CarProperty.timingBelt;
+    }
+    return CarProperty.oil;
   }
 
   String calculateCarType(dynamic data) {

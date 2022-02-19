@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:garage_app/common/widgets/labled_text.dart';
-import 'package:garage_app/components/car/model/air_conditioner_data.dart';
-import 'package:garage_app/components/car/model/brake_data.dart';
-import 'package:garage_app/components/car/model/oil_data.dart';
-import 'package:garage_app/components/car/model/timing_belt_data.dart';
+import 'package:garage_app/components/car/model/car.dart';
+import 'package:garage_app/components/car/properties/property_tab.dart';
 import 'package:garage_app/components/car/properties/util/card_content.dart';
 import 'package:garage_app/core/utils/number_formatter.dart';
 import 'package:garage_app/core/utils/text_formatter.dart';
@@ -13,23 +11,15 @@ class PropertyCard extends StatelessWidget {
     this.data, {
     Key? key,
     this.type = 'danger',
-    this.property = 'oil',
+    this.property = CarProperty.oil,
     this.onTap,
     this.onLongPress,
   }) : super(key: key) {
-    if (data is OilData) {
-      property = 'oil';
-    } else if (data is AirConditionerData) {
-      property = 'air_conditioner';
-    } else if (data is BrakeData) {
-      property = 'brake';
-    } else if (data is TimingBeltData) {
-      property = 'timing_belt';
-    }
+    property = Car.getCarProperty(data);
   }
 
   final String? type;
-  String? property;
+  CarProperty? property;
   final dynamic data;
   Function? onTap;
   Function? onLongPress;

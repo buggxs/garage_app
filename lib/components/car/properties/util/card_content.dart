@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:garage_app/components/car/properties/property_tab.dart';
 
-Map<String, dynamic>? getCardContent(BuildContext context, String property) {
-  final Map<String, Map<String, dynamic>> content = {
-    'oil': {
+Map<String, dynamic>? getCardContent(
+    BuildContext context, CarProperty carProperty) {
+  final Map<CarProperty, Map<String, dynamic>> content = {
+    CarProperty.oil: {
       'card_heading': AppLocalizations.of(context)!.oil_card_heading,
       'card_icon': const ImageIcon(
         AssetImage("assets/icons/car-oil.png"),
@@ -12,7 +14,7 @@ Map<String, dynamic>? getCardContent(BuildContext context, String property) {
       'last_change_text': AppLocalizations.of(context)!.last_change,
       'next_change_text': AppLocalizations.of(context)!.next_change,
     },
-    'air_conditioner': {
+    CarProperty.airConditioner: {
       'card_heading':
           AppLocalizations.of(context)!.air_conditioner_card_heading,
       'card_icon': const Icon(
@@ -22,7 +24,7 @@ Map<String, dynamic>? getCardContent(BuildContext context, String property) {
       'last_change_text': AppLocalizations.of(context)!.last_change,
       'next_change_text': AppLocalizations.of(context)!.next_change,
     },
-    'brake': {
+    CarProperty.brake: {
       'card_heading': AppLocalizations.of(context)!.brake_card_heading,
       'card_icon': const ImageIcon(
         AssetImage("assets/icons/brake.png"),
@@ -31,7 +33,7 @@ Map<String, dynamic>? getCardContent(BuildContext context, String property) {
       'last_change_text': AppLocalizations.of(context)!.last_change,
       'next_change_text': AppLocalizations.of(context)!.next_change,
     },
-    'timing_belt': {
+    CarProperty.timingBelt: {
       'card_heading': AppLocalizations.of(context)!.timing_belt_card_heading,
       'card_icon': const ImageIcon(
         AssetImage("assets/icons/timing-belt.png"),
@@ -41,7 +43,7 @@ Map<String, dynamic>? getCardContent(BuildContext context, String property) {
       'next_change_text': AppLocalizations.of(context)!.next_change,
     }
   };
-  return content[property];
+  return content[carProperty];
 }
 
 Map<String, dynamic>? getCardColor(String type) {
