@@ -5,7 +5,7 @@ import 'package:garage_app/components/car/properties/util/card_content.dart';
 import 'package:garage_app/components/garage/widgets/car_data_input.dart';
 
 typedef UpdateCarData = Function({
-  required dynamic carPropertyData,
+  required dynamic carProperty,
   String? lastChangeMileageString,
   String? lastChangeDateString,
 });
@@ -79,7 +79,7 @@ class ModalService {
                                       textInputType: TextInputType.number,
                                       onSave: (String? value) {
                                         onUpdate(
-                                          carPropertyData: carProperty,
+                                          carProperty: carProperty,
                                           lastChangeMileageString: value!,
                                         );
                                       },
@@ -89,7 +89,7 @@ class ModalService {
                                       textInputType: TextInputType.datetime,
                                       readOnly: true,
                                       onSave: (String? value) => onUpdate(
-                                        carPropertyData: carProperty,
+                                        carProperty: carProperty,
                                         lastChangeDateString: value!,
                                       ),
                                     ),

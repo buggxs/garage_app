@@ -22,13 +22,13 @@ class BrakeData {
 
   Map<String, dynamic> toJson() => _$BrakeDataToJson(this);
 
-  BrakeData copyWith(
+  BrakeData copyWith({
     int? id,
     double? lastChangeMileage,
     DateTime? lastChangeDate,
     double? nextChangeMileage,
     DateTime? nextChangeDate,
-  ) =>
+  }) =>
       BrakeData(
         id: id ?? this.id,
         lastChangeMileage: lastChangeMileage ?? this.lastChangeMileage,

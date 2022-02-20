@@ -123,14 +123,50 @@ class PropertyTabContent extends StatelessWidget {
             PropertyCard(
               _car.airConditioner,
               type: _car.calculateCarType(_car.airConditioner),
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const PropertyDetailsScreen(),
+                ),
+              ),
+              onLongPress: () => app<ModalService>().showPropertyUpdateModal(
+                context: context,
+                type: _car.calculateCarType(_car.airConditioner),
+                data: _car.airConditioner,
+                onUpdate: cubit.updateCarProperty,
+              ),
             ),
             PropertyCard(
               _car.brakeData,
               type: _car.calculateCarType(_car.brakeData),
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const PropertyDetailsScreen(),
+                ),
+              ),
+              onLongPress: () => app<ModalService>().showPropertyUpdateModal(
+                context: context,
+                type: _car.calculateCarType(_car.brakeData),
+                data: _car.brakeData,
+                onUpdate: cubit.updateCarProperty,
+              ),
             ),
             PropertyCard(
               _car.timingBeltData,
-              type: _car.calculateCarType(_car.brakeData),
+              type: _car.calculateCarType(_car.timingBeltData),
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const PropertyDetailsScreen(),
+                ),
+              ),
+              onLongPress: () => app<ModalService>().showPropertyUpdateModal(
+                context: context,
+                type: _car.calculateCarType(_car.timingBeltData),
+                data: _car.timingBeltData,
+                onUpdate: cubit.updateCarProperty,
+              ),
             ),
             TechnicalCard(
               technicalData: _car.technicalData,

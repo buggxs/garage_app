@@ -77,11 +77,14 @@ class Car {
   static CarProperty getCarProperty(dynamic data) {
     if (data is OilData) {
       return CarProperty.oil;
-    } else if (data is AirConditionerData) {
+    }
+    if (data is AirConditionerData) {
       return CarProperty.airConditioner;
-    } else if (data is BrakeData) {
+    }
+    if (data is BrakeData) {
       return CarProperty.brake;
-    } else if (data is TimingBeltData) {
+    }
+    if (data is TimingBeltData) {
       return CarProperty.timingBelt;
     }
     return CarProperty.oil;
