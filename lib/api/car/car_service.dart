@@ -1,11 +1,6 @@
 import 'dart:convert';
 
-import 'package:garage_app/components/car/model/air_conditioner_data.dart';
-import 'package:garage_app/components/car/model/brake_data.dart';
-import 'package:garage_app/components/car/model/car.dart';
-import 'package:garage_app/components/car/model/oil_data.dart';
-import 'package:garage_app/components/car/model/technical_data.dart';
-import 'package:garage_app/components/car/model/timing_belt_data.dart';
+import 'package:garage_app/api/api.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 

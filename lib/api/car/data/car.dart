@@ -1,12 +1,12 @@
-import 'package:garage_app/components/car/documents/model/document.dart';
-import 'package:garage_app/components/car/model/brake_data.dart';
-import 'package:garage_app/components/car/model/technical_data.dart';
-import 'package:garage_app/components/car/model/timing_belt_data.dart';
-import 'package:garage_app/components/car/notes/model/note.dart';
+import 'package:garage_app/api/car/data/technical_data.dart';
+import 'package:garage_app/api/car/data/timing_belt_data.dart';
+import 'package:garage_app/api/document/data/document.dart';
+import 'package:garage_app/api/note/data/note.dart';
 import 'package:garage_app/components/car/properties/property_tab.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import 'air_conditioner_data.dart';
+import 'brake_data.dart';
 import 'oil_data.dart';
 
 part 'car.g.dart';
@@ -56,7 +56,6 @@ class Car {
     TimingBeltData? timingBeltData,
     TechnicalData? technicalData,
     List<Document>? documentList,
-    List<Note>? noteList,
   }) {
     return Car(
       id: id ?? this.id,

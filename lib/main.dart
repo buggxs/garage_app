@@ -7,7 +7,7 @@ import 'package:garage_app/components/authentication/auth_repository.dart';
 import 'package:garage_app/components/authentication/session/session_cubit.dart';
 import 'package:garage_app/components/authentication/session/session_navigator.dart';
 
-import 'common/service/app_service.dart';
+import 'core/app_service_locator.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

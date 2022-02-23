@@ -1,15 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:garage_app/components/authentication/session/session_cubit.dart';
 import 'package:garage_app/components/car/documents/document_tab.dart';
 import 'package:garage_app/components/car/notes/notes_tab.dart';
 import 'package:garage_app/components/car/properties/property_tab.dart';
-import 'package:garage_app/components/car/properties/widget/property_card.dart';
-import 'package:garage_app/common/widgets/garage_scaffold.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:garage_app/core/app_navigator/app_cubit.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 
 import 'bloc/car_bloc.dart';
 
@@ -49,7 +44,7 @@ class CarScreen extends StatelessWidget {
                 iconMargin: EdgeInsets.all(0),
               ),
               Tab(
-                icon: Icon(Icons.inventory_outlined ),
+                icon: Icon(Icons.inventory_outlined),
                 text: "Dokumente",
                 iconMargin: EdgeInsets.all(0),
               ),
@@ -71,5 +66,4 @@ class CarScreen extends StatelessWidget {
       ),
     );
   }
-
 }

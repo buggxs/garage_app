@@ -1,14 +1,14 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:garage_app/common/service/app_service.dart';
-import 'package:garage_app/common/service/modal_service.dart';
-import 'package:garage_app/common/widgets/labled_text.dart';
-import 'package:garage_app/components/car/model/car.dart';
+import 'package:garage_app/api/api.dart';
 import 'package:garage_app/components/car/properties/bloc/car_property_cubit.dart';
 import 'package:garage_app/components/car/properties/details/property_details_screen.dart';
 import 'package:garage_app/components/car/properties/widget/property_card.dart';
 import 'package:garage_app/components/car/properties/widget/technical_card.dart';
+import 'package:garage_app/components/common/widgets/labled_text.dart';
+import 'package:garage_app/components/common/widgets/modal_service.dart';
+import 'package:garage_app/core/app_service_locator.dart';
 import 'package:garage_app/core/utils/number_formatter.dart';
 import 'package:garage_app/core/utils/text_formatter.dart';
 

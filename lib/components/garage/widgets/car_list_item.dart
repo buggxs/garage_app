@@ -2,11 +2,11 @@ import 'package:cache_image/cache_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:garage_app/common/service/app_service.dart';
-import 'package:garage_app/common/service/modal_service.dart';
-import 'package:garage_app/common/widgets/icon_text.dart';
-import 'package:garage_app/components/car/model/car.dart';
+import 'package:garage_app/api/api.dart';
+import 'package:garage_app/components/common/widgets/icon_text.dart';
+import 'package:garage_app/components/common/widgets/modal_service.dart';
 import 'package:garage_app/core/app_navigator/app_cubit.dart';
+import 'package:garage_app/core/app_service_locator.dart';
 
 import 'car_list_item_divider.dart';
 

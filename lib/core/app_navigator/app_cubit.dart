@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
+import 'package:garage_app/api/api.dart';
 import 'package:garage_app/components/authentication/session/session_cubit.dart';
-import 'package:garage_app/components/car/model/car.dart';
 import 'package:meta/meta.dart';
 
 part 'app_state.dart';

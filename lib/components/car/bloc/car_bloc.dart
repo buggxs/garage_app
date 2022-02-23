@@ -4,8 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:garage_app/components/car/model/car.dart';
-import 'package:garage_app/components/car/service/car_service.dart';
+import 'package:garage_app/api/api.dart';
 
 part 'car_event.dart';
 part 'car_state.dart';
@@ -21,7 +20,5 @@ class CarBloc extends Bloc<CarEvent, CarState> {
     yield* event.applyAsync(bloc: this);
   }
 
-  static CarBloc of(BuildContext context) =>
-      BlocProvider.of<CarBloc>(context);
-
+  static CarBloc of(BuildContext context) => BlocProvider.of<CarBloc>(context);
 }

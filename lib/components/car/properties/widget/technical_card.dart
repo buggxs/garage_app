@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:garage_app/common/widgets/labled_text.dart';
-import 'package:garage_app/components/car/model/technical_data.dart';
+import 'package:garage_app/api/api.dart';
+import 'package:garage_app/components/common/widgets/labled_text.dart';
 
 class TechnicalCard extends StatelessWidget {
   const TechnicalCard({
