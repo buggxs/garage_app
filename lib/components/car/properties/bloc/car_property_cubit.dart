@@ -15,7 +15,7 @@ class CarPropertyCubit extends Cubit<CarPropertyLoaded> {
   final LocalCarService _carService = app<LocalCarService>();
 
   Future<void> updateCarProperty({
-    required dynamic carProperty,
+    dynamic carProperty = CarProperty.oil,
     String? lastChangeMileageString,
     String? lastChangeDateString,
   }) async {

@@ -5,7 +5,7 @@ import 'package:garage_app/components/car/properties/util/card_content.dart';
 import 'package:garage_app/components/garage/widgets/car_data_input.dart';
 
 typedef UpdateCarData = Function({
-  required dynamic carProperty,
+  dynamic carProperty,
   String? lastChangeMileageString,
   String? lastChangeDateString,
 });
@@ -123,13 +123,18 @@ class ModalService {
         });
   }
 
-  showUpdateModal(BuildContext context) {
+  showUpdateModal({
+    required BuildContext context,
+    required UpdateCarData onUpdate,
+  }) {
+    final _formKey = GlobalKey<FormState>();
     showModalBottomSheet<void>(
         context: context,
+        isScrollControlled: true,
         builder: (BuildContext context) {
-          return SizedBox(
-            height: 350,
-            child: Padding(
+          return Padding(
+            padding: MediaQuery.of(context).viewInsets,
+            child: Container(
               padding: const EdgeInsets.all(8.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -158,6 +163,7 @@ class ModalService {
                   ),
                   SingleChildScrollView(
                     child: Form(
+                      key: _formKey,
                       child: Column(
                         children: [
                           Row(
@@ -165,11 +171,17 @@ class ModalService {
                               CarDataInput(
                                 hintText: 'Kilometerstand',
                                 textInputType: TextInputType.number,
+                                onSave: (String value) => onUpdate(
+                                  lastChangeMileageString: value,
+                                ),
                               ),
                               CarDataInput(
                                 hintText: 'TÜV',
                                 textInputType: TextInputType.datetime,
                                 readOnly: true,
+                                onSave: (String value) => onUpdate(
+                                  lastChangeDateString: value,
+                                ),
                               ),
                             ],
                           ),
@@ -179,7 +191,12 @@ class ModalService {
                                     MaterialStateProperty.all<Color>(
                                         Colors.blueGrey.shade900),
                               ),
-                              onPressed: () => {},
+                              onPressed: () {
+                                if (_formKey.currentState!.validate()) {
+                                  _formKey.currentState!.save();
+                                  Navigator.pop(context);
+                                }
+                              },
                               child: const Text("Aktualisieren"))
                         ],
                       ),

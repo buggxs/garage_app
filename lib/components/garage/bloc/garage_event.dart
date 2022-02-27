@@ -29,6 +29,7 @@ class GarageLoadingParkedCars implements GarageEvent {
       carList.add(car);
     }
 
+    print('cars loaded (${carList.length})');
     yield GarageLoadedState(cars: carList);
   }
 }
@@ -82,9 +83,51 @@ class GarageParkingCarEvent implements GarageEvent {
   Stream<GarageState> applyAsync({required GarageBloc bloc}) async* {
     if (bloc.state is GarageLoadedState) {
       //app<LocalCarService>().saveCar(car: _car);
-
       Car car = await app<LocalCarService>().getCarById(carId: 1);
       print(car);
+    }
+  }
+}
+
+class GarageUpdateCarEvent implements GarageEvent {
+  final String? lastChangeMileageString;
+  final String? lastChangeDateString;
+  final Car car;
+
+  GarageUpdateCarEvent({
+    required this.car,
+    this.lastChangeMileageString,
+    this.lastChangeDateString,
+  });
+
+  @override
+  List<Object?> get props => [];
+
+  @override
+  bool? get stringify => false;
+
+  @override
+  Stream<GarageState> applyAsync({required GarageBloc bloc}) async* {
+    if (bloc.state is GarageLoadedState) {
+      GarageLoadedState state = bloc.state as GarageLoadedState;
+
+      var lastChangeDate = lastChangeDateString?.isNotEmpty ?? false
+          ? DateFormat('dd.MM.y').parse(lastChangeDateString!)
+          : DateTime.now();
+      var lastChangeMileage = lastChangeMileageString?.isNotEmpty ?? false
+          ? double.tryParse(lastChangeMileageString!)
+          : null;
+
+      app<LocalCarService>().saveCar(
+        car: car.copyWith(
+          mileage: lastChangeMileage,
+          date: lastChangeDate,
+        ),
+      );
+
+      bloc.add(const GarageLoadingParkedCars());
+
+      print('car with id ${car.id} updated');
     }
   }
 }

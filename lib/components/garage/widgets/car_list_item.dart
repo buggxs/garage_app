@@ -5,6 +5,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:garage_app/api/api.dart';
 import 'package:garage_app/components/common/widgets/icon_text.dart';
 import 'package:garage_app/components/common/widgets/modal_service.dart';
+import 'package:garage_app/components/garage/bloc/garage_bloc.dart';
 import 'package:garage_app/core/app_navigator/app_cubit.dart';
 import 'package:garage_app/core/app_service_locator.dart';
 
@@ -13,54 +14,61 @@ import 'car_list_item_divider.dart';
 class CarListItem extends StatelessWidget {
   const CarListItem({
     Key? key,
-    this.car,
+    required this.car,
     this.index,
     this.onLongPress,
   }) : super(key: key);
 
   final Function? onLongPress;
   final int? index;
-  final Car? car;
+  final Car car;
 
   @override
   Widget build(BuildContext context) {
-    return car != null
-        ? Column(
-            children: [
-              Container(
-                margin: const EdgeInsets.fromLTRB(0, 8.0, 8.0, 8.0),
-                child: Card(
-                  color: Colors.grey[400],
-                  child: InkWell(
-                    splashColor: Colors.blue.withAlpha(30),
-                    onTap: () => BlocProvider.of<AppCubit>(context)
-                        .showCarScreen(car: car!),
-                    onLongPress: () =>
-                        app<ModalService>().showUpdateModal(context),
-                    child: Row(
+    return Column(
+      children: [
+        Container(
+          margin: const EdgeInsets.fromLTRB(0, 8.0, 8.0, 8.0),
+          child: Card(
+            color: Colors.grey[400],
+            child: InkWell(
+              splashColor: Colors.blue.withAlpha(30),
+              onTap: () =>
+                  BlocProvider.of<AppCubit>(context).showCarScreen(car: car),
+              onLongPress: () => app<ModalService>().showUpdateModal(
+                context: context,
+                onUpdate: ({
+                  dynamic carProperty,
+                  String? lastChangeMileageString,
+                  String? lastChangeDateString,
+                }) =>
+                    GarageBloc.of(context).add(GarageUpdateCarEvent(
+                  car: car,
+                  lastChangeMileageString: lastChangeMileageString,
+                  lastChangeDateString: lastChangeDateString,
+                )),
+              ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _carImage(),
+                  Expanded(
+                    child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        _carImage(),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              _carHeading(car!),
-                              _carProperties(context),
-                            ],
-                          ),
-                        )
+                        _carHeading(car),
+                        _carProperties(context),
                       ],
                     ),
-                  ),
-                ),
+                  )
+                ],
               ),
-              const CarListItemDivider(),
-            ],
-          )
-        : const SizedBox(
-            height: 10,
-          );
+            ),
+          ),
+        ),
+        const CarListItemDivider(),
+      ],
+    );
   }
 
   Widget _carImage() {

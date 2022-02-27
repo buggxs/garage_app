@@ -41,7 +41,7 @@ class PropertyTabContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<String> imageList = [
-      'assets/img/bmw.jpeg',
+      'assets/img/bmw.jpg',
       'assets/img/bmw2.jpeg',
       'assets/img/bmw3.jpg',
     ];
@@ -63,20 +63,12 @@ class PropertyTabContent extends StatelessWidget {
                   enableInfiniteScroll: false,
                 ),
                 items: imageList.map((imageUrl) {
-                  return Builder(
-                    builder: (BuildContext context) {
-                      return ClipRRect(
-                        borderRadius: BorderRadius.circular(8.0),
-                        child: Stack(fit: StackFit.expand, children: [
-                          Image(
-                            image: AssetImage(imageUrl),
-                            width: 1050,
-                            height: 350,
-                            fit: BoxFit.cover,
-                          ),
-                        ]),
-                      );
-                    },
+                  return ClipRRect(
+                    borderRadius: BorderRadius.circular(6.0),
+                    child: Image(
+                      image: AssetImage(imageUrl),
+                      fit: BoxFit.fitHeight,
+                    ),
                   );
                 }).toList(),
               ),
@@ -92,16 +84,6 @@ class PropertyTabContent extends StatelessWidget {
                       NumberFormatter.mileageFormatter(_car.mileage)),
                   infoCard(context, "Baujahr: ", _car.vintage.toString()),
                 ],
-              ),
-            ),
-            const Padding(
-              padding: EdgeInsets.only(left: 16.0, bottom: 5.0, top: 16.0),
-              child: Text(
-                "Daten zu deinem Auto",
-                style: TextStyle(
-                    fontSize: 22,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold),
               ),
             ),
             PropertyCard(
