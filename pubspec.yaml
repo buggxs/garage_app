@@ -23,22 +23,27 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  intl: ^0.17.0
   cupertino_icons: ^1.0.2
   flutter_bloc: ^7.3.1
   bloc: ^7.2.1
   get_it: ^7.2.0
+  cache_image: ^1.0.5
   json_serializable: ^6.0.1
   http: ^0.13.4
   equatable: ^2.0.3
   meta: ^1.7.0
+  carousel_slider: ^4.0.0
+  shared_preferences: ^0.5.12+4
+  auto_size_text: ^3.0.0
+  logging: ^1.0.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   bloc_test: ^8.3.0
-  flutter_localizations:
-    sdk: flutter
-  intl: ^0.17.0
   flutter_lints: ^1.0.0
   build_runner: ^2.1.4
 
@@ -56,9 +61,9 @@ flutter:
   generate: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+  assets:
+    - assets/icons/
+    - assets/img/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

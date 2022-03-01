@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:garage_app/components/dashboard/dashboard_screen.dart';
+import 'package:garage_app/components/car/bloc/car_bloc.dart';
+import 'package:garage_app/components/car/car_screen.dart';
+import 'package:garage_app/components/garage/bloc/garage_bloc.dart';
 import 'package:garage_app/components/garage/garage_screen.dart';
-import 'package:garage_app/components/settings/settings_screen.dart';
 
 import 'app_cubit.dart';
 
@@ -11,31 +12,36 @@ class AppNavigator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AppCubit, AppState>(
-        builder: (context, state) {
-          return Navigator(
-            pages: [
+    return BlocBuilder<AppCubit, AppState>(builder: (context, state) {
+      return Navigator(
+        pages: [
+          // show Garage Screen
+          ...addGarageViews(context, state),
+        ],
+        onPopPage: (route, result) => route.didPop(result),
+      );
+    });
+  }
 
-              // show Garage Screen
-              if (state is MyGarageScreenState)
-                MaterialPage(
-                  child: GarageScreen(),
-                ),
+  List<MaterialPage> addGarageViews(context, state) {
+    List<MaterialPage> garageViews = [
+      if (state is MyGarageScreenState)
+        MaterialPage(
+          child: BlocProvider(
+            create: (BuildContext context) =>
+                GarageBloc()..add(GarageLoadingParkedCars()),
+            child: GarageScreen(),
+          ),
+        ),
+      if (state is MyCarDetailsState)
+        MaterialPage(
+          child: BlocProvider(
+            create: (BuildContext context) => CarBloc(car: state.car),
+            child: const CarScreen(),
+          ),
+        ),
+    ];
 
-              if (state is DashboardScreenState)
-                const MaterialPage(
-                  child: DashboardScreen()
-                ),
-
-              if (state is SettingsScreenState)
-                const MaterialPage(
-                    child: SettingsScreen()
-                ),
-
-            ],
-            onPopPage: (route, result) => route.didPop(result),
-          );
-        }
-    );
+    return garageViews;
   }
 }
