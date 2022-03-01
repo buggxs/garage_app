@@ -13,12 +13,6 @@ class CarScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<String> imageList = [
-      'assets/img/bmw.jpeg',
-      'assets/img/bmw2.jpeg',
-      'assets/img/bmw3.jpg',
-    ];
-
     CarBloc bloc = context.watch<CarBloc>();
     CarState state = bloc.state;
 
@@ -34,7 +28,7 @@ class CarScreen extends StatelessWidget {
           ),
           backgroundColor: Colors.white,
           foregroundColor: Colors.black,
-          title: const Text("MyCar"),
+          title: Text(''),
           bottom: const TabBar(
             indicatorColor: Colors.grey,
             tabs: <Widget>[

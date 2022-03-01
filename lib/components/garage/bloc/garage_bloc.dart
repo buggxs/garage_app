@@ -8,6 +8,7 @@ import 'package:garage_app/api/api.dart';
 import 'package:garage_app/api/car/car_service.dart';
 import 'package:garage_app/core/app_service_locator.dart';
 import 'package:intl/intl.dart';
+import 'package:logging/logging.dart';
 
 part 'garage_event.dart';
 part 'garage_state.dart';

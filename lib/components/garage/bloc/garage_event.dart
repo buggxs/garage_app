@@ -9,7 +9,9 @@ abstract class GarageEvent extends Equatable {
 }
 
 class GarageLoadingParkedCars implements GarageEvent {
-  const GarageLoadingParkedCars();
+  GarageLoadingParkedCars();
+
+  final log = Logger('GarageLoadingParkedCars');
 
   @override
   List<Object?> get props => [];
@@ -29,7 +31,7 @@ class GarageLoadingParkedCars implements GarageEvent {
       carList.add(car);
     }
 
-    print('cars loaded (${carList.length})');
+    log.info('cars loaded (${carList.length})');
     yield GarageLoadedState(cars: carList);
   }
 }
@@ -69,6 +71,8 @@ class GarageParkingCarEvent implements GarageEvent {
         id: 1, brand: "Audi", model: "A3", type: "abc", hsn: "3nf", tsn: "kl3"),
   );
 
+  final log = Logger('GarageParkingCarEvent');
+
   final Car? car;
 
   GarageParkingCarEvent({this.car});
@@ -82,9 +86,8 @@ class GarageParkingCarEvent implements GarageEvent {
   @override
   Stream<GarageState> applyAsync({required GarageBloc bloc}) async* {
     if (bloc.state is GarageLoadedState) {
-      //app<LocalCarService>().saveCar(car: _car);
       Car car = await app<LocalCarService>().getCarById(carId: 1);
-      print(car);
+      log.info('loaded car (${car.id})');
     }
   }
 }
@@ -100,6 +103,8 @@ class GarageUpdateCarEvent implements GarageEvent {
     this.lastChangeDateString,
   });
 
+  final log = Logger('GarageUpdateCarEvent');
+
   @override
   List<Object?> get props => [];
 
@@ -109,8 +114,6 @@ class GarageUpdateCarEvent implements GarageEvent {
   @override
   Stream<GarageState> applyAsync({required GarageBloc bloc}) async* {
     if (bloc.state is GarageLoadedState) {
-      GarageLoadedState state = bloc.state as GarageLoadedState;
-
       var lastChangeDate = lastChangeDateString?.isNotEmpty ?? false
           ? DateFormat('dd.MM.y').parse(lastChangeDateString!)
           : DateTime.now();
@@ -125,9 +128,9 @@ class GarageUpdateCarEvent implements GarageEvent {
         ),
       );
 
-      bloc.add(const GarageLoadingParkedCars());
+      bloc.add(GarageLoadingParkedCars());
 
-      print('car with id ${car.id} updated');
+      log.info('car with id ${car.id} updated');
     }
   }
 }

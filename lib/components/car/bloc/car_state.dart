@@ -15,7 +15,6 @@ class CarLoading extends CarState {
 }
 
 class CarLoaded extends CarState {
-
   final Car car;
 
   const CarLoaded({
@@ -23,18 +22,18 @@ class CarLoaded extends CarState {
   });
 
   @override
-  List<Object?> get props => [];
-
+  List<Object?> get props => [
+        car,
+      ];
 }
 
 class CarError extends CarState {
   final String? error;
 
-  const CarError({
-    this.error
-  });
+  const CarError({this.error});
 
   @override
-  List<Object?> get props => [];
-
+  List<Object?> get props => [
+        error,
+      ];
 }

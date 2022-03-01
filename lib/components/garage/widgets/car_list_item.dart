@@ -1,4 +1,3 @@
-import 'package:cache_image/cache_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -74,15 +73,14 @@ class CarListItem extends StatelessWidget {
   Widget _carImage() {
     return Container(
       padding: const EdgeInsets.all(8.0),
-      child: ClipRRect(
+      child: const ClipRRect(
         child: SizedBox(
           height: 100,
           width: 100,
           child: FadeInImage(
             fit: BoxFit.cover,
-            placeholder: const AssetImage('assets/img/car-placeholder.png'),
-            image: CacheImage(
-                'https://www.bmw.de/content/dam/bmw/marketDE/bmw_de/navigation/2102_BMW8xADxVogue_01-022%2016-bit%20SP-885_890x500.jpg'),
+            placeholder: AssetImage('assets/img/car-placeholder.png'),
+            image: AssetImage('assets/img/bmw.jpg'),
           ),
         ),
       ),

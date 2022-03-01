@@ -29,7 +29,7 @@ class AppNavigator extends StatelessWidget {
         MaterialPage(
           child: BlocProvider(
             create: (BuildContext context) =>
-                GarageBloc()..add(const GarageLoadingParkedCars()),
+                GarageBloc()..add(GarageLoadingParkedCars()),
             child: GarageScreen(),
           ),
         ),

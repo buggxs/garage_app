@@ -50,7 +50,7 @@ class PropertyTabContent extends StatelessWidget {
     Car _car = cubit.state.car;
 
     return SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(vertical: 16.0),
+        padding: const EdgeInsets.only(bottom: 16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -59,15 +59,13 @@ class PropertyTabContent extends StatelessWidget {
               padding: const EdgeInsets.only(bottom: 16.0),
               child: CarouselSlider(
                 options: CarouselOptions(
-                  enlargeCenterPage: true,
-                  enableInfiniteScroll: false,
-                ),
+                    enlargeCenterPage: true,
+                    enableInfiniteScroll: false,
+                    viewportFraction: 1.0),
                 items: imageList.map((imageUrl) {
-                  return ClipRRect(
-                    borderRadius: BorderRadius.circular(6.0),
+                  return FittedBox(
                     child: Image(
                       image: AssetImage(imageUrl),
-                      fit: BoxFit.fitHeight,
                     ),
                   );
                 }).toList(),
@@ -78,11 +76,21 @@ class PropertyTabContent extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  infoCard(context, "TÜV bis: ",
-                      TextFormatter.formatDateToMonthAndYear(_car.date)),
-                  infoCard(context, "Kilometerstand: ",
-                      NumberFormatter.mileageFormatter(_car.mileage)),
-                  infoCard(context, "Baujahr: ", _car.vintage.toString()),
+                  infoCard(
+                    context,
+                    "TÜV bis: ",
+                    TextFormatter.formatDateToMonthAndYear(_car.date),
+                  ),
+                  infoCard(
+                    context,
+                    "Kilometerstand: ",
+                    NumberFormatter.mileageFormatter(_car.mileage),
+                  ),
+                  infoCard(
+                    context,
+                    "Baujahr: ",
+                    _car.vintage.toString(),
+                  ),
                 ],
               ),
             ),
@@ -157,12 +165,41 @@ class PropertyTabContent extends StatelessWidget {
         ));
   }
 
+  Widget divider() {
+    return Expanded(
+      child: Column(
+        children: [
+          Container(
+            color: Colors.black,
+            child: Container(
+              height: 10,
+              color: Colors.white,
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
   Widget infoCard(BuildContext context, String caption, String content) {
     return Card(
-      color: Colors.white,
+      shape: RoundedRectangleBorder(
+        side: BorderSide(
+          color: Colors.white,
+        ),
+        borderRadius: BorderRadius.circular(4.0),
+      ),
+      color: Color.fromRGBO(0, 91, 140, 1.0),
       child: LabeledText(
         caption: caption,
         text: content,
+        textStyle: const TextStyle(
+          fontWeight: FontWeight.bold,
+          color: Colors.white,
+        ),
+        captionStyle: Theme.of(context).textTheme.caption!.apply(
+              color: Colors.white,
+            ),
       ),
     );
   }
