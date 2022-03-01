@@ -55,26 +55,25 @@ class PropertyTabContent extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(bottom: 16.0),
-              child: CarouselSlider(
-                options: CarouselOptions(
-                    enlargeCenterPage: true,
-                    enableInfiniteScroll: false,
-                    viewportFraction: 1.0),
-                items: imageList.map((imageUrl) {
-                  return FittedBox(
-                    child: Image(
-                      image: AssetImage(imageUrl),
-                    ),
-                  );
-                }).toList(),
-              ),
+            CarouselSlider(
+              options: CarouselOptions(
+                  enlargeCenterPage: true,
+                  enableInfiniteScroll: false,
+                  viewportFraction: 1.0),
+              items: imageList.map((imageUrl) {
+                return Image(
+                  image: AssetImage(imageUrl),
+                  fit: BoxFit.cover,
+                );
+              }).toList(),
             ),
             Padding(
-              padding: const EdgeInsets.only(bottom: 16.0),
+              padding: const EdgeInsets.symmetric(
+                vertical: 16.0,
+                horizontal: 16.0,
+              ),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   infoCard(
                     context,
