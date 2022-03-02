@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:garage_app/api/api.dart';
+import 'package:garage_app/components/car/car_screen.dart';
 import 'package:garage_app/components/common/widgets/icon_text.dart';
 import 'package:garage_app/components/common/widgets/modal_service.dart';
 import 'package:garage_app/components/garage/bloc/garage_bloc.dart';
-import 'package:garage_app/core/app_navigator/app_cubit.dart';
 import 'package:garage_app/core/app_service_locator.dart';
 
 import 'car_list_item_divider.dart';
@@ -32,8 +31,10 @@ class CarListItem extends StatelessWidget {
             color: Colors.grey[400],
             child: InkWell(
               splashColor: Colors.blue.withAlpha(30),
-              onTap: () =>
-                  BlocProvider.of<AppCubit>(context).showCarScreen(car: car),
+              onTap: () => Navigator.of(context).pushNamed(
+                CarScreen.route,
+                arguments: car,
+              ),
               onLongPress: () => app<ModalService>().showUpdateModal(
                 context: context,
                 onUpdate: ({

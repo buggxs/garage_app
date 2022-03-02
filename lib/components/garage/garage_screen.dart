@@ -9,7 +9,21 @@ import 'package:garage_app/components/garage/widgets/parking_floating_button.dar
 import 'bloc/garage_bloc.dart';
 
 class GarageScreen extends StatelessWidget {
-  GarageScreen({Key? key}) : super(key: key);
+  const GarageScreen({Key? key}) : super(key: key);
+
+  static const String route = '/garage';
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => GarageBloc()..add(GarageLoadingParkedCars()),
+      child: GarageScreenContent(),
+    );
+  }
+}
+
+class GarageScreenContent extends StatelessWidget {
+  GarageScreenContent({Key? key}) : super(key: key);
 
   final List<String> entries = <String>['A', ''];
 

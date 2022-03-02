@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:garage_app/components/authentication/auth_repository.dart';
-import 'package:garage_app/components/authentication/session/session_cubit.dart';
-import 'package:garage_app/components/authentication/session/session_navigator.dart';
+import 'package:garage_app/components/common/widgets/garage_scaffold.dart';
+import 'package:garage_app/components/garage/garage_screen.dart';
+import 'package:garage_app/core/app_navigator/app_navigator.dart';
 import 'package:logging/logging.dart';
 
 import 'core/app_service_locator.dart';
@@ -35,15 +34,13 @@ class MyGarage extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(
           primaryColor: Colors.amber[800], backgroundColor: Colors.white),
-      home: RepositoryProvider(
-        create: (context) => AuthRepository(),
-        child: BlocProvider(
-          create: (context) => SessionCubit(
-            authRepository: context.read<AuthRepository>(),
-          ),
-          child: const SessionNavigator(),
+      home: GarageScaffold(
+        child: Center(
+          child: Text('Splash Screen'),
         ),
       ),
+      initialRoute: GarageScreen.route,
+      onGenerateRoute: AppNavigator.generateRoute,
       localizationsDelegates: const [
         AppLocalizations.delegate, // Add this line
         GlobalMaterialLocalizations.delegate,

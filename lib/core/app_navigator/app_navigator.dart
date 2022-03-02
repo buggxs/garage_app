@@ -1,47 +1,44 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:garage_app/components/car/bloc/car_bloc.dart';
+import 'package:garage_app/api/car/data/car.dart';
 import 'package:garage_app/components/car/car_screen.dart';
-import 'package:garage_app/components/garage/bloc/garage_bloc.dart';
 import 'package:garage_app/components/garage/garage_screen.dart';
 
-import 'app_cubit.dart';
+class AppNavigator {
+  static Route<dynamic> generateRoute(RouteSettings settings) {
+    final args = settings.arguments;
 
-class AppNavigator extends StatelessWidget {
-  const AppNavigator({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<AppCubit, AppState>(builder: (context, state) {
-      return Navigator(
-        pages: [
-          // show Garage Screen
-          ...addGarageViews(context, state),
-        ],
-        onPopPage: (route, result) => route.didPop(result),
-      );
-    });
+    switch (settings.name) {
+      case GarageScreen.route:
+        return MaterialPageRoute(
+          builder: (_) => GarageScreen(),
+        );
+      case CarScreen.route:
+        if (args is Car) {
+          return MaterialPageRoute(
+            builder: (_) => CarScreen(
+              car: args,
+            ),
+          );
+        }
+        return MaterialPageRoute(
+          builder: (_) => GarageScreen(),
+        );
+      default:
+        return _errorRoute();
+    }
   }
 
-  List<MaterialPage> addGarageViews(context, state) {
-    List<MaterialPage> garageViews = [
-      if (state is MyGarageScreenState)
-        MaterialPage(
-          child: BlocProvider(
-            create: (BuildContext context) =>
-                GarageBloc()..add(GarageLoadingParkedCars()),
-            child: GarageScreen(),
-          ),
+  static Route<dynamic> _errorRoute() {
+    return MaterialPageRoute(builder: (_) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text('Error'),
         ),
-      if (state is MyCarDetailsState)
-        MaterialPage(
-          child: BlocProvider(
-            create: (BuildContext context) => CarBloc(car: state.car),
-            child: const CarScreen(),
-          ),
+        body: Center(
+          child: Text('ERROR'),
         ),
-    ];
-
-    return garageViews;
+      );
+    });
   }
 }
