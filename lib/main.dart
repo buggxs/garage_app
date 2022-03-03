@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:garage_app/components/garage/garage_screen.dart';
 import 'package:garage_app/core/app_navigator/app_navigator.dart';
 import 'package:logging/logging.dart';
 
+import 'core/app_localizations.dart';
 import 'core/app_service_locator.dart';
 
 Future<void> main() async {
@@ -45,9 +45,18 @@ class MyGarage extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: const [
-        Locale('de', ''),
-        Locale('en', ''),
+        Locale('en', 'US'),
+        Locale('de', 'DE'),
       ],
+      localeResolutionCallback: (locale, supportedLocales) {
+        for (var supportedLocale in supportedLocales) {
+          if (supportedLocale.languageCode == locale!.languageCode &&
+              supportedLocale.countryCode == locale.countryCode) {
+            return supportedLocale;
+          }
+        }
+        return supportedLocales.first;
+      },
     );
   }
 }

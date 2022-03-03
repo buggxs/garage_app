@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:garage_app/api/api.dart';
 import 'package:garage_app/components/car/car_screen.dart';
 import 'package:garage_app/components/common/widgets/icon_text.dart';
 import 'package:garage_app/components/common/widgets/modal_service.dart';
 import 'package:garage_app/components/garage/bloc/garage_bloc.dart';
+import 'package:garage_app/core/app_localizations.dart';
 import 'package:garage_app/core/app_service_locator.dart';
 
 import 'car_list_item_divider.dart';
@@ -108,7 +108,8 @@ class CarListItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               IconText(
-                text: AppLocalizations.of(context)!.air_conditioner,
+                text:
+                    AppLocalizations.of(context)!.translate('air_conditioner')!,
                 iconData: Icons.ac_unit,
                 iconColor: Colors.green[800],
                 size: 20.0,
@@ -117,7 +118,7 @@ class CarListItem extends StatelessWidget {
                 height: 5,
               ),
               IconText(
-                text: AppLocalizations.of(context)!.oil,
+                text: AppLocalizations.of(context)!.translate('oil')!,
                 assetImage: const AssetImage("assets/icons/car-oil.png"),
                 iconColor: Colors.green[800],
                 size: 20.0,
@@ -132,7 +133,7 @@ class CarListItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               IconText(
-                text: AppLocalizations.of(context)!.brake,
+                text: AppLocalizations.of(context)!.translate('brake')!,
                 assetImage: const AssetImage("assets/icons/brake.png"),
                 iconColor: Colors.green[800],
                 size: 20.0,
@@ -141,7 +142,7 @@ class CarListItem extends StatelessWidget {
                 height: 5,
               ),
               IconText(
-                text: AppLocalizations.of(context)!.timing_belt,
+                text: AppLocalizations.of(context)!.translate('timing_belt')!,
                 assetImage: const AssetImage("assets/icons/timing-belt.png"),
                 iconColor: Colors.green[800],
                 size: 20.0,
