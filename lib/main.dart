@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:garage_app/components/common/widgets/garage_scaffold.dart';
 import 'package:garage_app/components/garage/garage_screen.dart';
 import 'package:garage_app/core/app_navigator/app_navigator.dart';
 import 'package:logging/logging.dart';
@@ -33,12 +32,10 @@ class MyGarage extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-          primaryColor: Colors.amber[800], backgroundColor: Colors.white),
-      home: GarageScaffold(
-        child: Center(
-          child: Text('Splash Screen'),
-        ),
+        primaryColor: Colors.amber[800],
+        backgroundColor: Colors.white,
       ),
+      home: const GarageScreen(),
       initialRoute: GarageScreen.route,
       onGenerateRoute: AppNavigator.generateRoute,
       localizationsDelegates: const [
