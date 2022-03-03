@@ -11,7 +11,7 @@ import 'bloc/garage_bloc.dart';
 class GarageScreen extends StatelessWidget {
   const GarageScreen({Key? key}) : super(key: key);
 
-  static const String route = '/garage';
+  static const String route = '/';
 
   @override
   Widget build(BuildContext context) {

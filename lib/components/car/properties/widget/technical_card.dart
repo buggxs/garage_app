@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:garage_app/api/api.dart';
 import 'package:garage_app/components/common/widgets/labled_text.dart';
+import 'package:garage_app/core/app_localizations.dart';
 
 class TechnicalCard extends StatelessWidget {
   const TechnicalCard({
@@ -40,7 +40,8 @@ class TechnicalCard extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    AppLocalizations.of(context)!.technical_card_heading,
+                    AppLocalizations.of(context)!
+                        .translate('technical_card_heading')!,
                     style: Theme.of(context).textTheme.headline6,
                   ),
                 ],
@@ -56,17 +57,20 @@ class TechnicalCard extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           LabeledText(
-                            caption: AppLocalizations.of(context)!.brand,
+                            caption: AppLocalizations.of(context)!
+                                .translate('brand')!,
                             text: '${technicalData?.brand}',
                             padding: const EdgeInsets.symmetric(vertical: 8),
                           ),
                           LabeledText(
-                            caption: AppLocalizations.of(context)!.model,
+                            caption: AppLocalizations.of(context)!
+                                .translate('model')!,
                             text: '${technicalData?.model}',
                             padding: const EdgeInsets.symmetric(vertical: 8),
                           ),
                           LabeledText(
-                            caption: AppLocalizations.of(context)!.type,
+                            caption: AppLocalizations.of(context)!
+                                .translate('type')!,
                             text: '${technicalData?.type}',
                             padding: const EdgeInsets.symmetric(vertical: 8),
                           ),
@@ -79,12 +83,14 @@ class TechnicalCard extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           LabeledText(
-                            caption: AppLocalizations.of(context)!.hsn,
+                            caption:
+                                AppLocalizations.of(context)!.translate('hsn')!,
                             text: '${technicalData?.hsn}',
                             padding: const EdgeInsets.symmetric(vertical: 8),
                           ),
                           LabeledText(
-                            caption: AppLocalizations.of(context)!.tsn,
+                            caption:
+                                AppLocalizations.of(context)!.translate('tsn')!,
                             text: '${technicalData?.tsn}',
                             padding: const EdgeInsets.symmetric(vertical: 8),
                           ),
