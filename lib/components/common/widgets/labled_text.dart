@@ -6,7 +6,7 @@ class LabeledText extends StatelessWidget {
     Key? key,
     required this.caption,
     required this.text,
-    this.multiLineText,
+    this.multiLineText = false,
     this.captionStyle,
     this.textStyle,
     this.padding,
@@ -14,7 +14,7 @@ class LabeledText extends StatelessWidget {
 
   final String caption;
   final String text;
-  final String? multiLineText;
+  final bool multiLineText;
   final TextStyle? captionStyle;
   final TextStyle? textStyle;
   final EdgeInsetsGeometry? padding;
@@ -30,39 +30,38 @@ class LabeledText extends StatelessWidget {
             caption,
             style: captionStyle ?? Theme.of(context).textTheme.caption,
           ),
-          AutoSizeText(
-            text,
-            style: textStyle ??
-                const TextStyle(
-                  fontWeight: FontWeight.bold,
-                ),
-            maxLines: 1,
-            overflowReplacement: AutoSizeText(
-              text,
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 10,
-              ),
-              maxLines: 1,
-            ),
-          ),
-          multiLineText == null
-              ? const SizedBox()
+          multiLineText
+              ? AutoSizeText(
+                  text,
+                  style: textStyle ??
+                      const TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                  maxLines: 20,
+                )
               : AutoSizeText(
-                  multiLineText!,
+                  text,
                   style: textStyle ??
                       const TextStyle(
                         fontWeight: FontWeight.bold,
                       ),
                   maxLines: 1,
                   overflowReplacement: AutoSizeText(
-                    multiLineText!,
+                    text,
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 10,
                     ),
-                    overflow: TextOverflow.ellipsis,
                     maxLines: 1,
+                    overflowReplacement: AutoSizeText(
+                      text,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 10,
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                    ),
                   ),
                 ),
         ],

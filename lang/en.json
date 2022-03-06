@@ -18,5 +18,10 @@
   "model": "Model",
   "type": "Type",
   "hsn": "HSN",
-  "tsn": "TSN"
+  "tsn": "TSN",
+  "upload_document": "Upload document",
+  "upload": "Upload",
+  "parking_space": "Parking space",
+  "documents": "Documents",
+  "notes": "Notes"
 }

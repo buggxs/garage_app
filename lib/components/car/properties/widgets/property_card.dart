@@ -116,9 +116,9 @@ class PropertyCard extends StatelessWidget {
                       getCardContent(context, property!)!['last_change_text'],
                   text:
                       NumberFormatter.mileageFormatter(data.lastChangeMileage) +
-                          " km /",
-                  multiLineText:
-                      TextFormatter.formatGermanDate(data.lastChangeDate),
+                          " km / " +
+                          TextFormatter.formatGermanDate(data.lastChangeDate),
+                  multiLineText: true,
                 ),
               ],
             ),
@@ -135,9 +135,9 @@ class PropertyCard extends StatelessWidget {
                       getCardContent(context, property!)!['next_change_text'],
                   text:
                       NumberFormatter.mileageFormatter(data.nextChangeMileage) +
-                          " km oder",
-                  multiLineText:
-                      TextFormatter.formatGermanDate(data.nextChangeDate),
+                          " km oder " +
+                          TextFormatter.formatGermanDate(data.nextChangeDate),
+                  multiLineText: true,
                 ),
               ],
             ),
