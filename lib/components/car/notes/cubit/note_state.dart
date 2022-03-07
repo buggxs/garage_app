@@ -3,8 +3,6 @@ part of 'note_cubit.dart';
 @immutable
 abstract class NoteState {}
 
-class NoteInitial extends NoteState {}
-
 class NoteLoading extends NoteState {}
 
 class NoteLoaded extends NoteState {
@@ -15,8 +13,8 @@ class NoteLoaded extends NoteState {
   final List<Note> noteList;
 }
 
-class NoteErrorState extends NoteState {
-  NoteErrorState({
+class NoteError extends NoteState {
+  NoteError({
     required this.message,
   });
 

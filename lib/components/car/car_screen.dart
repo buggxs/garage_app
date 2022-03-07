@@ -7,6 +7,7 @@ import 'package:garage_app/components/car/notes/notes_tab.dart';
 import 'package:garage_app/components/car/properties/property_tab.dart';
 import 'package:garage_app/components/common/widgets/garage_scaffold.dart';
 import 'package:garage_app/core/app_localizations.dart';
+import 'package:garage_app/core/constants/constant.dart';
 
 import 'bloc/car_bloc.dart';
 
@@ -50,40 +51,22 @@ class CarScreenContent extends StatelessWidget {
         initialIndex: 0,
         length: 3,
         child: Scaffold(
-          backgroundColor: Colors.grey[800],
+          backgroundColor: Colors.blueGrey[900],
           appBar: AppBar(
-            leading: IconButton(
-              icon: const Icon(Icons.arrow_back),
-              onPressed: () => Navigator.pop(context),
-            ),
             backgroundColor: Colors.white,
             foregroundColor: Colors.black,
             title: Text('${state.car.name}'),
-            bottom: TabBar(
-              indicatorColor: Colors.grey,
-              tabs: <Widget>[
-                Tab(
-                  icon: const Icon(Icons.directions_car),
-                  text:
-                      AppLocalizations.of(context)!.translate('parking_space')!,
-                  iconMargin: const EdgeInsets.all(0),
-                ),
-                Tab(
-                  icon: const Icon(Icons.inventory_outlined),
-                  text: AppLocalizations.of(context)!.translate('documents')!,
-                  iconMargin: const EdgeInsets.all(0),
-                ),
-                Tab(
-                  icon: const Icon(Icons.note_add),
-                  text: AppLocalizations.of(context)!.translate('notes')!,
-                  iconMargin: const EdgeInsets.all(0),
-                ),
-              ],
+            bottom: _tabBar(
+              context: context,
+              onTap: (tabIndex) => bloc.add(LoadingCarEvent(
+                car: state.car,
+                initialIndex: tabIndex,
+              )),
             ),
           ),
           body: TabBarView(
             children: <Widget>[
-              PropertyTab(car: bloc.car),
+              PropertyTab(car: state.car),
               const DocumentTab(),
               const NotesTab(),
             ],
@@ -99,5 +82,38 @@ class CarScreenContent extends StatelessWidget {
     }
 
     return child;
+  }
+
+  PreferredSizeWidget _tabBar({
+    required BuildContext context,
+    required ValueChanged<int> onTap,
+  }) {
+    return TabBar(
+      padding: const EdgeInsets.all(0.0),
+      indicatorPadding: const EdgeInsets.all(0.0),
+      indicatorColor: Colors.blueGrey[900],
+      labelPadding: EdgeInsets.zero,
+      onTap: onTap,
+      tabs: <Widget>[
+        Tab(
+          height: kTabHeight,
+          icon: const Icon(Icons.directions_car),
+          text: AppLocalizations.of(context)!.translate('parking_space')!,
+          iconMargin: const EdgeInsets.all(0),
+        ),
+        Tab(
+          height: kTabHeight,
+          icon: const Icon(Icons.inventory_outlined),
+          text: AppLocalizations.of(context)!.translate('documents')!,
+          iconMargin: const EdgeInsets.all(0),
+        ),
+        Tab(
+          height: kTabHeight,
+          icon: const Icon(Icons.note_add),
+          text: AppLocalizations.of(context)!.translate('notes')!,
+          iconMargin: const EdgeInsets.all(0),
+        ),
+      ],
+    );
   }
 }

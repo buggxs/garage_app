@@ -1,7 +1,9 @@
 part of 'car_bloc.dart';
 
 abstract class CarState extends Equatable {
-  const CarState();
+  const CarState({this.initialIndex = 0});
+
+  final int initialIndex;
 }
 
 class CarInitial extends CarState {
@@ -19,7 +21,8 @@ class CarLoaded extends CarState {
 
   const CarLoaded({
     required this.car,
-  });
+    int? initialIndex,
+  }) : super(initialIndex: initialIndex ?? 0);
 
   @override
   List<Object?> get props => [

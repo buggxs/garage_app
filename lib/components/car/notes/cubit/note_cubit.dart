@@ -5,7 +5,7 @@ import 'package:meta/meta.dart';
 part 'note_state.dart';
 
 class NoteCubit extends Cubit<NoteState> {
-  NoteCubit() : super(NoteInitial());
+  NoteCubit() : super(NoteLoading());
 
   void loadNotes() {
     emit(NoteLoading());

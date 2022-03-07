@@ -32,7 +32,7 @@ class NoteTabContent extends StatelessWidget {
       child = const Center(
         child: CircularProgressIndicator(),
       );
-    } else if (state is NoteErrorState) {
+    } else if (state is NoteError) {
       child = Center(
         child: Text(state.message),
       );
