@@ -85,7 +85,7 @@ class CarScreenContent extends StatelessWidget {
             children: <Widget>[
               PropertyTab(car: bloc.car),
               const DocumentTab(),
-              NotesTab()
+              const NotesTab(),
             ],
           ),
         ),

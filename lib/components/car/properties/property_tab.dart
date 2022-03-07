@@ -2,7 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:garage_app/api/api.dart';
-import 'package:garage_app/components/car/properties/bloc/car_property_cubit.dart';
+import 'package:garage_app/components/car/properties/cubit/car_property_cubit.dart';
 import 'package:garage_app/components/car/properties/details/property_details_screen.dart';
 import 'package:garage_app/components/car/properties/widgets/property_card.dart';
 import 'package:garage_app/components/car/properties/widgets/technical_card.dart';
