@@ -6,7 +6,7 @@ import 'package:garage_app/components/garage/widgets/car_list_item.dart';
 import 'package:garage_app/components/garage/widgets/car_list_item_empty.dart';
 import 'package:garage_app/components/garage/widgets/parking_floating_button.dart';
 
-import 'bloc/garage_bloc.dart';
+import 'cubit/garage_cubit.dart';
 
 class GarageScreen extends StatelessWidget {
   const GarageScreen({Key? key}) : super(key: key);
@@ -16,7 +16,7 @@ class GarageScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => GarageBloc()..add(GarageLoadingParkedCars()),
+      create: (context) => GarageCubit(),
       child: GarageScreenContent(),
     );
   }
@@ -29,15 +29,15 @@ class GarageScreenContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    GarageBloc bloc = context.watch<GarageBloc>();
-    GarageState state = bloc.state;
+    GarageCubit cubit = context.watch<GarageCubit>();
+    GarageState state = cubit.state;
 
     Widget? child;
     Widget? floatingActionButton;
 
     if (state is GarageLoadedState) {
-      child = _buildCarList(state.cars);
-      if (state.cars.length < 2) {
+      child = _buildCarList(state.carList);
+      if (state.carList.length < 2) {
         floatingActionButton = _buildFloatingButton(context);
       }
     }
@@ -54,7 +54,7 @@ class GarageScreenContent extends StatelessWidget {
 
   Widget _buildFloatingButton(BuildContext context) {
     return ParkingFloatingButton(
-      onTap: () => GarageBloc.of(context).add(GarageParkingCarEvent()),
+      onTap: () => print('test'),
     );
   }
 

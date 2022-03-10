@@ -3,7 +3,6 @@ import 'package:garage_app/api/api.dart';
 import 'package:garage_app/components/car/car_screen.dart';
 import 'package:garage_app/components/common/widgets/icon_text.dart';
 import 'package:garage_app/components/common/widgets/modal_service.dart';
-import 'package:garage_app/components/garage/bloc/garage_bloc.dart';
 import 'package:garage_app/core/app_localizations.dart';
 import 'package:garage_app/core/app_service_locator.dart';
 
@@ -42,11 +41,7 @@ class CarListItem extends StatelessWidget {
                   String? lastChangeMileageString,
                   String? lastChangeDateString,
                 }) =>
-                    GarageBloc.of(context).add(GarageUpdateCarEvent(
-                  car: car,
-                  lastChangeMileageString: lastChangeMileageString,
-                  lastChangeDateString: lastChangeDateString,
-                )),
+                    print('test'),
               ),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
