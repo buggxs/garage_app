@@ -9,7 +9,7 @@ import 'package:garage_app/components/common/widgets/garage_scaffold.dart';
 import 'package:garage_app/core/app_localizations.dart';
 import 'package:garage_app/core/constants/constant.dart';
 
-import 'bloc/car_bloc.dart';
+import 'cubit/car_cubit.dart';
 
 class CarScreen extends StatelessWidget {
   const CarScreen({
@@ -25,7 +25,8 @@ class CarScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return car != null
         ? BlocProvider(
-            create: (context) => CarBloc(car: car!),
+            create: (context) =>
+                CarCubit(car: car!)..emit(CarLoadedState(car: car!)),
             child: const CarScreenContent(),
           )
         : const GarageScaffold(
@@ -41,12 +42,14 @@ class CarScreenContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    CarBloc bloc = context.watch<CarBloc>();
-    CarState state = bloc.state;
+    CarCubit cubit = context.watch<CarCubit>();
+    CarState state = cubit.state;
 
     Widget child;
 
-    if (state is CarLoaded) {
+    if (state is CarLoadedState) {
+      print(state.tabIndex);
+
       child = DefaultTabController(
         initialIndex: 0,
         length: 3,
@@ -58,10 +61,7 @@ class CarScreenContent extends StatelessWidget {
             title: Text('${state.car.name}'),
             bottom: _tabBar(
               context: context,
-              onTap: (tabIndex) => bloc.add(LoadingCarEvent(
-                car: state.car,
-                initialIndex: tabIndex,
-              )),
+              onTap: cubit.updateTab,
             ),
           ),
           body: TabBarView(
@@ -71,6 +71,7 @@ class CarScreenContent extends StatelessWidget {
               const NotesTab(),
             ],
           ),
+          floatingActionButton: _showActionButton(context, state),
         ),
       );
     } else {
@@ -115,5 +116,21 @@ class CarScreenContent extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  Widget? _showActionButton(BuildContext context, CarLoadedState state) {
+    switch (state.tabIndex) {
+      case 0:
+        return null;
+      case 1:
+        return null;
+      case 2:
+        return FloatingActionButton(
+          onPressed: () {},
+          child: const Icon(Icons.note_add),
+        );
+      default:
+        return null;
+    }
   }
 }

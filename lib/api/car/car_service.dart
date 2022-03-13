@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:garage_app/api/api.dart';
+import 'package:garage_app/api/note/data/note.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -42,7 +43,29 @@ class OnlineCarService extends CarService {
         nextChangeDate: DateTime(2022, 7, 5),
         nextChangeMileage: 140000),
     technicalData: TechnicalData(
-        id: 1, brand: "Audi", model: "A3", type: "abc", hsn: "3nf", tsn: "kl3"),
+      id: 1,
+      brand: "Audi",
+      model: "A3",
+      type: "abc",
+      hsn: "3nf",
+      tsn: "kl3",
+    ),
+    noteList: <Note>[
+      Note(
+        id: 1,
+        note: '''Lorem ipsum dolor sit amet, consetetur sadipscing elitr, 
+            sed diam nonumy eirmod tempor invidunt ut 
+            labore et dolore magna aliquyam''',
+        dateTime: DateTime(2022, 2, 20),
+      ),
+      Note(
+        id: 2,
+        note: '''Lorem ipsum dolor sit amet, consetetur sadipscing elitr, 
+            sed diam nonumy eirmod tempor invidunt ut 
+            labore et dolore magna aliquyam''',
+        dateTime: DateTime.now(),
+      ),
+    ],
   );
 
   @override
@@ -92,7 +115,29 @@ class LocalCarService implements CarService {
         nextChangeDate: DateTime(2022, 7, 5),
         nextChangeMileage: 140000),
     technicalData: TechnicalData(
-        id: 1, brand: "Audi", model: "A3", type: "abc", hsn: "3nf", tsn: "kl3"),
+      id: 1,
+      brand: "Audi",
+      model: "A3",
+      type: "abc",
+      hsn: "3nf",
+      tsn: "kl3",
+    ),
+    noteList: <Note>[
+      Note(
+        id: 1,
+        note: '''Lorem ipsum dolor sit amet, consetetur sadipscing elitr, 
+            sed diam nonumy eirmod tempor invidunt ut 
+            labore et dolore magna aliquyam''',
+        dateTime: DateTime(2022, 2, 20),
+      ),
+      Note(
+        id: 2,
+        note: '''Lorem ipsum dolor sit amet, consetetur sadipscing elitr, 
+            sed diam nonumy eirmod tempor invidunt ut 
+            labore et dolore magna aliquyam''',
+        dateTime: DateTime.now(),
+      ),
+    ],
   );
 
   @override
