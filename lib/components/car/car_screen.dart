@@ -4,9 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:garage_app/api/car/data/car.dart';
 import 'package:garage_app/components/car/documents/document_tab.dart';
 import 'package:garage_app/components/car/notes/notes_tab.dart';
+import 'package:garage_app/components/car/notes/widgets/add_note_dialog.dart';
 import 'package:garage_app/components/car/properties/property_tab.dart';
 import 'package:garage_app/components/common/widgets/garage_scaffold.dart';
+import 'package:garage_app/components/common/widgets/popup_service.dart';
 import 'package:garage_app/core/app_localizations.dart';
+import 'package:garage_app/core/app_service_locator.dart';
 import 'package:garage_app/core/constants/constant.dart';
 
 import 'cubit/car_cubit.dart';
@@ -68,7 +71,7 @@ class CarScreenContent extends StatelessWidget {
             children: <Widget>[
               PropertyTab(car: state.car),
               const DocumentTab(),
-              const NotesTab(),
+              NotesTab(car: state.car),
             ],
           ),
           floatingActionButton: _showActionButton(context, state),
@@ -119,6 +122,7 @@ class CarScreenContent extends StatelessWidget {
   }
 
   Widget? _showActionButton(BuildContext context, CarLoadedState state) {
+    CarCubit cubit = context.watch<CarCubit>();
     switch (state.tabIndex) {
       case 0:
         return null;
@@ -126,7 +130,15 @@ class CarScreenContent extends StatelessWidget {
         return null;
       case 2:
         return FloatingActionButton(
-          onPressed: () {},
+          onPressed: () {
+            app<PopupService>().showPopUp(
+              context,
+              Text('Notiz hinzufügen'),
+              AddNoteDialog(
+                onSubmit: cubit.addNoteToCar,
+              ),
+            );
+          },
           child: const Icon(Icons.note_add),
         );
       default:

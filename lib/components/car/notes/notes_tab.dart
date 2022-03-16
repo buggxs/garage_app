@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:garage_app/api/car/data/car.dart';
 import 'package:garage_app/api/note/data/note.dart';
 import 'package:garage_app/components/car/notes/cubit/note_cubit.dart';
 import 'package:garage_app/components/car/notes/widgets/note_card.dart';
 
 class NotesTab extends StatelessWidget {
-  const NotesTab({Key? key}) : super(key: key);
+  const NotesTab({
+    Key? key,
+    required this.car,
+  }) : super(key: key);
+
+  final Car car;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => NoteCubit()..loadNotes(),
+      create: (context) => NoteCubit(car)..loadNotes(),
       child: const NoteTabContent(),
     );
   }

@@ -26,10 +26,16 @@ class PopupService {
     return '${selectedDate.day}.${selectedDate.month.toString().length == 1 ? '0${selectedDate.month}' : selectedDate.month}.${selectedDate.year}';
   }
 
-  Future<dynamic> showPopUp(BuildContext context, Widget buildPopupDialog) {
+  Future<dynamic> showPopUp(
+      BuildContext context, Widget? title, Widget buildPopupDialog) {
     return showDialog(
       context: context,
-      builder: (BuildContext context) => buildPopupDialog,
+      builder: (BuildContext context) => AlertDialog(
+        title: title,
+        content: buildPopupDialog,
+        contentPadding: const EdgeInsets.all(8.0),
+        titlePadding: const EdgeInsets.all(8.0),
+      ),
     );
   }
 }

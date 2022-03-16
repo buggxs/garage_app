@@ -56,6 +56,7 @@ class Car {
     TimingBeltData? timingBeltData,
     TechnicalData? technicalData,
     List<Document>? documentList,
+    List<Note>? noteList,
   }) {
     return Car(
       id: id ?? this.id,

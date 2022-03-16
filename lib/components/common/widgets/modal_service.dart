@@ -75,7 +75,9 @@ class ModalService {
                                 Row(
                                   children: [
                                     CarDataInput(
-                                      hintText: 'Kilometerstand',
+                                      inputDecoration: const InputDecoration(
+                                        label: Text('Kilometerstand'),
+                                      ),
                                       textInputType: TextInputType.number,
                                       onSave: (String? value) {
                                         onUpdate(
@@ -85,7 +87,9 @@ class ModalService {
                                       },
                                     ),
                                     CarDataInput(
-                                      hintText: 'TÜV',
+                                      inputDecoration: const InputDecoration(
+                                        label: Text('TÜV'),
+                                      ),
                                       textInputType: TextInputType.datetime,
                                       readOnly: true,
                                       onSave: (String? value) => onUpdate(
@@ -169,14 +173,18 @@ class ModalService {
                           Row(
                             children: [
                               CarDataInput(
-                                hintText: 'Kilometerstand',
+                                inputDecoration: const InputDecoration(
+                                  label: Text('Kilometerstand'),
+                                ),
                                 textInputType: TextInputType.number,
                                 onSave: (String value) => onUpdate(
                                   lastChangeMileageString: value,
                                 ),
                               ),
                               CarDataInput(
-                                hintText: 'TÜV',
+                                inputDecoration: const InputDecoration(
+                                  label: Text('TÜV'),
+                                ),
                                 textInputType: TextInputType.datetime,
                                 readOnly: true,
                                 onSave: (String value) => onUpdate(
@@ -186,18 +194,18 @@ class ModalService {
                             ],
                           ),
                           ElevatedButton(
-                              style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                        Colors.blueGrey.shade900),
-                              ),
-                              onPressed: () {
-                                if (_formKey.currentState!.validate()) {
-                                  _formKey.currentState!.save();
-                                  Navigator.pop(context);
-                                }
-                              },
-                              child: const Text("Aktualisieren"))
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                  Colors.blueGrey.shade900),
+                            ),
+                            onPressed: () {
+                              if (_formKey.currentState!.validate()) {
+                                _formKey.currentState!.save();
+                                Navigator.pop(context);
+                              }
+                            },
+                            child: const Text("Aktualisieren"),
+                          ),
                         ],
                       ),
                     ),

@@ -7,18 +7,20 @@ typedef Validate = String? Function(String? value);
 class CarDataInput extends StatefulWidget {
   const CarDataInput({
     Key? key,
-    this.hintText,
+    this.inputDecoration,
     this.textInputType = TextInputType.text,
     this.readOnly = false,
     this.onSave,
     this.validate,
+    this.maxLines,
   }) : super(key: key);
 
-  final String? hintText;
+  final InputDecoration? inputDecoration;
   final TextInputType textInputType;
   final bool? readOnly;
   final ValueChanged<String>? onSave;
   final Validate? validate;
+  final int? maxLines;
 
   @override
   _CarDataInputState createState() => _CarDataInputState();
@@ -36,9 +38,7 @@ class _CarDataInputState extends State<CarDataInput> {
         padding: const EdgeInsets.all(8.0),
         child: TextFormField(
           controller: _textEditingController,
-          decoration: widget.hintText != null
-              ? InputDecoration(label: Text(widget.hintText!))
-              : null,
+          decoration: widget.inputDecoration,
           keyboardType: widget.textInputType,
           readOnly:
               widget.readOnly ?? widget.textInputType == TextInputType.datetime,
@@ -50,6 +50,7 @@ class _CarDataInputState extends State<CarDataInput> {
           validator: widget.validate,
           onSaved: (String? value) =>
               widget.onSave != null ? widget.onSave!(value!) : print(value!),
+          maxLines: widget.maxLines,
         ),
       ),
     );

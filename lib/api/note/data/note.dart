@@ -6,7 +6,7 @@ part 'note.g.dart';
 class Note {
   int id;
   String note;
-  DateTime? dateTime;
+  DateTime? dateTime = DateTime.now();
 
   Note({
     required this.id,

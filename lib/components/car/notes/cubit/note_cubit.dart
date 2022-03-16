@@ -1,11 +1,16 @@
 import 'package:bloc/bloc.dart';
+import 'package:garage_app/api/car/data/car.dart';
 import 'package:garage_app/api/note/data/note.dart';
 import 'package:meta/meta.dart';
 
 part 'note_state.dart';
 
 class NoteCubit extends Cubit<NoteState> {
-  NoteCubit() : super(NoteLoading());
+  NoteCubit(
+    this.car,
+  ) : super(NoteLoading());
+
+  Car car;
 
   void loadNotes() {
     emit(NoteLoading());
@@ -25,7 +30,9 @@ class NoteCubit extends Cubit<NoteState> {
       ),
     ];
 
+    List<Note> carNoteList = car.noteList ?? noteList;
+
     noteList.sort((Note a, Note b) => b.dateTime!.compareTo(a.dateTime!));
-    emit(NoteLoaded(noteList: noteList));
+    emit(NoteLoaded(noteList: carNoteList));
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:garage_app/components/common/widgets/custom_ligth_theme.dart';
 import 'package:garage_app/components/garage/garage_screen.dart';
 import 'package:garage_app/core/app_navigator/app_navigator.dart';
 import 'package:logging/logging.dart';
@@ -31,10 +32,7 @@ class MyGarage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(
-        primaryColor: Colors.amber[800],
-        backgroundColor: Colors.white,
-      ),
+      theme: CustomLightTheme.lightTheme,
       home: const GarageScreen(),
       initialRoute: GarageScreen.route,
       onGenerateRoute: AppNavigator.generateRoute,

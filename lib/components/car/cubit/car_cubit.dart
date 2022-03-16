@@ -1,9 +1,11 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:garage_app/api/car/car_service.dart';
 import 'package:garage_app/api/car/data/car.dart';
 import 'package:garage_app/api/note/data/note.dart';
 import 'package:garage_app/components/car/properties/cubit/car_property_cubit.dart';
+import 'package:garage_app/core/app_service_locator.dart';
 import 'package:meta/meta.dart';
 
 part 'car_state.dart';
@@ -27,7 +29,28 @@ class CarCubit extends Cubit<CarState> {
     }
   }
 
-  void addNoteToCar(Note note) {
-    // TODO: implement add to note
+  void addNoteToCar(String? noteText) {
+    if (state is CarLoadedState) {
+      Car car = (state as CarLoadedState).car;
+      if (noteText?.isNotEmpty ?? false) {
+        if (car.noteList?.isEmpty ?? true) {
+          car = car.copyWith(
+            noteList: <Note>[
+              Note(
+                id: 1,
+                note: noteText!,
+              ),
+            ],
+          );
+        } else {
+          car.noteList?.add(Note(
+            id: car.noteList?.length ?? 0 + 1,
+            note: noteText!,
+          ));
+        }
+        app<LocalCarService>().saveCar(car: car);
+        emit(CarLoadedState(car: car));
+      }
+    }
   }
 }
