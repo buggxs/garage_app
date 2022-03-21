@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:garage_app/api/document/data/document.dart';
+import 'package:garage_app/components/common/widgets/custom_ligth_theme.dart';
 import 'package:garage_app/components/common/widgets/garage_scaffold.dart';
 import 'package:garage_app/core/app_localizations.dart';
 
 class DocumentScreen extends StatelessWidget {
-  const DocumentScreen({Key? key}) : super(key: key);
+  const DocumentScreen({
+    Key? key,
+    Document? document,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +29,16 @@ class DocumentScreen extends StatelessWidget {
               children: [
                 Expanded(
                   child: ElevatedButton(
-                    onPressed: () => print('test'),
+                    style: Theme.of(context)
+                        .elevatedButtonTheme
+                        .style!
+                        .copyWith(
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                          CustomLightTheme.myGarageBlue,
+                        )),
+                    onPressed: () async {
+
+                    },
                     child: Text(
                         AppLocalizations.of(context)!.translate('upload')!),
                   ),

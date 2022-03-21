@@ -23,7 +23,7 @@ class Car {
   BrakeData? brakeData;
   TimingBeltData? timingBeltData;
   TechnicalData? technicalData;
-  List<Document>? documentList;
+  List<List<Document>>? documentList;
   List<Note>? noteList;
 
   Car(
@@ -55,7 +55,7 @@ class Car {
     BrakeData? brakeData,
     TimingBeltData? timingBeltData,
     TechnicalData? technicalData,
-    List<Document>? documentList,
+    List<List<Document>>? documentList,
     List<Note>? noteList,
   }) {
     return Car(

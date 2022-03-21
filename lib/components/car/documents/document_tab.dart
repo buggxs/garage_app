@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:garage_app/api/document/data/document.dart';
+import 'package:garage_app/components/car/documents/cubit/document_cubit.dart';
 import 'package:garage_app/components/car/documents/widgets/document_screen.dart';
 import 'package:garage_app/core/app_localizations.dart';
 
@@ -7,102 +10,112 @@ class DocumentTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            AppLocalizations.of(context)!
-                .translate('general_documents_heading')!,
-            style: const TextStyle(
-              fontSize: 22,
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
+    return BlocProvider(
+      create: (context) => DocumentCubit(),
+      child: const DocumentTabContent(),
+    );
+  }
+}
+
+class DocumentTabContent extends StatelessWidget {
+  const DocumentTabContent({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    DocumentCubit cubit = context.watch<DocumentCubit>();
+    DocumentState state = cubit.state;
+
+    Widget? child;
+
+    if (state is DocumentLoadedState) {
+      child = SingleChildScrollView(
+        padding: const EdgeInsets.all(16.0),
+        child: _documentList(context, state.documentList),
+      );
+    } else {
+      child = const Text('empty');
+    }
+    return child;
+  }
+
+  Widget _documentList(
+      BuildContext context, List<List<Document>>? documentList) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          AppLocalizations.of(context)!.translate('general_documents_heading')!,
+          style: const TextStyle(
+            fontSize: 22,
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 12.0, bottom: 22.0),
+          child: _generalDocuments(documentList?[0] ?? []),
+        ),
+        Text(
+          AppLocalizations.of(context)!.translate('invoice_documents_heading')!,
+          style: const TextStyle(
+              fontSize: 22, color: Colors.white, fontWeight: FontWeight.bold),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 12.0, bottom: 22.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _listTile(
+                text: 'Auspuff ausgetauscht',
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const DocumentScreen(),
+                  ),
+                ),
+              ),
+              _divider(),
+              _listTile(
+                text: 'Zahnriemenwechsel',
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const DocumentScreen(),
+                  ),
+                ),
+              ),
+              _divider(),
+              _listTile(
+                text: 'Ölwechsel',
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const DocumentScreen(),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _generalDocuments(List<Document> documents) {
+    return ListView.separated(
+      itemBuilder: (context, index) => _listTile(
+        text: documents[index].name,
+        onTap: () => Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => DocumentScreen(
+              document: documents[index],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 12.0, bottom: 22.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _listTile(
-                  text: 'Fahrzeugschein',
-                  onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const DocumentScreen(),
-                    ),
-                  ),
-                ),
-                _divider(),
-                _listTile(
-                  text: 'Fahrzeugbrief',
-                  onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const DocumentScreen(),
-                    ),
-                  ),
-                ),
-                _divider(),
-                _listTile(
-                  text: 'Kaufvertrag',
-                  onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const DocumentScreen(),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Text(
-            AppLocalizations.of(context)!
-                .translate('invoice_documents_heading')!,
-            style: const TextStyle(
-                fontSize: 22, color: Colors.white, fontWeight: FontWeight.bold),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 12.0, bottom: 22.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _listTile(
-                  text: 'Auspuff ausgetauscht',
-                  onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const DocumentScreen(),
-                    ),
-                  ),
-                ),
-                _divider(),
-                _listTile(
-                  text: 'Zahnriemenwechsel',
-                  onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const DocumentScreen(),
-                    ),
-                  ),
-                ),
-                _divider(),
-                _listTile(
-                  text: 'Ölwechsel',
-                  onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const DocumentScreen(),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
+        ),
       ),
+      separatorBuilder: (context, index) => _divider(),
+      itemCount: documents.length,
     );
   }
 

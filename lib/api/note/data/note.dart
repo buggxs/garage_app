@@ -6,13 +6,15 @@ part 'note.g.dart';
 class Note {
   int id;
   String note;
-  DateTime? dateTime = DateTime.now();
+  DateTime? dateTime;
 
   Note({
     required this.id,
     required this.note,
-    this.dateTime,
-  });
+    DateTime? dateTime,
+  }) {
+    this.dateTime = dateTime ?? DateTime.now();
+  }
 
   factory Note.fromJson(Map<String, dynamic> json) => _$NoteFromJson(json);
 

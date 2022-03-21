@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class LabeledText extends StatelessWidget {
   const LabeledText({
     Key? key,
-    required this.caption,
+    this.caption,
     required this.text,
     this.multiLineText = false,
     this.captionStyle,
@@ -12,7 +12,7 @@ class LabeledText extends StatelessWidget {
     this.padding,
   }) : super(key: key);
 
-  final String caption;
+  final String? caption;
   final String text;
   final bool multiLineText;
   final TextStyle? captionStyle;
@@ -26,10 +26,12 @@ class LabeledText extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            caption,
-            style: captionStyle ?? Theme.of(context).textTheme.caption,
-          ),
+          caption != null
+              ? Text(
+                  caption!,
+                  style: captionStyle ?? Theme.of(context).textTheme.caption,
+                )
+              : const SizedBox(),
           multiLineText
               ? AutoSizeText(
                   text,

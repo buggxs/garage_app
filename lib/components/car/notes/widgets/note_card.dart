@@ -13,17 +13,21 @@ class NoteCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          LabeledText(
-            caption: TextFormatter.formatGermanDate(note?.dateTime),
-            text: note!.note,
-            multiLineText: true,
+    return note != null
+        ? Card(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                LabeledText(
+                  caption: note?.dateTime != null
+                      ? TextFormatter.formatGermanDate(note?.dateTime)
+                      : null,
+                  text: note!.note,
+                  multiLineText: true,
+                )
+              ],
+            ),
           )
-        ],
-      ),
-    );
+        : const SizedBox();
   }
 }
