@@ -1,17 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:garage_app/api/car/data/car.dart';
 import 'package:garage_app/api/document/data/document.dart';
 import 'package:garage_app/components/car/documents/cubit/document_cubit.dart';
 import 'package:garage_app/components/car/documents/widgets/document_screen.dart';
 import 'package:garage_app/core/app_localizations.dart';
 
 class DocumentTab extends StatelessWidget {
-  const DocumentTab({Key? key}) : super(key: key);
+  const DocumentTab({
+    Key? key,
+    this.car,
+  }) : super(key: key);
+
+  final Car? car;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => DocumentCubit(),
+      create: (context) => DocumentCubit(car: car)..loadDocuments(),
       child: const DocumentTabContent(),
     );
   }
@@ -27,7 +33,11 @@ class DocumentTabContent extends StatelessWidget {
 
     Widget? child;
 
-    if (state is DocumentLoadedState) {
+    if (state is DocumentLoadingState) {
+      child = const Center(
+        child: CircularProgressIndicator(),
+      );
+    } else if (state is DocumentLoadedState) {
       child = SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: _documentList(context, state.documentList),
@@ -116,6 +126,7 @@ class DocumentTabContent extends StatelessWidget {
       ),
       separatorBuilder: (context, index) => _divider(),
       itemCount: documents.length,
+      shrinkWrap: true,
     );
   }
 

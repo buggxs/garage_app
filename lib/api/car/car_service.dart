@@ -163,6 +163,6 @@ class LocalCarService implements CarService {
   @override
   void saveCar({Car? car}) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('car_${car?.id}', jsonEncode(car));
+    prefs.setString('car_${car?.id}', jsonEncode(_car));
   }
 }
