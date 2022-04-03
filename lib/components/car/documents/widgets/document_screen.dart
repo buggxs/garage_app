@@ -21,7 +21,10 @@ class DocumentScreen extends StatelessWidget {
               child: Center(
                 child: Text(
                   AppLocalizations.of(context)!.translate('upload_document')!,
-                  style: Theme.of(context).textTheme.headline5,
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline5!
+                      .copyWith(color: Colors.white),
                 ),
               ),
             ),
@@ -36,11 +39,14 @@ class DocumentScreen extends StatelessWidget {
                             backgroundColor: MaterialStateProperty.all<Color>(
                           CustomLightTheme.myGarageBlue,
                         )),
-                    onPressed: () async {
-
-                    },
+                    onPressed: () async {},
                     child: Text(
-                        AppLocalizations.of(context)!.translate('upload')!),
+                      AppLocalizations.of(context)!.translate('upload')!,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 18.0,
+                      ),
+                    ),
                   ),
                 ),
               ],

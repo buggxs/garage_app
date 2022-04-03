@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:garage_app/api/car/data/car.dart';
 import 'package:garage_app/components/car/documents/document_tab.dart';
+import 'package:garage_app/components/car/documents/widgets/add_document_dialog.dart';
 import 'package:garage_app/components/car/notes/notes_tab.dart';
 import 'package:garage_app/components/car/notes/widgets/add_note_dialog.dart';
 import 'package:garage_app/components/car/properties/property_tab.dart';
@@ -113,7 +114,7 @@ class CarScreenContent extends StatelessWidget {
         ),
         Tab(
           height: kTabHeight,
-          icon: const Icon(Icons.note_add),
+          icon: const Icon(Icons.sticky_note_2),
           text: AppLocalizations.of(context)!.translate('notes')!,
           iconMargin: const EdgeInsets.all(0),
         ),
@@ -127,7 +128,18 @@ class CarScreenContent extends StatelessWidget {
       case 0:
         return null;
       case 1:
-        return null;
+        return FloatingActionButton(
+          onPressed: () async {
+            final Map<String, dynamic> documentData =
+                await app<PopupService>().showPopUp(
+              context,
+              const Text('Dokument hinzufügen'),
+              AddDocumentDialog(),
+            );
+            cubit.addDocumentToCar(documentData);
+          },
+          child: const Icon(Icons.inventory_outlined),
+        );
       case 2:
         return FloatingActionButton(
           onPressed: () {
@@ -139,7 +151,7 @@ class CarScreenContent extends StatelessWidget {
               ),
             );
           },
-          child: const Icon(Icons.note_add),
+          child: const Icon(Icons.sticky_note_2_outlined),
         );
       default:
         return null;

@@ -7,7 +7,7 @@ class AddNoteDialog extends StatelessWidget {
     this.onSubmit,
   }) : super(key: key);
 
-  void Function(String?)? onSubmit;
+  final void Function(String?)? onSubmit;
 
   final _formKey = GlobalKey<FormState>();
 

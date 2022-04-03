@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 class PopupService {
-  Future<String> selectDate(
-      {required BuildContext context,
-      TextEditingController? controller}) async {
+  Future<String> selectDate({
+    required BuildContext context,
+    TextEditingController? controller,
+  }) async {
     DateTime selectedDate = DateTime.now();
 
     final DateTime? picked = await showDatePicker(
@@ -15,7 +16,7 @@ class PopupService {
 
     if (picked != null && picked != selectedDate) {
       String date =
-          '${picked.day}.${picked.month.toString().length == 1 ? '0${picked.month}' : picked.month}.${picked.year}';
+          '''${picked.day}.${picked.month.toString().length == 1 ? '0${picked.month}' : picked.month}.${picked.year}''';
 
       if (controller != null) {
         controller.text = date;
@@ -23,11 +24,16 @@ class PopupService {
       }
       return date;
     }
-    return '${selectedDate.day}.${selectedDate.month.toString().length == 1 ? '0${selectedDate.month}' : selectedDate.month}.${selectedDate.year}';
+    return '''${selectedDate.day}
+    .${selectedDate.month.toString().length == 1 ? '0${selectedDate.month}' : selectedDate.month}
+    .${selectedDate.year}''';
   }
 
   Future<dynamic> showPopUp(
-      BuildContext context, Widget? title, Widget buildPopupDialog) {
+    BuildContext context,
+    Widget? title,
+    Widget buildPopupDialog,
+  ) {
     return showDialog(
       context: context,
       builder: (BuildContext context) => AlertDialog(

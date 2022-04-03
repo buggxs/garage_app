@@ -62,8 +62,8 @@ class DocumentTabContent extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(top: 12.0, bottom: 22.0),
-          child: _generalDocuments(documentList?[0] ?? []),
+          padding: const EdgeInsets.only(top: 12.0, bottom: 25.0),
+          child: _listingDocuments(documentList?[0] ?? []),
         ),
         Text(
           AppLocalizations.of(context)!.translate('invoice_documents_heading')!,
@@ -71,47 +71,27 @@ class DocumentTabContent extends StatelessWidget {
               fontSize: 22, color: Colors.white, fontWeight: FontWeight.bold),
         ),
         Padding(
-          padding: const EdgeInsets.only(top: 12.0, bottom: 22.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _listTile(
-                text: 'Auspuff ausgetauscht',
-                onTap: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const DocumentScreen(),
-                  ),
-                ),
-              ),
-              _divider(),
-              _listTile(
-                text: 'Zahnriemenwechsel',
-                onTap: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const DocumentScreen(),
-                  ),
-                ),
-              ),
-              _divider(),
-              _listTile(
-                text: 'Ölwechsel',
-                onTap: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const DocumentScreen(),
-                  ),
-                ),
-              ),
-            ],
-          ),
+          padding: const EdgeInsets.only(top: 12.0, bottom: 25.0),
+          child: _listingDocuments(documentList?[1] ?? []),
+        ),
+        documentList?[2].isNotEmpty ?? false
+            ? Text(
+                AppLocalizations.of(context)!.translate('other_documents')!,
+                style: const TextStyle(
+                    fontSize: 22,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold),
+              )
+            : const SizedBox(),
+        Padding(
+          padding: const EdgeInsets.only(top: 12.0, bottom: 25.0),
+          child: _listingDocuments(documentList?[2] ?? []),
         ),
       ],
     );
   }
 
-  Widget _generalDocuments(List<Document> documents) {
+  Widget _listingDocuments(List<Document> documents) {
     return ListView.separated(
       itemBuilder: (context, index) => _listTile(
         text: documents[index].name,
