@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:garage_app/api/car/data/technical_data.dart';
 import 'package:garage_app/api/car/data/timing_belt_data.dart';
 import 'package:garage_app/api/document/data/document.dart';
@@ -12,7 +13,7 @@ import 'oil_data.dart';
 part 'car.g.dart';
 
 @JsonSerializable()
-class Car {
+class Car extends Equatable {
   int id;
   String? name;
   double? mileage;
@@ -194,4 +195,20 @@ class Car {
     }
     return 'success';
   }
+
+  @override
+  List<Object?> get props => [
+        id,
+        name,
+        mileage,
+        date,
+        vintage,
+        oilData,
+        airConditioner,
+        brakeData,
+        timingBeltData,
+        technicalData,
+        documentList,
+        noteList,
+      ];
 }

@@ -1,9 +1,10 @@
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'timing_belt_data.g.dart';
 
 @JsonSerializable()
-class TimingBeltData {
+class TimingBeltData extends Equatable {
   int id;
   double? lastChangeMileage;
   DateTime? lastChangeDate;
@@ -36,4 +37,13 @@ class TimingBeltData {
         nextChangeMileage: nextChangeMileage ?? this.nextChangeMileage,
         nextChangeDate: nextChangeDate ?? this.nextChangeDate,
       );
+
+  @override
+  List<Object?> get props => [
+        id,
+        lastChangeMileage,
+        lastChangeDate,
+        nextChangeMileage,
+        nextChangeDate,
+      ];
 }

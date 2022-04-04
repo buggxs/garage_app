@@ -1,9 +1,10 @@
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'brake_data.g.dart';
 
 @JsonSerializable()
-class BrakeData {
+class BrakeData extends Equatable {
   int id;
   double? lastChangeMileage;
   DateTime? lastChangeDate;
@@ -36,4 +37,13 @@ class BrakeData {
         nextChangeMileage: nextChangeMileage ?? this.nextChangeMileage,
         nextChangeDate: nextChangeDate ?? this.nextChangeDate,
       );
+
+  @override
+  List<Object?> get props => [
+        id,
+        lastChangeDate,
+        lastChangeMileage,
+        nextChangeDate,
+        nextChangeMileage,
+      ];
 }

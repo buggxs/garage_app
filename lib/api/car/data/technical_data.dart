@@ -1,9 +1,10 @@
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'technical_data.g.dart';
 
 @JsonSerializable()
-class TechnicalData {
+class TechnicalData extends Equatable {
   int id;
   String? brand;
   String? model;
@@ -40,4 +41,14 @@ class TechnicalData {
         hsn: hsn ?? this.hsn,
         tsn: tsn ?? this.tsn,
       );
+
+  @override
+  List<Object?> get props => [
+        id,
+        brand,
+        model,
+        type,
+        hsn,
+        tsn,
+      ];
 }

@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:garage_app/api/car/car_service.dart';
@@ -55,20 +56,75 @@ class CarCubit extends Cubit<CarState> {
     }
   }
 
-  void addDocumentToCar(Map<String, dynamic>? documentData) {
+  void addDocumentToCar(Map<String, dynamic>? documentData) async {
     if (state is CarLoadedState) {
       Car car = (state as CarLoadedState).car;
       if (documentData?.isNotEmpty ?? false) {
         if (car.documentList?.isEmpty ?? true) {
-          //TODO: check in which list document should be saved
-          car.documentList = <Document>[
-            Document(
-              id: 1,
-              name: documentData?['name'],
-            )
-          ].cast<List<Document>>();
-        } else {}
-        print(documentData);
+          switch (documentData!['type']) {
+            case 'General documents':
+              car.documentList?[0] = <Document>[
+                Document(
+                  id: 1,
+                  name: documentData['name'],
+                )
+              ];
+              break;
+            case 'Invoices':
+              car.documentList?[1] = <Document>[
+                Document(
+                  id: 1,
+                  name: documentData['name'],
+                )
+              ];
+              break;
+            case 'Other documents':
+              car.documentList?[2] = <Document>[
+                Document(
+                  id: 1,
+                  name: documentData['name'],
+                )
+              ];
+              break;
+            default:
+              car.documentList?[0] = <Document>[
+                Document(
+                  id: 1,
+                  name: documentData['name'],
+                )
+              ];
+              break;
+          }
+        } else {
+          switch (documentData!['type']) {
+            case 'General documents':
+              car.documentList?[0].add(Document(
+                id: 1,
+                name: documentData['name'],
+              ));
+              break;
+            case 'Invoices':
+              car.documentList?[1].add(Document(
+                id: 1,
+                name: documentData['name'],
+              ));
+              break;
+            case 'Other documents':
+              car.documentList?[2].add(Document(
+                id: 1,
+                name: documentData['name'],
+              ));
+              break;
+            default:
+              car.documentList?[0].add(Document(
+                id: 1,
+                name: documentData['name'],
+              ));
+              break;
+          }
+        }
+        await app<LocalCarService>().saveCar(car: car);
+        emit(CarLoadedState(car: car));
       }
     }
   }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:garage_app/api/car/data/car.dart';
 import 'package:garage_app/api/document/data/document.dart';
+import 'package:garage_app/components/car/cubit/car_cubit.dart';
 import 'package:garage_app/components/car/documents/cubit/document_cubit.dart';
 import 'package:garage_app/components/car/documents/widgets/document_screen.dart';
 import 'package:garage_app/core/app_localizations.dart';
@@ -16,8 +17,13 @@ class DocumentTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    CarCubit carCubit = context.watch<CarCubit>();
+
     return BlocProvider(
-      create: (context) => DocumentCubit(car: car)..loadDocuments(),
+      create: (context) => DocumentCubit(
+        carCubit: carCubit,
+        car: car,
+      )..loadDocuments(),
       child: const DocumentTabContent(),
     );
   }
@@ -135,7 +141,7 @@ class DocumentTabContent extends StatelessWidget {
       child: Container(
         height: 3,
         width: double.infinity,
-        decoration: BoxDecoration(color: Colors.white),
+        decoration: const BoxDecoration(color: Colors.white),
       ),
     );
   }

@@ -1,9 +1,10 @@
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'air_conditioner_data.g.dart';
 
 @JsonSerializable()
-class AirConditionerData {
+class AirConditionerData extends Equatable {
   int id;
   double? lastChangeMileage;
   DateTime? lastChangeDate;
@@ -36,4 +37,13 @@ class AirConditionerData {
         nextChangeMileage: lastChangeMileage ?? this.lastChangeMileage,
         nextChangeDate: nextChangeDate ?? this.nextChangeDate,
       );
+
+  @override
+  List<Object?> get props => [
+        id,
+        lastChangeMileage,
+        lastChangeDate,
+        nextChangeMileage,
+        nextChangeDate,
+      ];
 }

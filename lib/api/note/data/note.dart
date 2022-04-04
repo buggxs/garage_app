@@ -1,9 +1,10 @@
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'note.g.dart';
 
 @JsonSerializable()
-class Note {
+class Note extends Equatable {
   int id;
   String note;
   DateTime? dateTime;
@@ -19,4 +20,11 @@ class Note {
   factory Note.fromJson(Map<String, dynamic> json) => _$NoteFromJson(json);
 
   Map<String, dynamic> toJson() => _$NoteToJson(this);
+
+  @override
+  List<Object?> get props => [
+        id,
+        note,
+        dateTime,
+      ];
 }

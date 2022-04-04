@@ -1,9 +1,10 @@
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'oil_data.g.dart';
 
 @JsonSerializable()
-class OilData {
+class OilData extends Equatable {
   int id;
   double? lastChangeMileage;
   DateTime? lastChangeDate;
@@ -44,4 +45,15 @@ class OilData {
         oilBrand: oilBrand ?? this.oilBrand,
         oilType: oilType ?? this.oilType,
       );
+
+  @override
+  List<Object?> get props => [
+        id,
+        lastChangeMileage,
+        lastChangeDate,
+        nextChangeMileage,
+        nextChangeDate,
+        oilBrand,
+        oilType,
+      ];
 }
