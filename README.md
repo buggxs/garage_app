@@ -1,16 +1,7 @@
-# garage_app
+# MyGarage App
 
-A new Flutter project.
+An app which pictures some parking lots where you can park cars. These cars could easily created with the car identification numbers hsn/tsn. Also a car could created manually by filling out the technical car data. If for a specific car the TÜV or other data is entered, the app helps to remember them. Oil, timing belt, air conditioning and brakes data can be stored to determine at what interval they need to be changed to keep the car for a long time.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+This project is written with Dart and Flutter.
