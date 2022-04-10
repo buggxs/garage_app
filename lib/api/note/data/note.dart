@@ -17,6 +17,8 @@ class Note extends Equatable {
     this.dateTime = dateTime ?? DateTime.now();
   }
 
+  String get getNote => note.trim().replaceAll('\t', '');
+
   factory Note.fromJson(Map<String, dynamic> json) => _$NoteFromJson(json);
 
   Map<String, dynamic> toJson() => _$NoteToJson(this);

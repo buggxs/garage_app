@@ -1,38 +1,40 @@
 import 'package:bloc/bloc.dart';
+import 'package:garage_app/api/car/car_service.dart';
 import 'package:garage_app/api/car/data/car.dart';
 import 'package:garage_app/api/note/data/note.dart';
+import 'package:garage_app/components/car/cubit/car_cubit.dart';
+import 'package:garage_app/core/app_service_locator.dart';
 import 'package:meta/meta.dart';
 
 part 'note_state.dart';
 
 class NoteCubit extends Cubit<NoteState> {
-  NoteCubit(
+  NoteCubit({
+    required this.carCubit,
     this.car,
-  ) : super(NoteLoading());
+  }) : super(NoteLoading()) {
+    carCubit.stream.listen((carState) {
+      if (carState is CarLoadedState) {
+        loadNotes();
+      }
+    });
+  }
 
-  Car car;
+  CarCubit carCubit;
+  Car? car;
 
-  void loadNotes() {
+  void loadNotes() async {
     emit(NoteLoading());
 
-    final List<Note> noteList = <Note>[
-      Note(
-        id: 1,
-        note:
-            'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam',
-        dateTime: DateTime(2022, 2, 20),
-      ),
-      Note(
-        id: 2,
-        note:
-            'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam',
-        dateTime: DateTime.now(),
-      ),
-    ];
+    if (car == null) {
+      emit(NoteError(message: "Car konnte nicht geladen werden"));
+    }
 
-    List<Note> carNoteList = car.noteList ?? noteList;
+    Car _car = await app<LocalCarService>().getCarById(carId: car!.id);
 
-    noteList.sort((Note a, Note b) => b.dateTime!.compareTo(a.dateTime!));
+    List<Note> carNoteList = _car.noteList ?? <Note>[];
+
+    carNoteList.sort((Note a, Note b) => b.dateTime!.compareTo(a.dateTime!));
     emit(NoteLoaded(noteList: carNoteList));
   }
 }

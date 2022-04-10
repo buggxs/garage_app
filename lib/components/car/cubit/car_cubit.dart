@@ -8,6 +8,7 @@ import 'package:garage_app/api/document/data/document.dart';
 import 'package:garage_app/api/note/data/note.dart';
 import 'package:garage_app/components/car/properties/cubit/car_property_cubit.dart';
 import 'package:garage_app/core/app_service_locator.dart';
+import 'package:logging/logging.dart';
 import 'package:meta/meta.dart';
 
 part 'car_state.dart';
@@ -20,6 +21,8 @@ class CarCubit extends Cubit<CarState> {
 
   CarPropertyCubit carPropertyCubit;
 
+  var log = Logger("CarCubit");
+
   Car car;
 
   static CarCubit of(BuildContext context) =>
@@ -31,7 +34,7 @@ class CarCubit extends Cubit<CarState> {
     }
   }
 
-  void addNoteToCar(String? noteText) {
+  void addNoteToCar(String? noteText) async {
     if (state is CarLoadedState) {
       Car car = (state as CarLoadedState).car;
       if (noteText?.isNotEmpty ?? false) {
@@ -50,7 +53,8 @@ class CarCubit extends Cubit<CarState> {
             note: noteText!,
           ));
         }
-        app<LocalCarService>().saveCar(car: car);
+        log.info('Added note "$noteText" to car ${car.name}');
+        await app<LocalCarService>().saveCar(car: car);
         emit(CarLoadedState(car: car));
       }
     }

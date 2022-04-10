@@ -4,6 +4,7 @@ import 'package:garage_app/api/api.dart';
 import 'package:garage_app/api/document/data/document.dart';
 import 'package:garage_app/api/note/data/note.dart';
 import 'package:http/http.dart' as http;
+import 'package:logging/logging.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class CarService {
@@ -85,6 +86,8 @@ class OnlineCarService extends CarService {
 }
 
 class LocalCarService implements CarService {
+  var log = Logger("LocalCarService");
+
   final Car _car = Car(
       id: 1,
       name: "Giggolo",
@@ -126,9 +129,8 @@ class LocalCarService implements CarService {
       noteList: <Note>[
         Note(
           id: 1,
-          note: '''Lorem ipsum dolor sit amet, consetetur sadipscing elitr, 
-            sed diam nonumy eirmod tempor invidunt ut 
-            labore et dolore magna aliquyam''',
+          note:
+              '''Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam''',
           dateTime: DateTime(2022, 2, 20),
         ),
         Note(
@@ -156,13 +158,15 @@ class LocalCarService implements CarService {
   @override
   Future<Car> getCarById({required int carId}) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String carString = prefs.get('car_${_car.id}');
+    String carString = prefs.get('car_$carId');
+    log.info('Fetching car with id $carId');
     return Car.fromJson(jsonDecode(carString));
   }
 
   @override
   Future<void> saveCar({Car? car}) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('car_${car?.id}', jsonEncode(_car));
+    prefs.setString('car_${car?.id}', jsonEncode(car));
+    log.info('Saved car ${car?.name} to local storage');
   }
 }

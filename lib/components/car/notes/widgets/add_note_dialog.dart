@@ -9,6 +9,8 @@ class AddNoteDialog extends StatelessWidget {
 
   final void Function(String?)? onSubmit;
 
+  String? noteText;
+
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -21,9 +23,11 @@ class AddNoteDialog extends StatelessWidget {
             Row(
               children: [
                 CarDataInput(
-                  onSave: onSubmit,
+                  onSave: (String value) {
+                    noteText = value;
+                  },
                   maxLines: 5,
-                  inputDecoration: InputDecoration(
+                  inputDecoration: const InputDecoration(
                     alignLabelWithHint: true,
                     label: Text('Hello'),
                     border: OutlineInputBorder(
@@ -41,10 +45,10 @@ class AddNoteDialog extends StatelessWidget {
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         _formKey.currentState!.save();
-                        Navigator.pop(context);
+                        Navigator.pop(context, noteText);
                       }
                     },
-                    child: const Text("Aktualisieren"),
+                    child: const Text("Hinzufügen"),
                   ),
                 ),
               ],

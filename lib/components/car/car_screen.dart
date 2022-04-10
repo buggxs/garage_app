@@ -142,14 +142,13 @@ class CarScreenContent extends StatelessWidget {
         );
       case 2:
         return FloatingActionButton(
-          onPressed: () {
-            app<PopupService>().showPopUp(
+          onPressed: () async {
+            String? noteText = await app<PopupService>().showPopUp(
               context,
-              Text('Notiz hinzufügen'),
-              AddNoteDialog(
-                onSubmit: cubit.addNoteToCar,
-              ),
+              const Text('Notiz hinzufügen'),
+              AddNoteDialog(),
             );
+            cubit.addNoteToCar(noteText);
           },
           child: const Icon(Icons.sticky_note_2_outlined),
         );

@@ -44,6 +44,7 @@ class LabeledText extends StatelessWidget {
                 )
               : AutoSizeText(
                   text,
+                  textAlign: TextAlign.start,
                   style: textStyle ??
                       const TextStyle(
                         fontWeight: FontWeight.bold,
