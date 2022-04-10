@@ -64,13 +64,15 @@ class CarCubit extends Cubit<CarState> {
     if (state is CarLoadedState) {
       Car car = (state as CarLoadedState).car;
       if (documentData?.isNotEmpty ?? false) {
+        String documentName = documentData?['name'];
+        String documentType = documentData?['type'];
         if (car.documentList?.isEmpty ?? true) {
-          switch (documentData!['type']) {
+          switch (documentType) {
             case 'General documents':
               car.documentList?[0] = <Document>[
                 Document(
                   id: 1,
-                  name: documentData['name'],
+                  name: documentName,
                 )
               ];
               break;
@@ -78,7 +80,7 @@ class CarCubit extends Cubit<CarState> {
               car.documentList?[1] = <Document>[
                 Document(
                   id: 1,
-                  name: documentData['name'],
+                  name: documentName,
                 )
               ];
               break;
@@ -86,7 +88,7 @@ class CarCubit extends Cubit<CarState> {
               car.documentList?[2] = <Document>[
                 Document(
                   id: 1,
-                  name: documentData['name'],
+                  name: documentName,
                 )
               ];
               break;
@@ -94,39 +96,41 @@ class CarCubit extends Cubit<CarState> {
               car.documentList?[0] = <Document>[
                 Document(
                   id: 1,
-                  name: documentData['name'],
+                  name: documentName,
                 )
               ];
               break;
           }
         } else {
-          switch (documentData!['type']) {
+          switch (documentType) {
             case 'General documents':
               car.documentList?[0].add(Document(
                 id: 1,
-                name: documentData['name'],
+                name: documentName,
               ));
               break;
             case 'Invoices':
               car.documentList?[1].add(Document(
                 id: 1,
-                name: documentData['name'],
+                name: documentName,
               ));
               break;
             case 'Other documents':
               car.documentList?[2].add(Document(
                 id: 1,
-                name: documentData['name'],
+                name: documentName,
               ));
               break;
             default:
               car.documentList?[0].add(Document(
                 id: 1,
-                name: documentData['name'],
+                name: documentName,
               ));
               break;
           }
         }
+        log.info('''Saving document $documentName of type 
+            $documentType to car ${car.name}''');
         await app<LocalCarService>().saveCar(car: car);
         emit(CarLoadedState(car: car));
       }
