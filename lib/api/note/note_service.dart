@@ -35,7 +35,7 @@ class LocalNoteService implements NoteService {
       if (carId == null) return;
       car = await app<CarService>().getCarById(carId: carId);
     }
-    car.noteList?.add(note);
-    app<CarService>().saveCar(car: car);
+    car?.noteList?.add(note);
+    app<CarService>().saveCar(car: car!);
   }
 }

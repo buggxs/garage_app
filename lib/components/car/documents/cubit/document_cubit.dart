@@ -38,12 +38,12 @@ class DocumentCubit extends Cubit<DocumentState> {
       return;
     }
 
-    Car _car = await app<LocalCarService>().getCarById(carId: car!.id);
+    Car? _car = await app<LocalCarService>().getCarById(carId: car!.id);
 
     List<List<Document>> documents =
-        _car.documentList ?? <List<Document>>[[], [], []];
+        _car?.documentList ?? <List<Document>>[[], [], []];
 
-    _log.info('Loaded documents of car: ${_car.name}');
+    _log.info('Loaded documents of car: ${_car?.name}');
 
     emit(DocumentLoadedState(documentList: documents));
   }

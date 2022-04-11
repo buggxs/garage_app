@@ -3,8 +3,8 @@ import 'package:garage_app/api/api.dart';
 import 'package:garage_app/components/car/properties/property_tab.dart';
 import 'package:garage_app/components/car/properties/util/card_content.dart';
 import 'package:garage_app/components/common/widgets/labled_text.dart';
-import 'package:garage_app/core/utils/number_formatter.dart';
-import 'package:garage_app/core/utils/text_formatter.dart';
+import 'package:garage_app/misc/number_formatter.dart';
+import 'package:garage_app/misc/text_formatter.dart';
 
 class PropertyCard extends StatelessWidget {
   PropertyCard(

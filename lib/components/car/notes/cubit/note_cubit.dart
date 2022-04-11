@@ -34,9 +34,9 @@ class NoteCubit extends Cubit<NoteState> {
       emit(NoteError(message: "Car konnte nicht geladen werden"));
     }
 
-    Car _car = await app<LocalCarService>().getCarById(carId: car!.id);
+    Car? _car = await app<LocalCarService>().getCarById(carId: car!.id);
 
-    List<Note> carNoteList = _car.noteList ?? <Note>[];
+    List<Note> carNoteList = _car?.noteList ?? <Note>[];
 
     _log.info('Loaded ${carNoteList.length} notes');
 

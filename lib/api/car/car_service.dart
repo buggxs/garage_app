@@ -8,7 +8,7 @@ import 'package:logging/logging.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class CarService {
-  Future<Car> getCarById({required int carId});
+  Future<Car?> getCarById({required int carId});
 
   void saveCar({Car car});
 }
@@ -156,11 +156,14 @@ class LocalCarService implements CarService {
       ]);
 
   @override
-  Future<Car> getCarById({required int carId}) async {
+  Future<Car?> getCarById({required int carId}) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String carString = prefs.get('car_$carId');
+    String? carString = prefs.get('car_$carId');
     log.info('Fetching car with id $carId');
-    return Car.fromJson(jsonDecode(carString));
+    if (carString?.isEmpty ?? true) {
+      return null;
+    }
+    return Car.fromJson(jsonDecode(carString!));
   }
 
   @override
