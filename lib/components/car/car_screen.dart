@@ -70,7 +70,7 @@ class CarScreenContent extends StatelessWidget {
           ),
           body: TabBarView(
             children: <Widget>[
-              PropertyTab(car: state.car),
+              const PropertyTab(),
               DocumentTab(car: state.car),
               NotesTab(car: state.car),
             ],

@@ -27,7 +27,7 @@ class GarageLoadingParkedCars implements GarageEvent {
 
     List<Car> carList = <Car>[];
 
-    Car? car = await app<LocalCarService>().getCarById(carId: 1);
+    Car? car = await app<CarService>().getCarById(carId: 1);
 
     if (car != null) {
       carList.add(car);
@@ -54,7 +54,7 @@ class GarageParkingCarEvent implements GarageEvent {
   @override
   Stream<GarageState> applyAsync({required GarageBloc bloc}) async* {
     if (bloc.state is GarageLoadedState) {
-      Car? car = await app<LocalCarService>().getCarById(carId: 1);
+      Car? car = await app<CarService>().getCarById(carId: 1);
       log.info('loaded car (${car?.id})');
     }
   }
@@ -89,7 +89,7 @@ class GarageUpdateCarEvent implements GarageEvent {
           ? double.tryParse(lastChangeMileageString!)
           : null;
 
-      app<LocalCarService>().saveCar(
+      app<CarService>().saveCar(
         car: car.copyWith(
           mileage: lastChangeMileage,
           date: lastChangeDate,

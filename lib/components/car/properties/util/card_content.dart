@@ -3,7 +3,9 @@ import 'package:garage_app/components/car/properties/property_tab.dart';
 import 'package:garage_app/core/app_localizations.dart';
 
 Map<String, dynamic>? getCardContent(
-    BuildContext context, CarProperty carProperty) {
+  BuildContext context,
+  CarProperty carProperty,
+) {
   final Map<CarProperty, Map<String, dynamic>> content = {
     CarProperty.oil: {
       'card_heading':

@@ -5,9 +5,9 @@ import 'package:garage_app/api/api.dart';
 import 'package:garage_app/components/car/cubit/car_cubit.dart';
 import 'package:garage_app/components/car/properties/cubit/car_property_cubit.dart';
 import 'package:garage_app/components/car/properties/details/property_details_screen.dart';
+import 'package:garage_app/components/car/properties/widgets/info_card.dart';
 import 'package:garage_app/components/car/properties/widgets/property_card.dart';
 import 'package:garage_app/components/car/properties/widgets/technical_card.dart';
-import 'package:garage_app/components/common/widgets/labled_text.dart';
 import 'package:garage_app/components/common/widgets/modal_service.dart';
 import 'package:garage_app/core/app_service_locator.dart';
 import 'package:garage_app/misc/number_formatter.dart';
@@ -21,9 +21,9 @@ enum CarProperty {
 }
 
 class PropertyTab extends StatelessWidget {
-  const PropertyTab({required this.car, Key? key}) : super(key: key);
-
-  final Car car;
+  const PropertyTab({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -51,155 +51,114 @@ class PropertyTabContent extends StatelessWidget {
     Car _car = cubit.state.car;
 
     return SingleChildScrollView(
-        padding: const EdgeInsets.only(bottom: 16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            CarouselSlider(
-              options: CarouselOptions(
-                  enlargeCenterPage: true,
-                  enableInfiniteScroll: false,
-                  viewportFraction: 1.0),
-              items: imageList.map((imageUrl) {
-                return Image(
-                  image: AssetImage(imageUrl),
-                  fit: BoxFit.cover,
-                );
-              }).toList(),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: 16.0,
-                horizontal: 16.0,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  infoCard(
-                    context,
-                    "TÜV bis: ",
-                    TextFormatter.formatDateToMonthAndYear(_car.date),
-                  ),
-                  infoCard(
-                    context,
-                    "Kilometerstand: ",
-                    NumberFormatter.mileageFormatter(_car.mileage),
-                  ),
-                  infoCard(
-                    context,
-                    "Baujahr: ",
-                    _car.vintage.toString(),
-                  ),
-                ],
-              ),
-            ),
-            PropertyCard(
-              _car.oilData,
-              type: _car.calculateCarType(_car.oilData),
-              onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const PropertyDetailsScreen(),
-                ),
-              ),
-              onLongPress: () => app<ModalService>().showPropertyUpdateModal(
-                context: context,
-                type: _car.calculateCarType(_car.oilData),
-                data: _car.oilData,
-                onUpdate: cubit.updateCarProperty,
-              ),
-            ),
-            PropertyCard(
-              _car.airConditioner,
-              type: _car.calculateCarType(_car.airConditioner),
-              onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const PropertyDetailsScreen(),
-                ),
-              ),
-              onLongPress: () => app<ModalService>().showPropertyUpdateModal(
-                context: context,
-                type: _car.calculateCarType(_car.airConditioner),
-                data: _car.airConditioner,
-                onUpdate: cubit.updateCarProperty,
-              ),
-            ),
-            PropertyCard(
-              _car.brakeData,
-              type: _car.calculateCarType(_car.brakeData),
-              onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const PropertyDetailsScreen(),
-                ),
-              ),
-              onLongPress: () => app<ModalService>().showPropertyUpdateModal(
-                context: context,
-                type: _car.calculateCarType(_car.brakeData),
-                data: _car.brakeData,
-                onUpdate: cubit.updateCarProperty,
-              ),
-            ),
-            PropertyCard(
-              _car.timingBeltData,
-              type: _car.calculateCarType(_car.timingBeltData),
-              onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const PropertyDetailsScreen(),
-                ),
-              ),
-              onLongPress: () => app<ModalService>().showPropertyUpdateModal(
-                context: context,
-                type: _car.calculateCarType(_car.timingBeltData),
-                data: _car.timingBeltData,
-                onUpdate: cubit.updateCarProperty,
-              ),
-            ),
-            TechnicalCard(
-              technicalData: _car.technicalData,
-            ),
-          ],
-        ));
-  }
-
-  Widget divider() {
-    return Expanded(
+      padding: const EdgeInsets.only(bottom: 16.0),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            color: Colors.black,
-            child: Container(
-              height: 10,
-              color: Colors.white,
+          CarouselSlider(
+            options: CarouselOptions(
+                enlargeCenterPage: true,
+                enableInfiniteScroll: false,
+                viewportFraction: 1.0),
+            items: imageList.map((imageUrl) {
+              return Image(
+                image: AssetImage(imageUrl),
+                fit: BoxFit.cover,
+              );
+            }).toList(),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              vertical: 16.0,
+              horizontal: 16.0,
             ),
-          )
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                InfoCard(
+                  caption: "TÜV bis: ",
+                  content: TextFormatter.formatDateToMonthAndYear(_car.date),
+                ),
+                InfoCard(
+                  caption: "Kilometerstand: ",
+                  content: NumberFormatter.mileageFormatter(_car.mileage),
+                ),
+                InfoCard(
+                  caption: "Baujahr: ",
+                  content: _car.vintage.toString(),
+                ),
+              ],
+            ),
+          ),
+          PropertyCard(
+            _car.oilData,
+            type: _car.calculateCarType(_car.oilData),
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const PropertyDetailsScreen(),
+              ),
+            ),
+            onLongPress: () => app<ModalService>().showPropertyUpdateModal(
+              context: context,
+              type: _car.calculateCarType(_car.oilData),
+              data: _car.oilData,
+              onUpdate: cubit.updateCarProperty,
+            ),
+          ),
+          PropertyCard(
+            _car.airConditioner,
+            type: _car.calculateCarType(_car.airConditioner),
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const PropertyDetailsScreen(),
+              ),
+            ),
+            onLongPress: () => app<ModalService>().showPropertyUpdateModal(
+              context: context,
+              type: _car.calculateCarType(_car.airConditioner),
+              data: _car.airConditioner,
+              onUpdate: cubit.updateCarProperty,
+            ),
+          ),
+          PropertyCard(
+            _car.brakeData,
+            type: _car.calculateCarType(_car.brakeData),
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const PropertyDetailsScreen(),
+              ),
+            ),
+            onLongPress: () => app<ModalService>().showPropertyUpdateModal(
+              context: context,
+              type: _car.calculateCarType(_car.brakeData),
+              data: _car.brakeData,
+              onUpdate: cubit.updateCarProperty,
+            ),
+          ),
+          PropertyCard(
+            _car.timingBeltData,
+            type: _car.calculateCarType(_car.timingBeltData),
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const PropertyDetailsScreen(),
+              ),
+            ),
+            onLongPress: () => app<ModalService>().showPropertyUpdateModal(
+              context: context,
+              type: _car.calculateCarType(_car.timingBeltData),
+              data: _car.timingBeltData,
+              onUpdate: cubit.updateCarProperty,
+            ),
+          ),
+          TechnicalCard(
+            technicalData: _car.technicalData,
+          ),
         ],
-      ),
-    );
-  }
-
-  Widget infoCard(BuildContext context, String caption, String content) {
-    return Card(
-      shape: RoundedRectangleBorder(
-        side: BorderSide(
-          color: Colors.white,
-        ),
-        borderRadius: BorderRadius.circular(4.0),
-      ),
-      color: Color.fromRGBO(0, 91, 140, 1.0),
-      child: LabeledText(
-        caption: caption,
-        text: content,
-        textStyle: const TextStyle(
-          fontWeight: FontWeight.bold,
-          color: Colors.white,
-        ),
-        captionStyle: Theme.of(context).textTheme.caption!.apply(
-              color: Colors.white,
-            ),
       ),
     );
   }

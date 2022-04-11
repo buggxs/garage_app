@@ -54,7 +54,7 @@ class CarCubit extends Cubit<CarState> {
           ));
         }
         log.info('Added note "$noteText" to car ${car.name}');
-        await app<LocalCarService>().saveCar(car: car);
+        await app<CarService>().saveCar(car: car);
         emit(CarLoadedState(car: car));
       }
     }
@@ -131,7 +131,7 @@ class CarCubit extends Cubit<CarState> {
         }
         log.info('''Saving document $documentName of type 
             $documentType to car ${car.name}''');
-        await app<LocalCarService>().saveCar(car: car);
+        await app<CarService>().saveCar(car: car);
         emit(CarLoadedState(car: car));
       }
     }
