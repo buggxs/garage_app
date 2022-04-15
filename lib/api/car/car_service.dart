@@ -34,6 +34,11 @@ class LocalCarService implements CarService {
   @override
   Future<Car?> getCarById({required int carId}) async {
     List<Car> carList = await getAllCars();
+
+    if (carList.isEmpty) {
+      return null;
+    }
+
     return Future.value(
         carList.where((Car tmpCar) => tmpCar.id == carId).first);
   }

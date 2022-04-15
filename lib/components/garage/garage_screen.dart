@@ -4,6 +4,9 @@ import 'package:garage_app/api/api.dart';
 import 'package:garage_app/components/common/widgets/garage_scaffold.dart';
 import 'package:garage_app/components/garage/widgets/car_list_item.dart';
 import 'package:garage_app/components/garage/widgets/car_list_item_empty.dart';
+import 'package:garage_app/components/garage/widgets/garage_slot_bottom_divider.dart';
+import 'package:garage_app/components/garage/widgets/garage_slot_middle_divider.dart';
+import 'package:garage_app/components/garage/widgets/garage_slot_top_divider.dart';
 import 'package:garage_app/components/garage/widgets/parking_floating_button.dart';
 
 import 'bloc/garage_bloc.dart';
@@ -32,7 +35,7 @@ class GarageScreenContent extends StatelessWidget {
     GarageBloc bloc = context.watch<GarageBloc>();
     GarageState state = bloc.state;
 
-    Widget? child;
+    Widget child;
     Widget? floatingActionButton;
 
     if (state is GarageLoadedState) {
@@ -40,13 +43,21 @@ class GarageScreenContent extends StatelessWidget {
       if (state.cars.length < 2) {
         floatingActionButton = _buildFloatingButton(context);
       }
+    } else {
+      child = const Text('test');
     }
 
     return GarageScaffold(
       title: 'Deine Garage',
       child: Container(
-        padding: const EdgeInsets.fromLTRB(0, 16.0, 16.0, 16.0),
-        child: child,
+        padding: const EdgeInsets.fromLTRB(0, 1.0, 16.0, 16.0),
+        child: Column(
+          children: [
+            const GarageSlotTopDivider(),
+            child,
+            const GarageSlotBottomDivider(),
+          ],
+        ),
       ),
       floatingActionButton: floatingActionButton,
     );
@@ -58,16 +69,25 @@ class GarageScreenContent extends StatelessWidget {
     );
   }
 
-  Widget _buildCarList(List<Car> carList) {
-    List<Widget> children =
-        carList.map((Car car) => CarListItem(car: car)).cast<Widget>().toList();
+  Widget _buildCarList(List<Car>? carList) {
+    List<Widget> children = [
+      const CarListItemEmpty(),
+      const CarListItemEmpty(),
+    ];
 
-    // After the last Car add an empty Parking-slot
-    children.add(const CarListItemEmpty());
+    if (carList?.isNotEmpty ?? false) {
+      children = carList!
+          .map((Car car) => CarListItem(car: car))
+          .cast<Widget>()
+          .toList();
+    }
 
-    return ListView.builder(
+    return ListView.separated(
+      shrinkWrap: true,
       itemCount: children.length,
       itemBuilder: (BuildContext context, int itemIndex) => children[itemIndex],
+      separatorBuilder: (BuildContext context, int index) =>
+          const GarageSlotMiddleDivider(),
     );
   }
 }

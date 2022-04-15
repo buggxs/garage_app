@@ -7,7 +7,7 @@ import 'package:garage_app/components/garage/bloc/garage_bloc.dart';
 import 'package:garage_app/core/app_localizations.dart';
 import 'package:garage_app/core/app_service_locator.dart';
 
-import 'car_list_item_divider.dart';
+import 'garage_slot_middle_divider.dart';
 
 class CarListItem extends StatelessWidget {
   const CarListItem({
@@ -66,7 +66,7 @@ class CarListItem extends StatelessWidget {
             ),
           ),
         ),
-        const CarListItemDivider(),
+        const GarageSlotMiddleDivider(),
       ],
     );
   }
