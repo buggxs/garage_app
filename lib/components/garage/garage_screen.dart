@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:garage_app/api/api.dart';
+import 'package:garage_app/components/add_vehicle/add_screen.dart';
 import 'package:garage_app/components/common/widgets/garage_scaffold.dart';
 import 'package:garage_app/components/garage/widgets/car_list_item.dart';
 import 'package:garage_app/components/garage/widgets/car_list_item_empty.dart';
@@ -65,7 +66,12 @@ class GarageScreenContent extends StatelessWidget {
 
   Widget _buildFloatingButton(BuildContext context) {
     return ParkingFloatingButton(
-      onTap: () => GarageBloc.of(context).add(GarageParkingCarEvent()),
+      onTap: () {
+        print('test');
+        Navigator.of(context).pushNamed(
+          AddScreen.route,
+        );
+      },
     );
   }
 
