@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:garage_app/api/api.dart';
 import 'package:garage_app/api/car/car_service.dart';
+import 'package:garage_app/components/add_vehicle/add_screen.dart';
 import 'package:garage_app/core/app_service_locator.dart';
 import 'package:intl/intl.dart';
 import 'package:logging/logging.dart';
@@ -25,4 +26,9 @@ class GarageBloc extends Bloc<GarageEvent, GarageState> {
 
   static GarageBloc of(BuildContext context) =>
       BlocProvider.of<GarageBloc>(context);
+
+  void pushToAddCarScreen(BuildContext context) =>
+      Navigator.of(context).pushNamed(
+        AddScreen.route,
+      );
 }

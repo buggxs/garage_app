@@ -6,12 +6,12 @@ class ParkingFloatingButton extends StatelessWidget {
     required this.onTap,
   }) : super(key: key);
 
-  final VoidCallback onTap;
+  final ValueChanged<BuildContext> onTap;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onTap,
+      onTap: () => onTap.call(context),
       borderRadius: const BorderRadius.all(Radius.circular(10.0)),
       child: Container(
         decoration: BoxDecoration(

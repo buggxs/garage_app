@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:garage_app/api/api.dart';
-import 'package:garage_app/components/add_vehicle/add_screen.dart';
 import 'package:garage_app/components/common/widgets/garage_scaffold.dart';
 import 'package:garage_app/components/garage/widgets/car_list_item.dart';
 import 'package:garage_app/components/garage/widgets/car_list_item_empty.dart';
@@ -21,15 +20,13 @@ class GarageScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => GarageBloc()..add(GarageLoadingParkedCars()),
-      child: GarageScreenContent(),
+      child: const GarageScreenContent(),
     );
   }
 }
 
 class GarageScreenContent extends StatelessWidget {
-  GarageScreenContent({Key? key}) : super(key: key);
-
-  final List<String> entries = <String>['A', ''];
+  const GarageScreenContent({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -40,9 +37,11 @@ class GarageScreenContent extends StatelessWidget {
     Widget? floatingActionButton;
 
     if (state is GarageLoadedState) {
-      child = _buildCarList(state.cars);
+      child = _buildCarList(state.cars, bloc);
       if (state.cars.length < 2) {
-        floatingActionButton = _buildFloatingButton(context);
+        floatingActionButton = ParkingFloatingButton(
+          onTap: bloc.pushToAddCarScreen,
+        );
       }
     } else {
       child = const Text('test');
@@ -64,21 +63,17 @@ class GarageScreenContent extends StatelessWidget {
     );
   }
 
-  Widget _buildFloatingButton(BuildContext context) {
-    return ParkingFloatingButton(
-      onTap: () {
-        print('test');
-        Navigator.of(context).pushNamed(
-          AddScreen.route,
-        );
-      },
-    );
-  }
-
-  Widget _buildCarList(List<Car>? carList) {
+  Widget _buildCarList(
+    List<Car>? carList,
+    GarageBloc bloc,
+  ) {
     List<Widget> children = [
-      const CarListItemEmpty(),
-      const CarListItemEmpty(),
+      CarListItemEmpty(
+        onTap: bloc.pushToAddCarScreen,
+      ),
+      CarListItemEmpty(
+        onTap: bloc.pushToAddCarScreen,
+      ),
     ];
 
     if (carList?.isNotEmpty ?? false) {
