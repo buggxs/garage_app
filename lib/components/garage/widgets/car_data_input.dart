@@ -13,6 +13,7 @@ class CarDataInput extends StatefulWidget {
     this.onSave,
     this.validate,
     this.maxLines,
+    this.textStyle,
   }) : super(key: key);
 
   final InputDecoration? inputDecoration;
@@ -21,6 +22,7 @@ class CarDataInput extends StatefulWidget {
   final ValueChanged<String>? onSave;
   final Validate? validate;
   final int? maxLines;
+  final TextStyle? textStyle;
 
   @override
   _CarDataInputState createState() => _CarDataInputState();
@@ -33,7 +35,7 @@ class _CarDataInputState extends State<CarDataInput> {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
+    return Flexible(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: TextFormField(
@@ -42,7 +44,11 @@ class _CarDataInputState extends State<CarDataInput> {
           keyboardType: widget.textInputType,
           readOnly:
               widget.readOnly ?? widget.textInputType == TextInputType.datetime,
-          style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 15),
+          style: widget.textStyle ??
+              const TextStyle(
+                fontWeight: FontWeight.w500,
+                fontSize: 17,
+              ),
           onTap: widget.textInputType == TextInputType.datetime
               ? () => app.get<PopupService>().selectDate(
                   context: context, controller: _textEditingController)
