@@ -11,9 +11,11 @@ class CreateCarScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return GarageScaffold(
       child: Column(
-        children: [
-          Expanded(
-            child: CreateCarStepper(),
+        children: const [
+          Form(
+            child: Expanded(
+              child: CreateCarStepper(),
+            ),
           ),
         ],
       ),
@@ -35,24 +37,34 @@ class _CreateCarStepperState extends State<CreateCarStepper> {
   Widget build(BuildContext context) {
     return Stepper(
       controlsBuilder: (context, {onStepContinue, onStepCancel}) {
-        return const SizedBox();
+        return Padding(
+          padding: const EdgeInsets.symmetric(
+            vertical: 12.0,
+            horizontal: 8.0,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    if (_index <= 0) {
+                      _index += 1;
+                    }
+                  });
+                },
+                child: const Text('Next'),
+              ),
+              ElevatedButton(
+                onPressed: () {},
+                child: const Text('Cancel'),
+              ),
+            ],
+          ),
+        );
       },
       type: StepperType.horizontal,
       currentStep: _index,
-      onStepCancel: () {
-        if (_index > 0) {
-          setState(() {
-            _index -= 1;
-          });
-        }
-      },
-      onStepContinue: () {
-        if (_index <= 0) {
-          setState(() {
-            _index += 1;
-          });
-        }
-      },
       onStepTapped: (int index) {
         setState(() {
           _index = index;
@@ -83,13 +95,41 @@ class _CreateCarStepperState extends State<CreateCarStepper> {
             ),
           ),
         ),
-        const Step(
-          title: Text('T'),
-          content: Text('Content for Step 2'),
-        ),
-        const Step(
-          title: Text('V'),
-          content: Text('Content for Step 2'),
+        Step(
+          title: const Text('Auto Daten'),
+          content: Container(
+            alignment: Alignment.centerLeft,
+            child: Column(
+              children: [
+                _inputTextField('Marke'),
+                Row(
+                  children: [
+                    CarDataInput(
+                      inputDecoration: _formFieldDecoration('Model'),
+                      textStyle: _carInputTextStyle(),
+                    ),
+                    CarDataInput(
+                      inputDecoration: _formFieldDecoration('Typ'),
+                      textStyle: _carInputTextStyle(),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    CarDataInput(
+                      inputDecoration: _formFieldDecoration('HSN'),
+                      textStyle: _carInputTextStyle(),
+                    ),
+                    CarDataInput(
+                      inputDecoration: _formFieldDecoration('TSN'),
+                      textStyle: _carInputTextStyle(),
+                    ),
+                  ],
+                ),
+                _inputTextField('Test'),
+              ],
+            ),
+          ),
         ),
       ],
     );
