@@ -15,7 +15,7 @@ part 'car.g.dart';
 @JsonSerializable()
 class Car extends Equatable {
   int id;
-  String? name;
+  final String? name;
   double? mileage;
   DateTime? date;
   int? vintage;

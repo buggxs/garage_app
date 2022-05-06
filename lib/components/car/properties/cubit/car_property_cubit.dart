@@ -12,7 +12,7 @@ class CarPropertyCubit extends Cubit<CarPropertyLoaded> {
     required Car car,
   }) : super(CarPropertyLoaded(car));
 
-  final LocalCarService _carService = app<LocalCarService>();
+  final CarService _carService = app<CarService>();
 
   Future<void> updateCarProperty({
     dynamic carProperty = CarProperty.oil,
