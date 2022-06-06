@@ -4,12 +4,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:garage_app/api/car/data/car.dart';
 import 'package:garage_app/components/car/documents/document_tab.dart';
 import 'package:garage_app/components/car/documents/widgets/add_document_dialog.dart';
+import 'package:garage_app/components/car/i18n/car_i18n.dart';
+import 'package:garage_app/components/car/i18n/car_text.dart';
 import 'package:garage_app/components/car/notes/notes_tab.dart';
 import 'package:garage_app/components/car/notes/widgets/add_note_dialog.dart';
 import 'package:garage_app/components/car/properties/property_tab.dart';
 import 'package:garage_app/components/common/widgets/garage_scaffold.dart';
 import 'package:garage_app/components/common/widgets/popup_service.dart';
-import 'package:garage_app/core/app_localizations.dart';
 import 'package:garage_app/core/app_service_locator.dart';
 import 'package:garage_app/misc/constants.dart';
 
@@ -52,8 +53,6 @@ class CarScreenContent extends StatelessWidget {
     Widget child;
 
     if (state is CarLoadedState) {
-      print(state.tabIndex);
-
       child = DefaultTabController(
         initialIndex: 0,
         length: 3,
@@ -103,19 +102,19 @@ class CarScreenContent extends StatelessWidget {
         Tab(
           height: kTabHeight,
           icon: const Icon(Icons.directions_car),
-          text: AppLocalizations.of(context)!.translate('parking_space')!,
+          text: CarText.parkingSpace(),
           iconMargin: const EdgeInsets.all(0),
         ),
         Tab(
           height: kTabHeight,
           icon: const Icon(Icons.inventory_outlined),
-          text: AppLocalizations.of(context)!.translate('documents')!,
+          text: CarText.documents(),
           iconMargin: const EdgeInsets.all(0),
         ),
         Tab(
           height: kTabHeight,
           icon: const Icon(Icons.sticky_note_2),
-          text: AppLocalizations.of(context)!.translate('notes')!,
+          text: CarText.notes(),
           iconMargin: const EdgeInsets.all(0),
         ),
       ],

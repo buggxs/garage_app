@@ -5,7 +5,8 @@ import 'package:garage_app/api/document/data/document.dart';
 import 'package:garage_app/components/car/cubit/car_cubit.dart';
 import 'package:garage_app/components/car/documents/cubit/document_cubit.dart';
 import 'package:garage_app/components/car/documents/widgets/document_screen.dart';
-import 'package:garage_app/core/app_localizations.dart';
+import 'package:garage_app/components/car/i18n/car_i18n.dart';
+import 'package:garage_app/components/car/i18n/car_text.dart';
 
 class DocumentTab extends StatelessWidget {
   const DocumentTab({
@@ -60,7 +61,7 @@ class DocumentTabContent extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          AppLocalizations.of(context)!.translate('general_documents_heading')!,
+          CarText.generalDocumentsHeading(),
           style: const TextStyle(
             fontSize: 22,
             color: Colors.white,
@@ -72,7 +73,7 @@ class DocumentTabContent extends StatelessWidget {
           child: _listingDocuments(documentList?[0] ?? []),
         ),
         Text(
-          AppLocalizations.of(context)!.translate('invoice_documents_heading')!,
+          CarText.invoiceDocumentsHeading(),
           style: const TextStyle(
               fontSize: 22, color: Colors.white, fontWeight: FontWeight.bold),
         ),
@@ -82,7 +83,7 @@ class DocumentTabContent extends StatelessWidget {
         ),
         documentList?[2].isNotEmpty ?? false
             ? Text(
-                AppLocalizations.of(context)!.translate('other_documents')!,
+                CarText.otherDocumentsHeading(),
                 style: const TextStyle(
                     fontSize: 22,
                     color: Colors.white,

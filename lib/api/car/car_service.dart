@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:garage_app/api/api.dart';
-import 'package:logging/logging.dart';
+import 'package:garage_app/misc/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class CarService {
@@ -31,9 +31,7 @@ class OnlineCarService extends CarService {
   }
 }
 
-class LocalCarService implements CarService {
-  var logger = Logger('LocalCarService');
-
+class LocalCarService with LoggerMixin implements CarService {
   @override
   Future<Car?> getCarById({required int carId}) async {
     List<Car> carList = await getAllCars();
@@ -59,7 +57,7 @@ class LocalCarService implements CarService {
     } else {
       carList.add(car);
     }
-    logger.info('Saved car with name ${car.name}');
+    log.info('Saved car with name ${car.name}');
     prefs.setString('car_list', jsonEncode(carList));
   }
 

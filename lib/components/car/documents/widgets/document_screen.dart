@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:garage_app/api/document/data/document.dart';
+import 'package:garage_app/components/car/i18n/car_i18n.dart';
+import 'package:garage_app/components/car/i18n/car_text.dart';
 import 'package:garage_app/components/common/widgets/custom_ligth_theme.dart';
 import 'package:garage_app/components/common/widgets/garage_scaffold.dart';
-import 'package:garage_app/core/app_localizations.dart';
 
 class DocumentScreen extends StatelessWidget {
   const DocumentScreen({
@@ -20,7 +21,7 @@ class DocumentScreen extends StatelessWidget {
             Expanded(
               child: Center(
                 child: Text(
-                  AppLocalizations.of(context)!.translate('upload_document')!,
+                  CarText.uploadDocument(),
                   style: Theme.of(context)
                       .textTheme
                       .headline5!
@@ -41,7 +42,7 @@ class DocumentScreen extends StatelessWidget {
                         )),
                     onPressed: () async {},
                     child: Text(
-                      AppLocalizations.of(context)!.translate('upload')!,
+                      CarText.upload(),
                       style: const TextStyle(
                         color: Colors.white,
                         fontSize: 18.0,

@@ -4,7 +4,8 @@ import 'package:garage_app/components/car/car_screen.dart';
 import 'package:garage_app/components/common/widgets/icon_text.dart';
 import 'package:garage_app/components/common/widgets/modal_service.dart';
 import 'package:garage_app/components/garage/bloc/garage_bloc.dart';
-import 'package:garage_app/core/app_localizations.dart';
+import 'package:garage_app/components/garage/i18n/garage_i18n.dart';
+import 'package:garage_app/components/garage/i18n/garage_text.dart';
 import 'package:garage_app/core/app_service_locator.dart';
 
 import 'garage_slot_middle_divider.dart';
@@ -108,8 +109,7 @@ class CarListItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               IconText(
-                text:
-                    AppLocalizations.of(context)!.translate('air_conditioner')!,
+                text: GarageText.airConditioner(),
                 iconData: Icons.ac_unit,
                 iconColor: Colors.green[800],
                 size: 20.0,
@@ -118,7 +118,7 @@ class CarListItem extends StatelessWidget {
                 height: 5,
               ),
               IconText(
-                text: AppLocalizations.of(context)!.translate('oil')!,
+                text: GarageText.oil(),
                 assetImage: const AssetImage("assets/icons/car-oil.png"),
                 iconColor: Colors.green[800],
                 size: 20.0,
@@ -133,7 +133,7 @@ class CarListItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               IconText(
-                text: AppLocalizations.of(context)!.translate('brake')!,
+                text: GarageText.brake(),
                 assetImage: const AssetImage("assets/icons/brake.png"),
                 iconColor: Colors.green[800],
                 size: 20.0,
@@ -142,7 +142,7 @@ class CarListItem extends StatelessWidget {
                 height: 5,
               ),
               IconText(
-                text: AppLocalizations.of(context)!.translate('timing_belt')!,
+                text: GarageText.timingBelt(),
                 assetImage: const AssetImage("assets/icons/timing-belt.png"),
                 iconColor: Colors.green[800],
                 size: 20.0,

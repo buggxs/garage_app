@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:garage_app/common/i18n/delegates/mygarage_i18n_delegate.dart';
 import 'package:garage_app/components/common/widgets/custom_ligth_theme.dart';
 import 'package:garage_app/components/garage/garage_screen.dart';
 import 'package:garage_app/core/app_navigator/app_navigator.dart';
 import 'package:logging/logging.dart';
 
-import 'core/app_localizations.dart';
+import 'common/i18n/delegates/global_locale_delegate.dart';
 import 'core/app_service_locator.dart';
 
 Future<void> main() async {
@@ -37,24 +38,17 @@ class MyGarage extends StatelessWidget {
       initialRoute: GarageScreen.route,
       onGenerateRoute: AppNavigator.generateRoute,
       localizationsDelegates: const [
-        AppLocalizations.delegate, // Add this line
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
+        MyGarageI18nDelegate(),
+
+        // localization for material widgets (e.g. tooltips,
+        // datetime picker)
+        ...GlobalMaterialLocalizations.delegates,
+        GlobalLocaleDelegate(),
       ],
       supportedLocales: const [
         Locale('en', 'US'),
         Locale('de', 'DE'),
       ],
-      localeResolutionCallback: (locale, supportedLocales) {
-        for (var supportedLocale in supportedLocales) {
-          if (supportedLocale.languageCode == locale!.languageCode &&
-              supportedLocale.countryCode == locale.countryCode) {
-            return supportedLocale;
-          }
-        }
-        return supportedLocales.first;
-      },
     );
   }
 }

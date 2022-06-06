@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:garage_app/components/car/i18n/car_i18n.dart';
+import 'package:garage_app/components/car/i18n/car_text.dart';
 import 'package:garage_app/components/car/properties/property_tab.dart';
-import 'package:garage_app/core/app_localizations.dart';
 
 Map<String, dynamic>? getCardContent(
   BuildContext context,
@@ -8,52 +9,40 @@ Map<String, dynamic>? getCardContent(
 ) {
   final Map<CarProperty, Map<String, dynamic>> content = {
     CarProperty.oil: {
-      'card_heading':
-          AppLocalizations.of(context)!.translate('oil_card_heading'),
+      'card_heading': CarText.oilCardHeading(),
       'card_icon': const ImageIcon(
         AssetImage("assets/icons/car-oil.png"),
         size: 24.0,
       ),
-      'last_change_text':
-          AppLocalizations.of(context)!.translate('last_change'),
-      'next_change_text':
-          AppLocalizations.of(context)!.translate('next_change'),
+      'last_change_text': CarText.lastChange(),
+      'next_change_text': CarText.nextChange(),
     },
     CarProperty.airConditioner: {
-      'card_heading': AppLocalizations.of(context)!
-          .translate('air_conditioner_card_heading'),
+      'card_heading': CarText.airConditionerCardHeading(),
       'card_icon': const Icon(
         Icons.ac_unit,
         size: 24.0,
       ),
-      'last_change_text':
-          AppLocalizations.of(context)!.translate('last_change'),
-      'next_change_text':
-          AppLocalizations.of(context)!.translate('next_change'),
+      'last_change_text': CarText.lastChange(),
+      'next_change_text': CarText.nextChange(),
     },
     CarProperty.brake: {
-      'card_heading':
-          AppLocalizations.of(context)!.translate('brake_card_heading'),
+      'card_heading': CarText.brakeCardHeading(),
       'card_icon': const ImageIcon(
         AssetImage("assets/icons/brake.png"),
         size: 24.0,
       ),
-      'last_change_text':
-          AppLocalizations.of(context)!.translate('last_change'),
-      'next_change_text':
-          AppLocalizations.of(context)!.translate('next_change'),
+      'last_change_text': CarText.lastChange(),
+      'next_change_text': CarText.nextChange(),
     },
     CarProperty.timingBelt: {
-      'card_heading':
-          AppLocalizations.of(context)!.translate('timing_belt_card_heading'),
+      'card_heading': CarText.timingBeltCardHeading(),
       'card_icon': const ImageIcon(
         AssetImage("assets/icons/timing-belt.png"),
         size: 24.0,
       ),
-      'last_change_text':
-          AppLocalizations.of(context)!.translate('last_change'),
-      'next_change_text':
-          AppLocalizations.of(context)!.translate('next_change'),
+      'last_change_text': CarText.lastChange(),
+      'next_change_text': CarText.nextChange(),
     }
   };
   return content[carProperty];
