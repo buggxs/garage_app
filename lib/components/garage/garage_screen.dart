@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:garage_app/api/api.dart';
 import 'package:garage_app/components/common/widgets/garage_scaffold.dart';
+import 'package:garage_app/components/garage/cubit/garage_cubit.dart';
 import 'package:garage_app/components/garage/widgets/car_list_item.dart';
 import 'package:garage_app/components/garage/widgets/car_list_item_empty.dart';
 import 'package:garage_app/components/garage/widgets/garage_slot_bottom_divider.dart';
 import 'package:garage_app/components/garage/widgets/garage_slot_middle_divider.dart';
 import 'package:garage_app/components/garage/widgets/garage_slot_top_divider.dart';
 import 'package:garage_app/components/garage/widgets/parking_floating_button.dart';
-
-import 'bloc/garage_bloc.dart';
+import 'package:garage_app/misc/constants.dart';
 
 class GarageScreen extends StatelessWidget {
   const GarageScreen({Key? key}) : super(key: key);
@@ -19,7 +19,7 @@ class GarageScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => GarageBloc()..add(GarageLoadingParkedCars()),
+      create: (context) => GarageCubit(),
       child: const GarageScreenContent(),
     );
   }
@@ -30,21 +30,29 @@ class GarageScreenContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    GarageBloc bloc = context.watch<GarageBloc>();
-    GarageState state = bloc.state;
+    GarageCubit cubit = context.watch<GarageCubit>();
+    GarageState state = cubit.state;
 
-    Widget child;
+    Widget children = CarListItemEmpty(
+      onTap: cubit.pushToAddCarScreen,
+    );
+
     Widget? floatingActionButton;
 
     if (state is GarageLoadedState) {
-      child = _buildCarList(state.cars, bloc);
-      if (state.cars.length < 2) {
+      children = _buildCarList(cubit);
+
+      if (state.cars?.isNotEmpty ?? false) {
+        if (state.cars!.length < 2) {
+          floatingActionButton = ParkingFloatingButton(
+            onTap: cubit.pushToAddCarScreen,
+          );
+        }
+      } else {
         floatingActionButton = ParkingFloatingButton(
-          onTap: bloc.pushToAddCarScreen,
+          onTap: cubit.pushToAddCarScreen,
         );
       }
-    } else {
-      child = const Text('test');
     }
 
     return GarageScaffold(
@@ -54,7 +62,7 @@ class GarageScreenContent extends StatelessWidget {
         child: Column(
           children: [
             const GarageSlotTopDivider(),
-            child,
+            children,
             const GarageSlotBottomDivider(),
           ],
         ),
@@ -64,21 +72,30 @@ class GarageScreenContent extends StatelessWidget {
   }
 
   Widget _buildCarList(
-    List<Car>? carList,
-    GarageBloc bloc,
+    GarageCubit cubit,
   ) {
+    GarageLoadedState state = cubit.state as GarageLoadedState;
+    final List<Car>? carList = state.cars;
+
     List<Widget> children = [
       CarListItemEmpty(
-        onTap: bloc.pushToAddCarScreen,
+        onTap: cubit.pushToAddCarScreen,
       ),
       CarListItemEmpty(
-        onTap: bloc.pushToAddCarScreen,
+        onTap: cubit.pushToAddCarScreen,
+      ),
+      CarListItem(
+        car: constCar,
+        updateFunction: cubit.updateCarData,
       ),
     ];
 
     if (carList?.isNotEmpty ?? false) {
       children = carList!
-          .map((Car car) => CarListItem(car: car))
+          .map((Car car) => CarListItem(
+                car: car,
+                updateFunction: cubit.updateCarData,
+              ))
           .cast<Widget>()
           .toList();
     }

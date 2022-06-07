@@ -3,24 +3,29 @@ import 'package:garage_app/api/api.dart';
 import 'package:garage_app/components/car/car_screen.dart';
 import 'package:garage_app/components/common/widgets/icon_text.dart';
 import 'package:garage_app/components/common/widgets/modal_service.dart';
-import 'package:garage_app/components/garage/bloc/garage_bloc.dart';
 import 'package:garage_app/components/garage/i18n/garage_i18n.dart';
 import 'package:garage_app/components/garage/i18n/garage_text.dart';
 import 'package:garage_app/core/app_service_locator.dart';
 
-import 'garage_slot_middle_divider.dart';
+typedef UpdateCarFunction = void Function({
+  required Car car,
+  String? lastChangeMileageString,
+  String? lastChangeDateString,
+});
 
 class CarListItem extends StatelessWidget {
   const CarListItem({
     Key? key,
     required this.car,
+    required this.updateFunction,
     this.index,
     this.onLongPress,
   }) : super(key: key);
 
-  final Function? onLongPress;
-  final int? index;
   final Car car;
+  final UpdateCarFunction updateFunction;
+  final int? index;
+  final Function? onLongPress;
 
   @override
   Widget build(BuildContext context) {
@@ -43,11 +48,11 @@ class CarListItem extends StatelessWidget {
                   String? lastChangeMileageString,
                   String? lastChangeDateString,
                 }) =>
-                    GarageBloc.of(context).add(GarageUpdateCarEvent(
+                    updateFunction(
                   car: car,
                   lastChangeMileageString: lastChangeMileageString,
                   lastChangeDateString: lastChangeDateString,
-                )),
+                ),
               ),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -67,7 +72,6 @@ class CarListItem extends StatelessWidget {
             ),
           ),
         ),
-        const GarageSlotMiddleDivider(),
       ],
     );
   }
