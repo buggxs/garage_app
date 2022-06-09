@@ -50,52 +50,70 @@ class DocumentTabContent extends StatelessWidget {
         child: _documentList(context, state.documentList),
       );
     } else {
-      child = const Text('empty');
+      child = Center(
+        child: Text(CarText.errorLoadingDocuments()),
+      );
     }
     return child;
   }
 
   Widget _documentList(
-      BuildContext context, List<List<Document>>? documentList) {
+    BuildContext context,
+    List<List<Document>>? documentList,
+  ) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          CarText.generalDocumentsHeading(),
-          style: const TextStyle(
-            fontSize: 22,
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: 12.0, bottom: 25.0),
-          child: _listingDocuments(documentList?[0] ?? []),
-        ),
-        Text(
-          CarText.invoiceDocumentsHeading(),
-          style: const TextStyle(
-              fontSize: 22, color: Colors.white, fontWeight: FontWeight.bold),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: 12.0, bottom: 25.0),
-          child: _listingDocuments(documentList?[1] ?? []),
-        ),
-        documentList?[2].isNotEmpty ?? false
-            ? Text(
-                CarText.otherDocumentsHeading(),
-                style: const TextStyle(
-                    fontSize: 22,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold),
-              )
-            : const SizedBox(),
-        Padding(
-          padding: const EdgeInsets.only(top: 12.0, bottom: 25.0),
-          child: _listingDocuments(documentList?[2] ?? []),
-        ),
+        ..._generalDocumentBlock(documentList),
+        ..._invoiceDocumentBlock(documentList),
+        ..._otherDocumentBlock(documentList),
       ],
     );
+  }
+
+  List<Widget> _generalDocumentBlock(List<List<Document>>? documentList) {
+    return <Widget>[
+      Text(
+        CarText.generalDocumentsHeading(),
+        style: const TextStyle(
+          fontSize: 22,
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      Padding(
+        padding: const EdgeInsets.only(top: 12.0, bottom: 25.0),
+        child: _listingDocuments(documentList?[0] ?? []),
+      ),
+    ];
+  }
+
+  List<Widget> _invoiceDocumentBlock(List<List<Document>>? documentList) {
+    return <Widget>[
+      Text(
+        CarText.invoiceDocumentsHeading(),
+        style: const TextStyle(
+            fontSize: 22, color: Colors.white, fontWeight: FontWeight.bold),
+      ),
+      Padding(
+        padding: const EdgeInsets.only(top: 12.0, bottom: 25.0),
+        child: _listingDocuments(documentList?[1] ?? []),
+      ),
+    ];
+  }
+
+  List<Widget> _otherDocumentBlock(List<List<Document>>? documentList) {
+    return <Widget>[
+      Text(
+        CarText.otherDocumentsHeading(),
+        style: const TextStyle(
+            fontSize: 22, color: Colors.white, fontWeight: FontWeight.bold),
+      ),
+      Padding(
+        padding: const EdgeInsets.only(top: 12.0, bottom: 25.0),
+        child: _listingDocuments(documentList?[2] ?? []),
+      ),
+    ];
   }
 
   Widget _listingDocuments(List<Document> documents) {

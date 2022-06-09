@@ -59,12 +59,14 @@ class GarageScreenContent extends StatelessWidget {
       title: 'Deine Garage',
       child: Container(
         padding: const EdgeInsets.fromLTRB(0, 1.0, 16.0, 16.0),
-        child: Column(
-          children: [
-            const GarageSlotTopDivider(),
-            children,
-            const GarageSlotBottomDivider(),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              const GarageSlotTopDivider(),
+              children,
+              const GarageSlotBottomDivider(),
+            ],
+          ),
         ),
       ),
       floatingActionButton: floatingActionButton,

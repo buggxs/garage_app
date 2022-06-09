@@ -24,6 +24,7 @@ enum CarText {
   otherDocumentsHeading,
   uploadDocument,
   upload,
+  errorLoadingDocuments,
 }
 
 class CarI18n extends I18n<CarText> {

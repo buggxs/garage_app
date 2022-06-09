@@ -16,6 +16,7 @@ class NoteCubit extends Cubit<NoteState> {
   }) : super(NoteLoading()) {
     carCubit.stream.listen((carState) {
       if (carState is CarLoadedState) {
+        carCubit.updateTab(2);
         loadNotes();
       }
     });
@@ -34,7 +35,11 @@ class NoteCubit extends Cubit<NoteState> {
       emit(NoteError(message: "Car konnte nicht geladen werden"));
     }
 
-    Car? _car = await app<LocalCarService>().getCarById(carId: car!.id);
+    Car? _car = await app<CarService>().getCarById(carId: car!.id);
+
+    if (_car == null) {
+      emit(NoteError(message: 'Fehler beim laden des Fahrzeugs'));
+    }
 
     List<Note> carNoteList = _car?.noteList ?? <Note>[];
 

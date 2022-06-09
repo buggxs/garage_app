@@ -21,4 +21,5 @@ Map<CarText, String> _enValues = <CarText, String>{
   CarText.otherDocumentsHeading: 'Other documents',
   CarText.uploadDocument: 'Upload document',
   CarText.upload: 'Upload',
+  CarText.errorLoadingDocuments: 'Fehler beim laden der Dokumente',
 };

@@ -21,4 +21,5 @@ Map<CarText, String> _deValues = <CarText, String>{
   CarText.otherDocumentsHeading: 'Sonstige Dokumente',
   CarText.uploadDocument: 'Dokument hochladen',
   CarText.upload: 'Hochladen',
+  CarText.errorLoadingDocuments: 'Fehler beim laden der Dokumente',
 };

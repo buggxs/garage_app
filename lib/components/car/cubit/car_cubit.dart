@@ -8,21 +8,18 @@ import 'package:garage_app/api/document/data/document.dart';
 import 'package:garage_app/api/note/data/note.dart';
 import 'package:garage_app/components/car/properties/cubit/car_property_cubit.dart';
 import 'package:garage_app/core/app_service_locator.dart';
-import 'package:logging/logging.dart';
+import 'package:garage_app/misc/logger.dart';
 import 'package:meta/meta.dart';
 
 part 'car_state.dart';
 
-class CarCubit extends Cubit<CarState> {
+class CarCubit extends Cubit<CarState> with LoggerMixin {
   CarCubit({
     required this.car,
   })  : carPropertyCubit = CarPropertyCubit(car: car),
         super(CarLoadingState());
 
   CarPropertyCubit carPropertyCubit;
-
-  var log = Logger("CarCubit");
-
   Car car;
 
   static CarCubit of(BuildContext context) =>
@@ -30,6 +27,7 @@ class CarCubit extends Cubit<CarState> {
 
   void updateTab(int index) {
     if (state is CarLoadedState) {
+      log.info('Showing tab with index: $index');
       emit((state as CarLoadedState).copyWith(tabIndex: index));
     }
   }

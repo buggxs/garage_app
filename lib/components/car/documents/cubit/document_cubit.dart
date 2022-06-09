@@ -5,12 +5,12 @@ import 'package:garage_app/api/car/data/car.dart';
 import 'package:garage_app/api/document/data/document.dart';
 import 'package:garage_app/components/car/cubit/car_cubit.dart';
 import 'package:garage_app/core/app_service_locator.dart';
-import 'package:logging/logging.dart';
+import 'package:garage_app/misc/logger.dart';
 import 'package:meta/meta.dart';
 
 part 'document_state.dart';
 
-class DocumentCubit extends Cubit<DocumentState> {
+class DocumentCubit extends Cubit<DocumentState> with LoggerMixin {
   DocumentCubit({
     required this.carCubit,
     this.car,
@@ -18,14 +18,13 @@ class DocumentCubit extends Cubit<DocumentState> {
     carCubit.stream.listen((carState) {
       if (carState is CarLoadedState) {
         emit(DocumentLoadingState());
-        emit(
-          DocumentLoadedState(documentList: carState.car.documentList),
-        );
+        carCubit.updateTab(1);
+        emit(DocumentLoadedState(
+          documentList: carState.car.documentList,
+        ));
       }
     });
   }
-
-  final Logger _log = Logger('DocumentCubit');
 
   CarCubit carCubit;
   Car? car;
@@ -43,7 +42,7 @@ class DocumentCubit extends Cubit<DocumentState> {
     List<List<Document>> documents =
         _car?.documentList ?? <List<Document>>[[], [], []];
 
-    _log.info('Loaded documents of car: ${_car?.name}');
+    log.info('Loaded documents of car: ${_car?.name}');
 
     emit(DocumentLoadedState(documentList: documents));
   }
