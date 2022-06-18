@@ -1,18 +1,28 @@
 import 'package:bloc/bloc.dart';
 import 'package:garage_app/api/api.dart';
 import 'package:garage_app/api/car/car_service.dart';
+import 'package:garage_app/components/car/cubit/car_cubit.dart';
 import 'package:garage_app/components/car/properties/property_tab.dart';
 import 'package:garage_app/core/app_service_locator.dart';
+import 'package:garage_app/misc/logger.dart';
 import 'package:intl/intl.dart';
 
-part 'car_property_state.dart';
+part 'property_state.dart';
 
-class CarPropertyCubit extends Cubit<CarPropertyLoaded> {
-  CarPropertyCubit({
-    required Car car,
-  }) : super(CarPropertyLoaded(car));
+class PropertyCubit extends Cubit<CarPropertiesState> with LoggerMixin {
+  PropertyCubit({
+    required this.carCubit,
+  }) : super(const CarPropertiesState());
 
   final CarService _carService = app<CarService>();
+  final CarCubit carCubit;
+
+  void loadProperties() async {
+    emit(state.copyWith(
+      car: carCubit.car,
+    ));
+    carCubit.updateTab(0);
+  }
 
   Future<void> updateCarProperty({
     dynamic carProperty = CarProperty.oil,
@@ -30,78 +40,76 @@ class CarPropertyCubit extends Cubit<CarPropertyLoaded> {
 
     switch (carProperty) {
       case CarProperty.oil:
-        OilData newOilData = _calculateOilData(
-          oilData: state.car.oilData!,
+        OilData? newOilData = _calculateOilData(
+          oilData: state.car?.oilData,
           lastChangeMileage: lastChangeMileage,
           lastChangeDate: lastChangeDate,
         );
-        emit(
-          CarPropertyLoaded(
-            state.car.copyWith(
-              oilData: newOilData,
-            ),
+        emit(state.copyWith(
+          car: state.car?.copyWith(
+            oilData: newOilData,
           ),
-        );
+        ));
         break;
       case CarProperty.airConditioner:
-        AirConditionerData newAirConditionerData = _calculateAirConditionerData(
-          airConditionerData: state.car.airConditioner!,
+        AirConditionerData? newAirConditionerData =
+            _calculateAirConditionerData(
+          airConditionerData: state.car?.airConditioner,
           lastChangeMileage: lastChangeMileage,
           lastChangeDate: lastChangeDate,
         );
         emit(
-          CarPropertyLoaded(
-            state.car.copyWith(
-              airConditioner: newAirConditionerData,
-            ),
-          ),
+          state.copyWith(
+              car: state.car?.copyWith(
+            airConditioner: newAirConditionerData,
+          )),
         );
         break;
       case CarProperty.brake:
-        BrakeData brakeData = _calculateBrakeData(
-          brakeData: state.car.brakeData!,
+        BrakeData? brakeData = _calculateBrakeData(
+          brakeData: state.car?.brakeData,
           lastChangeMileage: lastChangeMileage,
           lastChangeDate: lastChangeDate,
         );
         emit(
-          CarPropertyLoaded(
-            state.car.copyWith(
+          state.copyWith(
+            car: state.car?.copyWith(
               brakeData: brakeData,
             ),
           ),
         );
         break;
       case CarProperty.timingBelt:
-        TimingBeltData timingBeltData = _calculateTimingBeltData(
-          timingBeltData: state.car.timingBeltData!,
+        TimingBeltData? timingBeltData = _calculateTimingBeltData(
+          timingBeltData: state.car?.timingBeltData,
           lastChangeDate: lastChangeDate,
           lastChangeMileage: lastChangeMileage,
         );
         emit(
-          CarPropertyLoaded(
-            state.car.copyWith(
+          state.copyWith(
+            car: state.car?.copyWith(
               timingBeltData: timingBeltData,
             ),
           ),
         );
         break;
       default:
-        print('Fehler beim speichern');
+        log.info('Fehler beim speichern');
         break;
     }
     _carService.saveCar(car: state.car);
   }
 
-  OilData _calculateOilData({
-    required OilData oilData,
+  OilData? _calculateOilData({
+    OilData? oilData,
     double? lastChangeMileage,
-    required DateTime lastChangeDate,
+    DateTime? lastChangeDate,
   }) {
     double? nextChangeMileage =
-        lastChangeMileage != null ? lastChangeMileage + 15000.00 : null;
-    DateTime nextChangeDate =
-        lastChangeDate.add(const Duration(days: (365 * 2)));
-    return oilData.copyWith(
+        lastChangeMileage != null ? lastChangeMileage + 15000.00 : 0.0;
+    DateTime? nextChangeDate =
+        lastChangeDate?.add(const Duration(days: (365 * 2)));
+    return oilData?.copyWith(
       lastChangeMileage: lastChangeMileage,
       lastChangeDate: lastChangeDate,
       nextChangeMileage: nextChangeMileage,
@@ -109,16 +117,16 @@ class CarPropertyCubit extends Cubit<CarPropertyLoaded> {
     );
   }
 
-  AirConditionerData _calculateAirConditionerData({
-    required AirConditionerData airConditionerData,
+  AirConditionerData? _calculateAirConditionerData({
+    AirConditionerData? airConditionerData,
     double? lastChangeMileage,
-    required DateTime lastChangeDate,
+    DateTime? lastChangeDate,
   }) {
     double? nextChangeMileage =
         lastChangeMileage != null ? lastChangeMileage + 50000.00 : null;
-    DateTime nextChangeDate =
-        lastChangeDate.add(const Duration(days: (365 * 2)));
-    return airConditionerData.copyWith(
+    DateTime? nextChangeDate =
+        lastChangeDate?.add(const Duration(days: (365 * 2)));
+    return airConditionerData?.copyWith(
       lastChangeMileage: lastChangeMileage,
       lastChangeDate: lastChangeDate,
       nextChangeDate: nextChangeDate,
@@ -126,16 +134,16 @@ class CarPropertyCubit extends Cubit<CarPropertyLoaded> {
     );
   }
 
-  BrakeData _calculateBrakeData({
-    required BrakeData brakeData,
+  BrakeData? _calculateBrakeData({
+    BrakeData? brakeData,
     double? lastChangeMileage,
-    required DateTime lastChangeDate,
+    DateTime? lastChangeDate,
   }) {
     double? nextChangeMileage =
         lastChangeMileage != null ? lastChangeMileage + 100000.00 : null;
-    DateTime nextChangeDate =
-        lastChangeDate.add(const Duration(days: (365 * 5)));
-    return brakeData.copyWith(
+    DateTime? nextChangeDate =
+        lastChangeDate?.add(const Duration(days: (365 * 5)));
+    return brakeData?.copyWith(
       lastChangeMileage: lastChangeMileage,
       lastChangeDate: lastChangeDate,
       nextChangeMileage: nextChangeMileage,
@@ -143,16 +151,16 @@ class CarPropertyCubit extends Cubit<CarPropertyLoaded> {
     );
   }
 
-  TimingBeltData _calculateTimingBeltData({
-    required TimingBeltData timingBeltData,
+  TimingBeltData? _calculateTimingBeltData({
+    TimingBeltData? timingBeltData,
     double? lastChangeMileage,
-    required DateTime lastChangeDate,
+    DateTime? lastChangeDate,
   }) {
     double? nextChangeMileage =
         lastChangeMileage != null ? lastChangeMileage + 80000.00 : null;
-    DateTime nextChangeDate =
-        lastChangeDate.add(const Duration(days: (365 * 5)));
-    return timingBeltData.copyWith(
+    DateTime? nextChangeDate =
+        lastChangeDate?.add(const Duration(days: (365 * 5)));
+    return timingBeltData?.copyWith(
       lastChangeMileage: lastChangeMileage,
       lastChangeDate: lastChangeDate,
       nextChangeMileage: nextChangeMileage,

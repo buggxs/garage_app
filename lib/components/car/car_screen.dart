@@ -30,9 +30,8 @@ class CarScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return car != null
         ? BlocProvider(
-            create: (context) =>
-                CarCubit(car: car!)..emit(CarLoadedState(car: car!)),
-            child: const CarScreenContent(),
+            create: (context) => CarCubit(car: car!),
+            child: const CarScreenTabs(),
           )
         : const GarageScaffold(
             child: Center(
@@ -42,45 +41,70 @@ class CarScreen extends StatelessWidget {
   }
 }
 
-class CarScreenContent extends StatelessWidget {
-  const CarScreenContent({Key? key}) : super(key: key);
+class CarScreenTabs extends StatefulWidget {
+  const CarScreenTabs({Key? key}) : super(key: key);
+
+  @override
+  State<CarScreenTabs> createState() => _CarScreenTabsState();
+}
+
+class _CarScreenTabsState extends State<CarScreenTabs>
+    with SingleTickerProviderStateMixin {
+  late TabController _controller;
+
+  int tabIndex = 0;
+
+  @override
+  void initState() {
+    _controller = TabController(
+      length: 3,
+      vsync: this,
+      initialIndex: tabIndex,
+    );
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     CarCubit cubit = context.watch<CarCubit>();
     CarState state = cubit.state;
 
-    Widget child;
-
-    if (state is CarLoadedState) {
-      child = DefaultTabController(
-        initialIndex: 0,
-        length: 3,
-        child: Scaffold(
-          backgroundColor: Colors.blueGrey[900],
-          appBar: AppBar(
-            backgroundColor: Colors.white,
-            foregroundColor: Colors.black,
-            title: Text('${state.car.name}'),
-            bottom: _tabBar(
-              context: context,
-              onTap: cubit.updateTab,
-            ),
-          ),
-          body: TabBarView(
-            children: <Widget>[
-              const PropertyTab(),
-              DocumentTab(car: state.car),
-              NotesTab(car: state.car),
-            ],
-          ),
-          floatingActionButton: _showActionButton(context, state),
+    Widget child = Scaffold(
+      backgroundColor: Colors.blueGrey[900],
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
+        title: Text('${state.car?.name}'),
+        bottom: _tabBar(
+          context: context,
+          onTap: cubit.updateTab,
         ),
-      );
-    } else {
-      child = const GarageScaffold(
+      ),
+      body: TabBarView(
+        controller: _controller,
+        children: <Widget>[
+          const PropertyTab(),
+          DocumentTab(car: state.car),
+          NotesTab(car: state.car),
+        ],
+      ),
+      floatingActionButton: _showActionButton(
+        context: context,
+        index: state.tabIndex,
+      ),
+    );
+
+    if (state is CarErrorState) {
+      child = GarageScaffold(
         child: Center(
-          child: Text('Error'),
+          child: Text(state.error ?? 'Error'),
         ),
       );
     }
@@ -93,6 +117,7 @@ class CarScreenContent extends StatelessWidget {
     required ValueChanged<int> onTap,
   }) {
     return TabBar(
+      controller: _controller,
       padding: const EdgeInsets.all(0.0),
       indicatorPadding: const EdgeInsets.all(0.0),
       indicatorColor: Colors.blueGrey[900],
@@ -121,9 +146,10 @@ class CarScreenContent extends StatelessWidget {
     );
   }
 
-  Widget? _showActionButton(BuildContext context, CarLoadedState state) {
+  Widget? _showActionButton({required BuildContext context, int? index = 0}) {
     CarCubit cubit = context.watch<CarCubit>();
-    switch (state.tabIndex) {
+    print('from _showActionButton $index');
+    switch (index) {
       case 0:
         return null;
       case 1:
@@ -153,6 +179,54 @@ class CarScreenContent extends StatelessWidget {
         );
       default:
         return null;
+    }
+  }
+}
+
+class MyFloatingActionButtons extends StatefulWidget {
+  const MyFloatingActionButtons({Key? key, this.index}) : super(key: key);
+
+  final int? index;
+
+  @override
+  State<MyFloatingActionButtons> createState() =>
+      _MyFloatingActionButtonsState();
+}
+
+class _MyFloatingActionButtonsState extends State<MyFloatingActionButtons> {
+  @override
+  Widget build(BuildContext context) {
+    CarCubit cubit = context.watch<CarCubit>();
+    switch (widget.index) {
+      case 0:
+        return const SizedBox();
+      case 1:
+        return FloatingActionButton(
+          onPressed: () async {
+            final Map<String, dynamic> documentData =
+                await app<PopupService>().showPopUp(
+              context,
+              const Text('Dokument hinzufügen'),
+              AddDocumentDialog(),
+            );
+            cubit.addDocumentToCar(documentData);
+          },
+          child: const Icon(Icons.inventory_outlined),
+        );
+      case 2:
+        return FloatingActionButton(
+          onPressed: () async {
+            String? noteText = await app<PopupService>().showPopUp(
+              context,
+              const Text('Notiz hinzufügen'),
+              AddNoteDialog(),
+            );
+            cubit.addNoteToCar(noteText);
+          },
+          child: const Icon(Icons.sticky_note_2_outlined),
+        );
+      default:
+        return const SizedBox();
     }
   }
 }

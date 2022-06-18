@@ -12,7 +12,7 @@ abstract class CarService {
   });
 
   Future<void> saveCar({
-    Car car,
+    Car? car,
   });
 }
 

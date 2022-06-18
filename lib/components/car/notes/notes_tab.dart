@@ -9,20 +9,17 @@ import 'package:garage_app/components/car/notes/widgets/note_card.dart';
 class NotesTab extends StatelessWidget {
   const NotesTab({
     Key? key,
-    required this.car,
+    this.car,
   }) : super(key: key);
 
-  final Car car;
+  final Car? car;
 
   @override
   Widget build(BuildContext context) {
     CarCubit carCubit = context.watch<CarCubit>();
 
     return BlocProvider(
-      create: (context) => NoteCubit(
-        carCubit: carCubit,
-        car: car,
-      )..loadNotes(),
+      create: (context) => carCubit.noteCubit..loadNotes(),
       child: const NoteTabContent(),
     );
   }

@@ -1,41 +1,21 @@
 part of 'car_cubit.dart';
 
 @immutable
-abstract class CarState extends Equatable {}
+abstract class CarState extends Equatable {
+  final Car? car;
+  final int? tabIndex;
 
-class CarInitial extends CarState {
-  @override
-  List<Object?> get props => [];
+  const CarState({
+    this.car,
+    this.tabIndex = 0,
+  });
 }
 
-class CarLoadedState extends CarState {
-  final Car car;
-  final int? tabIndex;
-  int? test;
-
-  CarLoadedState({
-    required this.car,
-    this.tabIndex = 0,
-  }) {
-    test = car.documentList?[0].length;
-  }
-
-  CarLoadedState copyWith({
-    Car? car,
-    int? tabIndex,
-  }) {
-    return CarLoadedState(
-      car: car ?? this.car,
-      tabIndex: tabIndex ?? this.tabIndex,
-    );
-  }
+class CarInitial extends CarState {
+  const CarInitial() : super();
 
   @override
-  List<Object?> get props => [
-        car,
-        tabIndex,
-        test,
-      ];
+  List<Object?> get props => [];
 }
 
 class CarLoadingState extends CarState {
@@ -43,10 +23,71 @@ class CarLoadingState extends CarState {
   List<Object?> get props => [];
 }
 
+class CarPropertyLoadedState extends CarState {
+  const CarPropertyLoadedState({
+    required Car car,
+  }) : super(
+          car: car,
+          tabIndex: 0,
+        );
+
+  @override
+  List<Object?> get props => [
+        car,
+        tabIndex,
+      ];
+}
+
+class CarDocumentLoadedState extends CarState {
+  const CarDocumentLoadedState({
+    Car? car,
+  }) : super(
+          tabIndex: 1,
+          car: car,
+        );
+
+  @override
+  List<Object?> get props => [
+        car,
+        tabIndex,
+      ];
+
+  CarDocumentLoadedState copyWith({
+    Car? car,
+  }) {
+    return CarDocumentLoadedState(
+      car: car ?? this.car,
+    );
+  }
+}
+
+class CarNoteLoadedState extends CarState {
+  const CarNoteLoadedState({
+    Car? car,
+  }) : super(
+          tabIndex: 2,
+          car: car,
+        );
+
+  @override
+  List<Object?> get props => [
+        car,
+        tabIndex,
+      ];
+
+  CarNoteLoadedState copyWith({
+    Car? car,
+  }) {
+    return CarNoteLoadedState(
+      car: car ?? this.car,
+    );
+  }
+}
+
 class CarErrorState extends CarState {
   final String? error;
 
-  CarErrorState({
+  const CarErrorState({
     this.error,
   });
 
