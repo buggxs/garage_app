@@ -14,32 +14,35 @@ part 'car.g.dart';
 
 @JsonSerializable()
 class Car extends Equatable {
-  int id;
-  final String? name;
-  double? mileage;
-  DateTime? date;
-  int? vintage;
-  OilData? oilData;
-  AirConditionerData? airConditioner;
-  BrakeData? brakeData;
-  TimingBeltData? timingBeltData;
-  TechnicalData? technicalData;
-  List<List<Document>>? documentList;
-  List<Note>? noteList;
+  const Car({
+    required this.id,
+    this.name,
+    this.mileage,
+    this.date,
+    this.vintage,
+    this.images,
+    this.oilData,
+    this.airConditioner,
+    this.brakeData,
+    this.timingBeltData,
+    this.technicalData,
+    this.documentList,
+    this.noteList,
+  });
 
-  Car(
-      {required this.id,
-      this.name,
-      this.mileage,
-      this.date,
-      this.vintage,
-      this.oilData,
-      this.airConditioner,
-      this.brakeData,
-      this.timingBeltData,
-      this.technicalData,
-      this.documentList,
-      this.noteList});
+  final int id;
+  final String? name;
+  final double? mileage;
+  final DateTime? date;
+  final int? vintage;
+  final List<String>? images;
+  final OilData? oilData;
+  final AirConditionerData? airConditioner;
+  final BrakeData? brakeData;
+  final TimingBeltData? timingBeltData;
+  final TechnicalData? technicalData;
+  final List<List<Document>>? documentList;
+  final List<Note>? noteList;
 
   factory Car.fromJson(Map<String, dynamic> json) => _$CarFromJson(json);
 
@@ -51,6 +54,7 @@ class Car extends Equatable {
     double? mileage,
     DateTime? date,
     int? vintage,
+    List<String>? images,
     OilData? oilData,
     AirConditionerData? airConditioner,
     BrakeData? brakeData,
@@ -65,6 +69,7 @@ class Car extends Equatable {
       mileage: mileage ?? this.mileage,
       date: date ?? this.date,
       vintage: vintage ?? this.vintage,
+      images: images ?? this.images,
       oilData: oilData ?? this.oilData,
       airConditioner: airConditioner ?? this.airConditioner,
       brakeData: brakeData ?? this.brakeData,

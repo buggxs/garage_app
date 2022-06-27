@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:garage_app/api/document/data/document.dart';
 import 'package:garage_app/components/car/i18n/car_i18n.dart';
 import 'package:garage_app/components/car/i18n/car_text.dart';
-import 'package:garage_app/components/common/widgets/custom_ligth_theme.dart';
+import 'package:garage_app/components/common/theme/custom_ligth_theme.dart';
 import 'package:garage_app/components/common/widgets/garage_scaffold.dart';
 
 class DocumentScreen extends StatelessWidget {

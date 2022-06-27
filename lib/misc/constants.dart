@@ -15,6 +15,11 @@ final Car constCar = Car(
   mileage: 132000,
   date: DateTime(2003, 4, 12),
   vintage: 2003,
+  images: <String>[
+    'assets/img/bmw.jpg',
+    'assets/img/bmw2.jpeg',
+    'assets/img/bmw3.jpg',
+  ],
   oilData: OilData(
       id: 1,
       lastChangeDate: DateTime(2020, 7, 5),

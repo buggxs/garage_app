@@ -34,6 +34,9 @@ class CarListItem extends StatelessWidget {
         Container(
           margin: const EdgeInsets.fromLTRB(0, 8.0, 8.0, 8.0),
           child: Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
             color: Colors.grey[400],
             child: InkWell(
               splashColor: Colors.blue.withAlpha(30),
@@ -78,8 +81,13 @@ class CarListItem extends StatelessWidget {
 
   Widget _carImage() {
     return Container(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(1.0),
       child: const ClipRRect(
+        borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(8),
+            topRight: Radius.circular(0),
+            bottomLeft: Radius.circular(8),
+            bottomRight: Radius.circular(0)),
         child: SizedBox(
           height: 100,
           width: 100,

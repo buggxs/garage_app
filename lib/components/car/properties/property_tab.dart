@@ -41,12 +41,6 @@ class PropertyTabContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<String> imageList = [
-      'assets/img/bmw.jpg',
-      'assets/img/bmw2.jpeg',
-      'assets/img/bmw3.jpg',
-    ];
-
     PropertyCubit cubit = context.watch<PropertyCubit>();
     CarPropertiesState state = cubit.state;
 
@@ -68,7 +62,7 @@ class PropertyTabContent extends StatelessWidget {
                   enlargeCenterPage: true,
                   enableInfiniteScroll: false,
                   viewportFraction: 1.0),
-              items: imageList.map((imageUrl) {
+              items: _car.images?.map((imageUrl) {
                 return Image(
                   image: AssetImage(imageUrl),
                   fit: BoxFit.cover,

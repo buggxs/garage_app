@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:garage_app/components/common/widgets/labled_text.dart';
+import 'package:garage_app/misc/misc.dart';
 
 class InfoCard extends StatelessWidget {
   const InfoCard({
@@ -19,7 +20,7 @@ class InfoCard extends StatelessWidget {
         ),
         borderRadius: BorderRadius.circular(4.0),
       ),
-      color: const Color.fromRGBO(0, 91, 140, 1.0),
+      color: ColorConstants.shieldBlue,
       child: LabeledText(
         caption: caption,
         text: content ?? '',

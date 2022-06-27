@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:garage_app/misc/misc.dart';
 
 class CustomLightTheme {
-  static const Color myGarageBlue = Color.fromRGBO(0, 91, 140, 1.0);
-  static const Color myGarageBlueGrey = Color.fromRGBO(26, 32, 38, 1.0);
+  static Color get myGarageBlue => ColorConstants.myGarageBlue;
 
   static ThemeData get lightTheme {
     return ThemeData(
