@@ -105,7 +105,10 @@ class CarListItem extends StatelessWidget {
     return Container(
       child: Text(
         '${car.name} - ${car.technicalData?.brand} ${car.technicalData?.model}',
-        style: const TextStyle(fontSize: 18),
+        style: const TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+        ),
       ),
       padding: const EdgeInsets.all(8.0),
     );

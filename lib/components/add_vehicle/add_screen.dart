@@ -8,6 +8,7 @@ class AddScreen extends StatelessWidget {
 
   static const String route = '/add';
 
+
   @override
   Widget build(BuildContext context) {
     return GarageScaffold(

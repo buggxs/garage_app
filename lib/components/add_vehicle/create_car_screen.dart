@@ -43,7 +43,11 @@ class _CreateCarStepperState extends State<CreateCarStepper> {
     return Form(
       key: _formKey,
       child: Stepper(
-        controlsBuilder: (context, {onStepContinue, onStepCancel}) {
+        controlsBuilder: (
+          context, {
+          void Function()? onStepCancel,
+          void Function()? onStepContinue,
+        }) {
           return Padding(
             padding: const EdgeInsets.symmetric(
               vertical: 12.0,

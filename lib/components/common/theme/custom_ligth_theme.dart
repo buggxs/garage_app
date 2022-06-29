@@ -32,6 +32,13 @@ class CustomLightTheme {
           ),
         ),
       ),
+      textTheme: ThemeData.light().textTheme.copyWith(
+            headline1: TextStyle(
+              fontSize: 20,
+              fontFamily: 'RobotoCondensed',
+              fontWeight: FontWeight.bold,
+            ),
+          ),
     );
   }
 }
