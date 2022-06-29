@@ -15,7 +15,7 @@ part 'car.g.dart';
 @JsonSerializable()
 class Car extends Equatable {
   const Car({
-    required this.id,
+    this.id,
     this.name,
     this.mileage,
     this.date,
@@ -30,7 +30,7 @@ class Car extends Equatable {
     this.noteList,
   });
 
-  final int id;
+  final int? id;
   final String? name;
   final double? mileage;
   final DateTime? date;

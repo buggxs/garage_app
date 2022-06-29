@@ -102,16 +102,15 @@ class CarListItem extends StatelessWidget {
   }
 
   Widget _carHeading(Car car) {
-    return Container(
-      child: Text(
-        '${car.name} - ${car.technicalData?.brand} ${car.technicalData?.model}',
-        style: const TextStyle(
-          fontSize: 18,
-          fontWeight: FontWeight.bold,
+    return Builder(builder: (context) {
+      return Container(
+        child: Text(
+          '${car.name} - ${car.technicalData?.brand} ${car.technicalData?.model}',
+          style: Theme.of(context).textTheme.headline2,
         ),
-      ),
-      padding: const EdgeInsets.all(8.0),
-    );
+        padding: const EdgeInsets.all(8.0),
+      );
+    });
   }
 
   Widget _carProperties(BuildContext context) {

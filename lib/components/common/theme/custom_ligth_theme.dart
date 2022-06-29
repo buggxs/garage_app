@@ -33,10 +33,17 @@ class CustomLightTheme {
         ),
       ),
       textTheme: ThemeData.light().textTheme.copyWith(
-            headline1: TextStyle(
-              fontSize: 20,
-              fontFamily: 'RobotoCondensed',
+            headline1: const TextStyle(
+              fontSize: 24,
+              fontFamily: 'Roboto',
               fontWeight: FontWeight.bold,
+              color: Colors.black,
+            ),
+            headline2: const TextStyle(
+              fontSize: 20,
+              fontFamily: 'Roboto',
+              fontWeight: FontWeight.normal,
+              color: Colors.black,
             ),
           ),
     );
