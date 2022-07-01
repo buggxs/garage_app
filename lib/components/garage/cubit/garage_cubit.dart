@@ -16,13 +16,7 @@ class GarageCubit extends Cubit<GarageState> with LoggerMixin {
   Future<void> loadGarageCars() async {
     emit(GarageLoadingState());
 
-    List<Car> carList = <Car>[];
-
-    Car? car = await app<CarService>().getCarById(carId: 1);
-
-    if (car != null) {
-      carList.add(car);
-    }
+    List<Car> carList = await app<CarService>().getAllCars();
 
     log.info('cars loaded (${carList.length})');
     emit(GarageLoadedState(cars: carList));

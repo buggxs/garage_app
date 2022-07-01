@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:garage_app/api/api.dart';
+import 'package:garage_app/api/car/data/property_data.dart';
 import 'package:garage_app/components/car/properties/property_tab.dart';
 import 'package:garage_app/components/car/properties/util/card_content.dart';
 import 'package:garage_app/components/common/widgets/labled_text.dart';
@@ -7,22 +7,20 @@ import 'package:garage_app/misc/number_formatter.dart';
 import 'package:garage_app/misc/text_formatter.dart';
 
 class PropertyCard extends StatelessWidget {
-  PropertyCard(
+  const PropertyCard(
     this.data, {
     Key? key,
     this.type = 'danger',
     this.property = CarProperty.oil,
     this.onTap,
     this.onLongPress,
-  }) : super(key: key) {
-    property = Car.getCarProperty(data);
-  }
+  }) : super(key: key);
 
   final String? type;
-  CarProperty? property;
-  final dynamic data;
-  Function? onTap;
-  Function? onLongPress;
+  final CarProperty? property;
+  final PropertyData data;
+  final Function? onTap;
+  final Function? onLongPress;
 
   @override
   Widget build(BuildContext context) {

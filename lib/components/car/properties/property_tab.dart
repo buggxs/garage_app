@@ -93,8 +93,9 @@ class PropertyTabContent extends StatelessWidget {
               ),
             ),
             PropertyCard(
-              _car.oilData,
+              _car.oilData ?? const OilData(),
               type: _car.calculateCarType(_car.oilData),
+              property: Car.getCarProperty(_car.oilData),
               onTap: () => Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -109,8 +110,9 @@ class PropertyTabContent extends StatelessWidget {
               ),
             ),
             PropertyCard(
-              _car.airConditioner,
+              _car.airConditioner ?? const AirConditionerData(),
               type: _car.calculateCarType(_car.airConditioner),
+              property: Car.getCarProperty(_car.airConditioner),
               onTap: () => Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -125,8 +127,9 @@ class PropertyTabContent extends StatelessWidget {
               ),
             ),
             PropertyCard(
-              _car.brakeData,
+              _car.brakeData ?? const BrakeData(),
               type: _car.calculateCarType(_car.brakeData),
+              property: Car.getCarProperty(_car.brakeData),
               onTap: () => Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -141,7 +144,8 @@ class PropertyTabContent extends StatelessWidget {
               ),
             ),
             PropertyCard(
-              _car.timingBeltData,
+              _car.timingBeltData ?? const TimingBeltData(),
+              property: Car.getCarProperty(_car.timingBeltData),
               type: _car.calculateCarType(_car.timingBeltData),
               onTap: () => Navigator.push(
                 context,

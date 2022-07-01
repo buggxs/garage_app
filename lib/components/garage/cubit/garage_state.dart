@@ -15,10 +15,10 @@ class GarageLoadingState extends GarageState {
 }
 
 class GarageLoadedState extends GarageState {
-  final List<Car>? cars;
+  final List<Car> cars;
 
   const GarageLoadedState({
-    this.cars,
+    this.cars = const <Car>[],
   });
 
   @override

@@ -13,7 +13,7 @@ void setup() {
   app
     ..registerLazySingleton<PopupService>(() => PopupService())
     ..registerLazySingleton<ModalService>(() => ModalService())
-    ..registerFactory<CarService>(() => LocalCarService())
+    ..registerLazySingleton<CarService>(() => LocalCarService())
     ..registerFactory<DocumentService>(() => LocalDocumentService())
     ..registerSingleton<LocaleInformation>(LocaleInformation());
 }

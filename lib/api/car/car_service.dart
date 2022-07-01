@@ -5,7 +5,7 @@ import 'package:garage_app/misc/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class CarService {
-  Future<List<Car>?> getAllCars();
+  Future<List<Car>> getAllCars();
 
   Future<Car?> getCarById({
     required int carId,
@@ -26,7 +26,7 @@ class OnlineCarService extends CarService {
   Future<void> saveCar({Car? car}) async {}
 
   @override
-  Future<List<Car>?> getAllCars() async {
+  Future<List<Car>> getAllCars() async {
     return <Car>[];
   }
 }
@@ -53,9 +53,9 @@ class LocalCarService with LoggerMixin implements CarService {
     List<Car>? carList = await getAllCars();
     int? index = carList.indexWhere((Car tmpCar) => tmpCar.id == car.id);
     if (index == -1) {
-      carList.add(car);
+      carList.add(car.copyWith(id: 3));
     } else {
-      carList.add(car);
+      carList.add(car.copyWith(id: (car.id ?? 3) + 3));
     }
     log.info('Saved car with name ${car.name}');
     prefs.setString('car_list', jsonEncode(carList));

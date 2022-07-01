@@ -1,8 +1,8 @@
 import 'package:intl/intl.dart';
 
 abstract class NumberFormatter {
-  static String mileageFormatter(dynamic value) {
+  static String mileageFormatter(num? value) {
     var f = NumberFormat('###,###');
-    return f.format(value).replaceAll(',', '.');
+    return value != null ? f.format(value).replaceAll(',', '.') : '-';
   }
 }
