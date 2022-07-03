@@ -1,10 +1,10 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:garage_app/api/api.dart';
 import 'package:garage_app/components/car/cubit/car_cubit.dart';
 import 'package:garage_app/components/car/properties/cubit/property_cubit.dart';
 import 'package:garage_app/components/car/properties/details/property_details_screen.dart';
+import 'package:garage_app/components/car/properties/widgets/image_slider.dart';
 import 'package:garage_app/components/car/properties/widgets/info_card.dart';
 import 'package:garage_app/components/car/properties/widgets/property_card.dart';
 import 'package:garage_app/components/car/properties/widgets/technical_card.dart';
@@ -57,17 +57,8 @@ class PropertyTabContent extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CarouselSlider(
-              options: CarouselOptions(
-                  enlargeCenterPage: true,
-                  enableInfiniteScroll: false,
-                  viewportFraction: 1.0),
-              items: _car.images?.map((imageUrl) {
-                return Image(
-                  image: AssetImage(imageUrl),
-                  fit: BoxFit.cover,
-                );
-              }).toList(),
+            ImageSlider(
+              urlList: _car.images,
             ),
             Padding(
               padding: const EdgeInsets.symmetric(

@@ -25,6 +25,9 @@ enum CarText {
   uploadDocument,
   upload,
   errorLoadingDocuments,
+  tuevUntil,
+  mileage,
+  vintage,
 }
 
 class CarI18n extends I18n<CarText> {
