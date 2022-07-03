@@ -94,10 +94,12 @@ class GarageScreenContent extends StatelessWidget {
 
     if (carList.isNotEmpty) {
       children = carList
-          .map((Car car) => CarListItem(
-                car: car,
-                updateFunction: cubit.updateCarData,
-              ))
+          .map(
+            (Car car) => CarListItem(
+              car: car,
+              updateFunction: cubit.updateCarData,
+            ),
+          )
           .cast<Widget>()
           .toList();
 

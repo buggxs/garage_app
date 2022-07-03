@@ -5,6 +5,7 @@ import 'package:garage_app/components/common/widgets/icon_text.dart';
 import 'package:garage_app/components/common/widgets/modal_service.dart';
 import 'package:garage_app/components/garage/i18n/garage_i18n.dart';
 import 'package:garage_app/components/garage/i18n/garage_text.dart';
+import 'package:garage_app/components/garage/widgets/car_item_slidable.dart';
 import 'package:garage_app/core/app_service_locator.dart';
 
 typedef UpdateCarFunction = void Function({
@@ -57,20 +58,22 @@ class CarListItem extends StatelessWidget {
                   lastChangeDateString: lastChangeDateString,
                 ),
               ),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _carImage(),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        _carHeading(car),
-                        _carProperties(context),
-                      ],
-                    ),
-                  )
-                ],
+              child: CarItemSlidable(
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _carImage(),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          _carHeading(car),
+                          _carProperties(context),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
           ),
