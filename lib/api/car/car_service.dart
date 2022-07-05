@@ -14,6 +14,8 @@ abstract class CarService {
   Future<void> saveCar({
     Car? car,
   });
+
+  Future<void> deleteCar({required Car car});
 }
 
 class OnlineCarService extends CarService {
@@ -28,6 +30,12 @@ class OnlineCarService extends CarService {
   @override
   Future<List<Car>> getAllCars() async {
     return <Car>[];
+  }
+
+  @override
+  Future<void> deleteCar({required Car car}) {
+    // TODO: implement deleteCar
+    throw UnimplementedError();
   }
 }
 
@@ -49,7 +57,6 @@ class LocalCarService with LoggerMixin implements CarService {
     if (car == null) {
       throw Exception('Nothing to save');
     }
-    SharedPreferences prefs = await SharedPreferences.getInstance();
     List<Car>? carList = await getAllCars();
     int? index = carList.indexWhere((Car tmpCar) => tmpCar.id == car.id);
     if (index == -1) {
@@ -58,7 +65,7 @@ class LocalCarService with LoggerMixin implements CarService {
       carList.add(car.copyWith(id: (car.id ?? 3) + 3));
     }
     log.info('Saved car with name ${car.name}');
-    prefs.setString('car_list', jsonEncode(carList));
+    saveCarList(carList);
   }
 
   @override
@@ -76,5 +83,23 @@ class LocalCarService with LoggerMixin implements CarService {
     } else {
       return <Car>[];
     }
+  }
+
+  @override
+  Future<void> deleteCar({
+    required Car car,
+  }) async {
+    List<Car> carList = await getAllCars();
+    if (carList.isNotEmpty) {
+      final int carIndex = carList.indexWhere((tempCar) => car == tempCar);
+      carList.removeAt(carIndex);
+      log.info('Deleted Car with name ${car.name}');
+    }
+    saveCarList(carList);
+  }
+
+  Future<void> saveCarList(List<Car> carList) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('car_list', jsonEncode(carList));
   }
 }

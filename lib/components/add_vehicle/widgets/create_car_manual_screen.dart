@@ -52,8 +52,8 @@ class _CreateCarManualScreenContentState
               _formKey.currentState?.save();
             }
             cubit.saveVehicle(car: newCar);
-            Navigator.of(context).popUntil(
-              ModalRoute.withName(GarageScreen.route),
+            Navigator.of(context).pushReplacementNamed(
+              GarageScreen.route,
             );
           },
         ),

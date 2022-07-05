@@ -98,6 +98,7 @@ class GarageScreenContent extends StatelessWidget {
             (Car car) => CarListItem(
               car: car,
               updateFunction: cubit.updateCarData,
+              onDelete: cubit.deleteCar,
             ),
           )
           .cast<Widget>()

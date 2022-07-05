@@ -11,12 +11,14 @@ import 'package:intl/intl.dart';
 part 'garage_state.dart';
 
 class GarageCubit extends Cubit<GarageState> with LoggerMixin {
-  GarageCubit() : super(const GarageLoadedState(cars: []));
+  GarageCubit() : super(GarageLoadedState());
+
+  final CarService _carService = app<CarService>();
 
   Future<void> loadGarageCars() async {
     emit(GarageLoadingState());
 
-    List<Car> carList = await app<CarService>().getAllCars();
+    List<Car> carList = await _carService.getAllCars();
 
     log.info('cars loaded (${carList.length})');
     emit(GarageLoadedState(cars: carList));
@@ -26,6 +28,16 @@ class GarageCubit extends Cubit<GarageState> with LoggerMixin {
     Navigator.of(context).pushNamed(
       AddScreen.route,
     );
+  }
+
+  Future<void> deleteCar(Car car) async {
+    if (state is GarageLoadedState) {
+      final List<Car> carList = (state as GarageLoadedState).cars;
+      final int carIndex = carList.indexWhere((tmpCar) => tmpCar == car);
+      carList.removeAt(carIndex);
+      _carService.deleteCar(car: car);
+      emit(GarageLoadedState(cars: carList));
+    }
   }
 
   Future<void> updateCarData({
@@ -43,7 +55,7 @@ class GarageCubit extends Cubit<GarageState> with LoggerMixin {
 
       log.info('Updating car specs..');
 
-      app<CarService>().saveCar(
+      _carService.saveCar(
         car: car.copyWith(
           mileage: lastChangeMileage,
           date: lastChangeDate,

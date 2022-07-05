@@ -21,12 +21,14 @@ class CarListItem extends StatelessWidget {
     required this.updateFunction,
     this.index,
     this.onLongPress,
+    this.onDelete,
   }) : super(key: key);
 
   final Car car;
   final UpdateCarFunction updateFunction;
   final int? index;
   final Function? onLongPress;
+  final void Function(Car car)? onDelete;
 
   @override
   Widget build(BuildContext context) {
@@ -59,6 +61,7 @@ class CarListItem extends StatelessWidget {
                 ),
               ),
               child: CarItemSlidable(
+                onDelete: () => onDelete?.call(car),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
