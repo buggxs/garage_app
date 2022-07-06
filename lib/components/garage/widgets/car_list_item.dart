@@ -88,8 +88,8 @@ class CarListItem extends StatelessWidget {
   Widget _carImage() {
     return Container(
       padding: const EdgeInsets.all(1.0),
-      child: const ClipRRect(
-        borderRadius: BorderRadius.only(
+      child: ClipRRect(
+        borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(8),
             topRight: Radius.circular(0),
             bottomLeft: Radius.circular(8),
@@ -97,11 +97,15 @@ class CarListItem extends StatelessWidget {
         child: SizedBox(
           height: 100,
           width: 100,
-          child: FadeInImage(
-            fit: BoxFit.cover,
-            placeholder: AssetImage('assets/img/car-placeholder.png'),
-            image: AssetImage('assets/img/bmw.jpg'),
-          ),
+          child: (car.imageUrls?.isNotEmpty ?? false)
+              ? FadeInImage.assetNetwork(
+                  fit: BoxFit.cover,
+                  placeholder: 'assets/img/car-placeholder.png',
+                  image: car.imageUrls!.first,
+                )
+              : const Image(
+                  image: AssetImage('assets/img/car-placeholder.png'),
+                ),
         ),
       ),
     );

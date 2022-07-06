@@ -19,7 +19,10 @@ class NotesTab extends StatelessWidget {
     CarCubit carCubit = context.watch<CarCubit>();
 
     return BlocProvider(
-      create: (context) => carCubit.noteCubit..loadNotes(),
+      create: (context) => NoteCubit(
+        car: carCubit.car,
+        carCubit: carCubit,
+      )..loadNotes(),
       child: const NoteTabContent(),
     );
   }

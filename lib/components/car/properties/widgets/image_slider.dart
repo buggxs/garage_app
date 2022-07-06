@@ -21,7 +21,7 @@ class ImageSlider extends StatelessWidget {
 
     if (urlList?.isNotEmpty ?? false) {
       if (urlList!.length == 1) {
-        child = ImagePlaceholder(image: AssetImage(urlList!.first));
+        child = ImagePlaceholder(imageUrl: urlList!.first);
       } else {
         child = _buildCarouselSlider(urlList!);
       }
@@ -36,8 +36,8 @@ class ImageSlider extends StatelessWidget {
           enableInfiniteScroll: false,
           viewportFraction: 1.0),
       items: urlList.map((imageUrl) {
-        return Image(
-          image: AssetImage(imageUrl),
+        return ImagePlaceholder(
+          imageUrl: imageUrl,
           fit: BoxFit.cover,
         );
       }).toList(),

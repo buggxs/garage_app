@@ -22,7 +22,9 @@ Map<CarText, String> _deValues = <CarText, String>{
   CarText.uploadDocument: 'Dokument hochladen',
   CarText.upload: 'Hochladen',
   CarText.errorLoadingDocuments: 'Fehler beim laden der Dokumente',
-  CarText.tuevUntil: 'TÜV bis:',
-  CarText.mileage: 'Kilometerstand:',
-  CarText.vintage: 'Baujahr:',
+  CarText.tuevUntil: 'TÜV bis',
+  CarText.mileage: 'Kilometerstand',
+  CarText.vintage: 'Baujahr',
+  CarText.changedOn: 'Ausgetauscht am',
+  CarText.update: 'Aktualisieren',
 };

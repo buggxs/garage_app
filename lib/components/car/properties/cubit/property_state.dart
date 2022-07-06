@@ -1,12 +1,16 @@
 part of 'property_cubit.dart';
 
-class CarPropertiesState {
-  const CarPropertiesState({this.car});
+class CarPropertiesState extends Equatable {
+  const CarPropertiesState({
+    required this.car,
+  });
 
-  final Car? car;
+  final Car car;
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [
+        car,
+      ];
 
   CarPropertiesState copyWith({Car? car}) {
     return CarPropertiesState(

@@ -20,7 +20,7 @@ class Car extends Equatable {
     this.mileage,
     this.date,
     this.vintage,
-    this.images,
+    this.imageUrls,
     this.oilData = const OilData(),
     this.airConditioner = const AirConditionerData(),
     this.brakeData = const BrakeData(),
@@ -35,7 +35,7 @@ class Car extends Equatable {
   final double? mileage;
   final DateTime? date;
   final int? vintage;
-  final List<String>? images;
+  final List<String>? imageUrls;
   final OilData? oilData;
   final AirConditionerData? airConditioner;
   final BrakeData? brakeData;
@@ -69,7 +69,7 @@ class Car extends Equatable {
       mileage: mileage ?? this.mileage,
       date: date ?? this.date,
       vintage: vintage ?? this.vintage,
-      images: images ?? this.images,
+      imageUrls: images ?? this.imageUrls,
       oilData: oilData ?? this.oilData,
       airConditioner: airConditioner ?? this.airConditioner,
       brakeData: brakeData ?? this.brakeData,

@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
 import 'package:garage_app/api/api.dart';
 import 'package:garage_app/api/car/car_service.dart';
 import 'package:garage_app/components/car/cubit/car_cubit.dart';
@@ -12,15 +13,13 @@ part 'property_state.dart';
 class PropertyCubit extends Cubit<CarPropertiesState> with LoggerMixin {
   PropertyCubit({
     required this.carCubit,
-  }) : super(const CarPropertiesState());
+    required Car car,
+  }) : super(CarPropertiesState(car: car));
 
   final CarService _carService = app<CarService>();
   final CarCubit carCubit;
 
-  void loadProperties() async {
-    emit(state.copyWith(
-      car: carCubit.car,
-    ));
+  void loadProperties() {
     carCubit.updateTab(0);
   }
 
@@ -41,12 +40,12 @@ class PropertyCubit extends Cubit<CarPropertiesState> with LoggerMixin {
     switch (carProperty) {
       case CarProperty.oil:
         OilData? newOilData = _calculateOilData(
-          oilData: state.car?.oilData,
+          oilData: state.car.oilData,
           lastChangeMileage: lastChangeMileage,
           lastChangeDate: lastChangeDate,
         );
         emit(state.copyWith(
-          car: state.car?.copyWith(
+          car: state.car.copyWith(
             oilData: newOilData,
           ),
         ));
@@ -54,26 +53,26 @@ class PropertyCubit extends Cubit<CarPropertiesState> with LoggerMixin {
       case CarProperty.airConditioner:
         AirConditionerData? newAirConditionerData =
             _calculateAirConditionerData(
-          airConditionerData: state.car?.airConditioner,
+          airConditionerData: state.car.airConditioner,
           lastChangeMileage: lastChangeMileage,
           lastChangeDate: lastChangeDate,
         );
         emit(
           state.copyWith(
-              car: state.car?.copyWith(
+              car: state.car.copyWith(
             airConditioner: newAirConditionerData,
           )),
         );
         break;
       case CarProperty.brake:
         BrakeData? brakeData = _calculateBrakeData(
-          brakeData: state.car?.brakeData,
+          brakeData: state.car.brakeData,
           lastChangeMileage: lastChangeMileage,
           lastChangeDate: lastChangeDate,
         );
         emit(
           state.copyWith(
-            car: state.car?.copyWith(
+            car: state.car.copyWith(
               brakeData: brakeData,
             ),
           ),
@@ -81,13 +80,13 @@ class PropertyCubit extends Cubit<CarPropertiesState> with LoggerMixin {
         break;
       case CarProperty.timingBelt:
         TimingBeltData? timingBeltData = _calculateTimingBeltData(
-          timingBeltData: state.car?.timingBeltData,
+          timingBeltData: state.car.timingBeltData,
           lastChangeDate: lastChangeDate,
           lastChangeMileage: lastChangeMileage,
         );
         emit(
           state.copyWith(
-            car: state.car?.copyWith(
+            car: state.car.copyWith(
               timingBeltData: timingBeltData,
             ),
           ),
@@ -106,7 +105,7 @@ class PropertyCubit extends Cubit<CarPropertiesState> with LoggerMixin {
     DateTime? lastChangeDate,
   }) {
     double? nextChangeMileage =
-        lastChangeMileage != null ? lastChangeMileage + 15000.00 : 0.0;
+        lastChangeMileage != null ? lastChangeMileage + 15000.00 : null;
     DateTime? nextChangeDate =
         lastChangeDate?.add(const Duration(days: (365 * 2)));
     return oilData?.copyWith(

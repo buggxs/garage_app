@@ -21,7 +21,10 @@ class DocumentTab extends StatelessWidget {
     CarCubit cubit = context.watch<CarCubit>();
 
     return BlocProvider(
-      create: (context) => cubit.documentCubit..loadDocuments(),
+      create: (context) => DocumentCubit(
+        car: cubit.car,
+        carCubit: cubit,
+      )..loadDocuments(),
       child: const DocumentTabContent(),
     );
   }

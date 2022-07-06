@@ -12,7 +12,7 @@ Map<String, dynamic>? getCardContent(
       'card_heading': CarText.oilCardHeading(),
       'card_icon': const ImageIcon(
         AssetImage("assets/icons/car-oil.png"),
-        size: 24.0,
+        size: 28.0,
       ),
       'last_change_text': CarText.lastChange(),
       'next_change_text': CarText.nextChange(),

@@ -60,11 +60,12 @@ class LocalCarService with LoggerMixin implements CarService {
     List<Car>? carList = await getAllCars();
     int? index = carList.indexWhere((Car tmpCar) => tmpCar.id == car.id);
     if (index == -1) {
-      carList.add(car.copyWith(id: 3));
+      carList.add(car.copyWith(id: carList.length));
+      log.info('Saved new car with id ${car.id}');
     } else {
-      carList.add(car.copyWith(id: (car.id ?? 3) + 3));
+      carList[index] = car;
+      log.info('Updated car with id ${car.id}');
     }
-    log.info('Saved car with name ${car.name}');
     saveCarList(carList);
   }
 

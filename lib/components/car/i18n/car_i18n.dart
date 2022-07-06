@@ -28,6 +28,8 @@ enum CarText {
   tuevUntil,
   mileage,
   vintage,
+  changedOn,
+  update,
 }
 
 class CarI18n extends I18n<CarText> {

@@ -71,7 +71,9 @@ class _CreateCarManualScreenContentState
             Row(
               children: [
                 CarDataInput(
-                  inputDecoration: _formFieldDecoration('Fahrzeug Name'),
+                  inputDecoration: const InputDecoration(
+                    labelText: 'Fahrzeug Name',
+                  ),
                   textStyle: _carInputTextStyle(),
                   onSave: (String value) {
                     newCar = newCar.copyWith(
@@ -84,7 +86,9 @@ class _CreateCarManualScreenContentState
             Row(
               children: [
                 CarDataInput(
-                  inputDecoration: _formFieldDecoration('Kilometerstand'),
+                  inputDecoration: const InputDecoration(
+                    labelText: 'Kilometerstand',
+                  ),
                   textStyle: _carInputTextStyle(),
                   onSave: (String value) {
                     newCar = newCar.copyWith(
@@ -93,7 +97,9 @@ class _CreateCarManualScreenContentState
                   },
                 ),
                 CarDataInput(
-                  inputDecoration: _formFieldDecoration('Baujahr'),
+                  inputDecoration: const InputDecoration(
+                    labelText: 'Baujahr',
+                  ),
                   textStyle: _carInputTextStyle(),
                   onSave: (String value) {
                     newCar = newCar.copyWith(
@@ -119,7 +125,9 @@ class _CreateCarManualScreenContentState
             Row(
               children: [
                 CarDataInput(
-                  inputDecoration: _formFieldDecoration('Marke'),
+                  inputDecoration: const InputDecoration(
+                    labelText: 'Marke',
+                  ),
                   textStyle: _carInputTextStyle(),
                 ),
               ],
@@ -127,11 +135,15 @@ class _CreateCarManualScreenContentState
             Row(
               children: [
                 CarDataInput(
-                  inputDecoration: _formFieldDecoration('Model'),
+                  inputDecoration: const InputDecoration(
+                    labelText: 'Model',
+                  ),
                   textStyle: _carInputTextStyle(),
                 ),
                 CarDataInput(
-                  inputDecoration: _formFieldDecoration('Typ'),
+                  inputDecoration: const InputDecoration(
+                    labelText: 'Typ',
+                  ),
                   textStyle: _carInputTextStyle(),
                 ),
               ],
@@ -139,30 +151,22 @@ class _CreateCarManualScreenContentState
             Row(
               children: [
                 CarDataInput(
-                  inputDecoration: _formFieldDecoration('HSN'),
+                  inputDecoration: const InputDecoration(
+                    labelText: 'HSN',
+                  ),
                   textStyle: _carInputTextStyle(),
                 ),
                 CarDataInput(
-                  inputDecoration: _formFieldDecoration('TSN'),
+                  inputDecoration: const InputDecoration(
+                    labelText: 'TSN',
+                  ),
                   textStyle: _carInputTextStyle(),
                 ),
               ],
             ),
-            _inputTextField('Test'),
           ],
         ),
       ),
-    );
-  }
-
-  Widget _inputTextField(String labelText) {
-    return Row(
-      children: [
-        CarDataInput(
-          inputDecoration: _formFieldDecoration(labelText),
-          textStyle: _carInputTextStyle(),
-        ),
-      ],
     );
   }
 
@@ -171,31 +175,6 @@ class _CreateCarManualScreenContentState
       fontWeight: FontWeight.w500,
       fontSize: 17,
       color: Colors.white,
-    );
-  }
-
-  InputDecoration _formFieldDecoration(String? labelText) {
-    return InputDecoration(
-      labelText: labelText,
-      labelStyle: const TextStyle(color: Colors.white),
-      fillColor: Colors.white,
-      contentPadding: const EdgeInsets.symmetric(
-        horizontal: 10.0,
-        vertical: 3.0,
-      ),
-      focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(5.0),
-        borderSide: const BorderSide(
-          color: Colors.white,
-        ),
-      ),
-      enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(5.0),
-        borderSide: const BorderSide(
-          color: Colors.white,
-          width: 1.0,
-        ),
-      ),
     );
   }
 }

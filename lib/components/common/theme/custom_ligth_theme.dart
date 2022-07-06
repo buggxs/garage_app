@@ -46,6 +46,31 @@ class CustomLightTheme {
               color: Colors.black,
             ),
           ),
+      inputDecorationTheme: ThemeData.light().inputDecorationTheme.copyWith(
+            labelStyle: const TextStyle(
+              fontWeight: FontWeight.w500,
+              fontSize: 17,
+              color: Colors.white,
+            ),
+            fillColor: Colors.white,
+            contentPadding: const EdgeInsets.symmetric(
+              horizontal: 10.0,
+              vertical: 3.0,
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(5.0),
+              borderSide: const BorderSide(
+                color: Colors.white,
+              ),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(5.0),
+              borderSide: const BorderSide(
+                color: Colors.white,
+                width: 1.0,
+              ),
+            ),
+          ),
     );
   }
 }

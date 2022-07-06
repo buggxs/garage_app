@@ -1,4 +1,3 @@
-import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,37 +5,17 @@ import 'package:garage_app/api/car/car_service.dart';
 import 'package:garage_app/api/car/data/car.dart';
 import 'package:garage_app/api/document/data/document.dart';
 import 'package:garage_app/api/note/data/note.dart';
-import 'package:garage_app/components/car/documents/cubit/document_cubit.dart';
-import 'package:garage_app/components/car/notes/cubit/note_cubit.dart';
-import 'package:garage_app/components/car/properties/cubit/property_cubit.dart';
 import 'package:garage_app/core/app_service_locator.dart';
 import 'package:garage_app/misc/logger.dart';
-import 'package:meta/meta.dart';
 
 part 'car_state.dart';
 
 class CarCubit extends Cubit<CarState> with LoggerMixin {
   CarCubit({
     required this.car,
-  }) : super(CarPropertyLoadedState(car: car)) {
-    documentCubit = DocumentCubit(
-      car: car,
-      carCubit: this,
-    );
-    noteCubit = NoteCubit(
-      car: car,
-      carCubit: this,
-    );
-    propertyCubit = PropertyCubit(
-      carCubit: this,
-    );
-  }
+  }) : super(CarPropertyLoadedState(car: car));
 
   Car car;
-
-  late final DocumentCubit documentCubit;
-  late final NoteCubit noteCubit;
-  late final PropertyCubit propertyCubit;
 
   static CarCubit of(BuildContext context) =>
       BlocProvider.of<CarCubit>(context);
