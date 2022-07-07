@@ -4,15 +4,17 @@ class BottomModalContainer extends StatelessWidget {
   const BottomModalContainer({
     Key? key,
     required this.children,
-    this.title = '',
+    this.title,
     this.icon,
     this.decoration,
+    this.titleStyle,
   }) : super(key: key);
 
   final Widget? icon;
   final List<Widget> children;
   final BoxDecoration? decoration;
-  final String title;
+  final String? title;
+  final TextStyle? titleStyle;
 
   @override
   Widget build(BuildContext context) {
@@ -34,8 +36,8 @@ class BottomModalContainer extends StatelessWidget {
                     child: icon,
                   ),
                   Text(
-                    title,
-                    style: Theme.of(context).textTheme.headline1,
+                    title ?? '',
+                    style: titleStyle ?? Theme.of(context).textTheme.headline1,
                   ),
                   InkWell(
                     onTap: () => Navigator.pop(context),

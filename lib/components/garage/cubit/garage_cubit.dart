@@ -40,27 +40,31 @@ class GarageCubit extends Cubit<GarageState> with LoggerMixin {
     }
   }
 
-  Future<void> updateCarData({
+  void updateCarData({
     required Car car,
     String? lastChangeMileageString,
     String? lastChangeDateString,
   }) async {
     if (state is GarageLoadedState) {
-      var lastChangeDate = lastChangeDateString?.isNotEmpty ?? false
-          ? DateFormat('dd.MM.y').parse(lastChangeDateString!)
-          : DateTime.now();
-      var lastChangeMileage = lastChangeMileageString?.isNotEmpty ?? false
-          ? double.tryParse(lastChangeMileageString!)
-          : null;
+      DateTime? lastChangeDate =
+          lastChangeDateString != null && lastChangeDateString.isNotEmpty
+              ? DateFormat('dd.MM.y').parse(lastChangeDateString)
+              : null;
+      double? lastChangeMileage =
+          lastChangeMileageString != null && lastChangeMileageString.isNotEmpty
+              ? double.tryParse(lastChangeMileageString)
+              : null;
 
       log.info('Updating car specs..');
 
-      _carService.saveCar(
+      await _carService.saveCar(
         car: car.copyWith(
           mileage: lastChangeMileage,
           date: lastChangeDate,
         ),
       );
+
+      loadGarageCars();
     }
   }
 }

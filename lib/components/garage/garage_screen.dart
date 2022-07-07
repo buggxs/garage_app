@@ -88,7 +88,7 @@ class GarageScreenContent extends StatelessWidget {
       ),
       CarListItem(
         car: constCar,
-        updateFunction: cubit.updateCarData,
+        onUpdate: cubit.updateCarData,
       ),
     ];
 
@@ -97,7 +97,7 @@ class GarageScreenContent extends StatelessWidget {
           .map(
             (Car car) => CarListItem(
               car: car,
-              updateFunction: cubit.updateCarData,
+              onUpdate: cubit.updateCarData,
               onDelete: cubit.deleteCar,
             ),
           )
@@ -116,7 +116,7 @@ class GarageScreenContent extends StatelessWidget {
       children.add(
         CarListItem(
           car: constCar,
-          updateFunction: cubit.updateCarData,
+          onUpdate: cubit.updateCarData,
         ),
       );
     }

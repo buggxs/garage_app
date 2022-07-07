@@ -18,14 +18,14 @@ class CarListItem extends StatelessWidget {
   const CarListItem({
     Key? key,
     required this.car,
-    required this.updateFunction,
+    required this.onUpdate,
     this.index,
     this.onLongPress,
     this.onDelete,
   }) : super(key: key);
 
   final Car car;
-  final UpdateCarFunction updateFunction;
+  final UpdateCarFunction onUpdate;
   final int? index;
   final Function? onLongPress;
   final void Function(Car car)? onDelete;
@@ -49,16 +49,8 @@ class CarListItem extends StatelessWidget {
               ),
               onLongPress: () => app<ModalService>().showUpdateModal(
                 context: context,
-                onUpdate: ({
-                  dynamic carProperty,
-                  String? lastChangeMileageString,
-                  String? lastChangeDateString,
-                }) =>
-                    updateFunction(
-                  car: car,
-                  lastChangeMileageString: lastChangeMileageString,
-                  lastChangeDateString: lastChangeDateString,
-                ),
+                car: car,
+                onUpdate: onUpdate,
               ),
               child: CarItemSlidable(
                 onDelete: () => onDelete?.call(car),

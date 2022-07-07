@@ -9,8 +9,14 @@ import 'package:garage_app/components/common/widgets/bottom_modal_container.dart
 import 'package:garage_app/components/garage/widgets/car_data_input.dart';
 import 'package:garage_app/misc/logger.dart';
 
-typedef UpdateCarData = Function({
+typedef UpdateCarProperty = Function({
   dynamic carProperty,
+  String? lastChangeMileageString,
+  String? lastChangeDateString,
+});
+
+typedef UpdateCarData = void Function({
+  required Car car,
   String? lastChangeMileageString,
   String? lastChangeDateString,
 });
@@ -21,7 +27,7 @@ class ModalService with LoggerMixin {
     required BuildContext context,
     required String type,
     required dynamic data,
-    required UpdateCarData onUpdate,
+    required UpdateCarProperty onUpdate,
   }) {
     final _formKey = GlobalKey<FormState>();
     CarProperty carProperty = Car.getCarProperty(data);
@@ -105,89 +111,67 @@ class ModalService with LoggerMixin {
   showUpdateModal({
     required BuildContext context,
     required UpdateCarData onUpdate,
+    required Car car,
   }) {
     final _formKey = GlobalKey<FormState>();
     showModalBottomSheet<void>(
         context: context,
         isScrollControlled: true,
         builder: (BuildContext context) {
-          return Padding(
-            padding: MediaQuery.of(context).viewInsets,
-            child: Container(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          String? lastChangeMileageString;
+          String? lastChangeDateString;
+          return BottomModalContainer(
+            title: car.name,
+            children: [
+              SingleChildScrollView(
+                child: Form(
+                  key: _formKey,
+                  child: Column(
                     children: [
                       Row(
-                        children: const [
-                          Text(
-                            "Mein cooles Auto dot com",
-                            style: TextStyle(
-                                fontSize: 17, fontWeight: FontWeight.bold),
-                          )
+                        children: [
+                          CarDataInput(
+                            inputDecoration: defaultInputDecorationBlack(
+                              label: Text(CarText.mileage()),
+                            ),
+                            textInputType: TextInputType.number,
+                            onSave: (String value) =>
+                                lastChangeMileageString = value,
+                          ),
+                          CarDataInput(
+                            inputDecoration: defaultInputDecorationBlack(
+                              label: Text(CarText.tuevUntil()),
+                            ),
+                            textInputType: TextInputType.datetime,
+                            readOnly: true,
+                            onSave: (String value) =>
+                                lastChangeDateString = value,
+                          ),
                         ],
                       ),
-                      InkWell(
-                        onTap: () => Navigator.pop(context),
-                        child: const Padding(
-                          padding: EdgeInsets.only(right: 5.0),
-                          child: Icon(Icons.close),
+                      ElevatedButton(
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                              Colors.blueGrey.shade900),
                         ),
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            _formKey.currentState!.save();
+                            onUpdate(
+                              car: car,
+                              lastChangeMileageString: lastChangeMileageString,
+                              lastChangeDateString: lastChangeDateString,
+                            );
+                            Navigator.pop(context);
+                          }
+                        },
+                        child: const Text("Aktualisieren"),
                       ),
                     ],
                   ),
-                  SingleChildScrollView(
-                    child: Form(
-                      key: _formKey,
-                      child: Column(
-                        children: [
-                          Row(
-                            children: [
-                              CarDataInput(
-                                inputDecoration: const InputDecoration(
-                                  label: Text('Kilometerstand'),
-                                ),
-                                textInputType: TextInputType.number,
-                                onSave: (String value) => onUpdate(
-                                  lastChangeMileageString: value,
-                                ),
-                              ),
-                              CarDataInput(
-                                inputDecoration: const InputDecoration(
-                                  label: Text('TÜV'),
-                                ),
-                                textInputType: TextInputType.datetime,
-                                readOnly: true,
-                                onSave: (String value) => onUpdate(
-                                  lastChangeDateString: value,
-                                ),
-                              ),
-                            ],
-                          ),
-                          ElevatedButton(
-                            style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                  Colors.blueGrey.shade900),
-                            ),
-                            onPressed: () {
-                              if (_formKey.currentState!.validate()) {
-                                _formKey.currentState!.save();
-                                Navigator.pop(context);
-                              }
-                            },
-                            child: const Text("Aktualisieren"),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
+                ),
               ),
-            ),
+            ],
           );
         });
   }
