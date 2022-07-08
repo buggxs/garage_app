@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:garage_app/api/car/data/property_data.dart';
 import 'package:garage_app/api/car/data/technical_data.dart';
 import 'package:garage_app/api/car/data/timing_belt_data.dart';
 import 'package:garage_app/api/document/data/document.dart';
@@ -80,7 +81,7 @@ class Car extends Equatable {
     );
   }
 
-  static CarProperty getCarProperty(dynamic data) {
+  static CarProperty getCarProperty(PropertyData? data) {
     if (data is OilData) {
       return CarProperty.oil;
     }
@@ -96,7 +97,7 @@ class Car extends Equatable {
     return CarProperty.oil;
   }
 
-  String calculateCarType(dynamic data) {
+  String calculateCarType(PropertyData? data) {
     if (data is OilData) {
       return _calculateOilData();
     } else if (data is AirConditionerData) {
@@ -118,18 +119,18 @@ class Car extends Equatable {
       return 'success';
     }
 
-    if (lastChange == 0.0) {
-      if (nextChange > carMileage) {
-        if (nextChange - 1000 > carMileage) {
-          return 'success';
-        } else {
-          return 'warning';
-        }
+    // TODO: think about how to implement date into this. What should
+    // be the fallback?
+
+    if ((carMileage <= nextChange)) {
+      if ((carMileage + 2000) < nextChange) {
+        return 'success';
       } else {
-        return 'danger';
+        return 'warning';
       }
     }
-    return 'success';
+
+    return 'danger';
   }
 
   String _calculateAirConditionerData() {
@@ -141,18 +142,18 @@ class Car extends Equatable {
       return 'success';
     }
 
-    if (lastChange == 0.0) {
-      if (nextChange > carMileage) {
-        if (nextChange - 1000 > carMileage) {
-          return 'success';
-        } else {
-          return 'warning';
-        }
+    // TODO: think about how to implement date into this. What should
+    // be the fallback?
+
+    if ((carMileage <= nextChange)) {
+      if ((carMileage + 2000) < nextChange) {
+        return 'success';
       } else {
-        return 'danger';
+        return 'warning';
       }
     }
-    return 'success';
+
+    return 'danger';
   }
 
   String _calculateBrakeData() {
@@ -164,18 +165,18 @@ class Car extends Equatable {
       return 'success';
     }
 
-    if (lastChange == 0.0) {
-      if (nextChange > carMileage) {
-        if (nextChange - 1000 > carMileage) {
-          return 'success';
-        } else {
-          return 'warning';
-        }
+    // TODO: think about how to implement date into this. What should
+    // be the fallback?
+
+    if ((carMileage <= nextChange)) {
+      if ((carMileage + 2000) < nextChange) {
+        return 'success';
       } else {
-        return 'danger';
+        return 'warning';
       }
     }
-    return 'success';
+
+    return 'danger';
   }
 
   String _calculateTimingBeltData() {
@@ -187,18 +188,18 @@ class Car extends Equatable {
       return 'success';
     }
 
-    if (lastChange == 0.0) {
-      if (nextChange > carMileage) {
-        if (nextChange - 1000 > carMileage) {
-          return 'success';
-        } else {
-          return 'warning';
-        }
+    // TODO: think about how to implement date into this. What should
+    // be the fallback?
+
+    if ((carMileage <= nextChange)) {
+      if ((carMileage + 2000) < nextChange) {
+        return 'success';
       } else {
-        return 'danger';
+        return 'warning';
       }
     }
-    return 'success';
+
+    return 'danger';
   }
 
   @override

@@ -20,6 +20,12 @@ enum CarProperty {
   timingBelt,
 }
 
+enum CardStyle {
+  success,
+  warning,
+  danger,
+}
+
 class PropertyTab extends StatelessWidget {
   const PropertyTab({
     Key? key,
