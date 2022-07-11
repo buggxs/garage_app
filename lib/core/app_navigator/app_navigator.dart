@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:garage_app/api/car/data/car.dart';
 import 'package:garage_app/components/add_vehicle/add_screen.dart';
-import 'package:garage_app/components/add_vehicle/select_car_screen.dart';
-import 'package:garage_app/components/add_vehicle/widgets/create_car_manual_screen.dart';
+import 'package:garage_app/components/add_vehicle/create_car_automated_screen.dart';
+import 'package:garage_app/components/add_vehicle/create_car_manual_screen.dart';
 import 'package:garage_app/components/car/car_screen.dart';
 import 'package:garage_app/components/garage/garage_screen.dart';
 
