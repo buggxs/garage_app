@@ -5,20 +5,21 @@ part 'technical_data.g.dart';
 
 @JsonSerializable()
 class TechnicalData extends Equatable {
-  int id;
-  String? brand;
-  String? model;
-  String? type;
-  String? hsn;
-  String? tsn;
+  final int? id;
+  final String? brand;
+  final String? model;
+  final String? type;
+  final String? hsn;
+  final String? tsn;
 
-  TechnicalData(
-      {required this.id,
-      this.brand,
-      this.model,
-      this.type,
-      this.hsn,
-      this.tsn});
+  const TechnicalData({
+    this.id,
+    this.brand,
+    this.model,
+    this.type,
+    this.hsn,
+    this.tsn,
+  });
 
   factory TechnicalData.fromJson(Map<String, dynamic> json) =>
       _$TechnicalDataFromJson(json);

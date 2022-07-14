@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:garage_app/api/car/data/car.dart';
+import 'package:garage_app/api/api.dart';
 import 'package:garage_app/components/garage/widgets/car_data_input.dart';
 
 class GarageStepper extends StatefulWidget {
@@ -9,12 +9,14 @@ class GarageStepper extends StatefulWidget {
     this.steps,
     this.currentStep,
     this.onCarCreated,
+    this.onFormSave,
   }) : super(key: key);
 
   final Widget Function(BuildContext context, ControlsDetails controlsBuilder)?
       controlsBuilder;
 
-  final VoidCallback? onCarCreated;
+  final VoidCallback? onFormSave;
+  final Function({required Car car})? onCarCreated;
 
   final List<Step>? steps;
   final int? currentStep;
@@ -26,12 +28,26 @@ class GarageStepper extends StatefulWidget {
 class _GarageStepper extends State<GarageStepper> {
   int _index = 0;
   Car newCar = const Car();
+  Map<int, Map<String, dynamic>> stepInfo = {
+    0: {
+      'error': false,
+      'completed': false,
+    },
+    1: {
+      'error': false,
+      'completed': false,
+    },
+    2: {
+      'error': false,
+      'completed': false,
+    },
+  };
 
   @override
   Widget build(BuildContext context) {
     return Theme(
       data: Theme.of(context).copyWith(
-        colorScheme: ColorScheme.light(
+        colorScheme: const ColorScheme.light(
           primary: Colors.green,
         ),
       ),
@@ -42,6 +58,12 @@ class _GarageStepper extends State<GarageStepper> {
         onStepTapped: (int index) {
           setState(() {
             _index = index;
+          });
+        },
+        onStepContinue: () {
+          setState(() {
+            stepInfo[_index]!['completed'] = true;
+            stepInfo[_index]!['error'] = false;
           });
         },
         steps: widget.steps ??
@@ -103,7 +125,8 @@ class _GarageStepper extends State<GarageStepper> {
                     });
                     break;
                   case 2:
-                    widget.onCarCreated?.call();
+                    widget.onFormSave?.call();
+                    widget.onCarCreated?.call(car: newCar);
                     break;
                   default:
                     setState(() {
@@ -125,7 +148,13 @@ class _GarageStepper extends State<GarageStepper> {
   Step _stepOne() {
     return Step(
       title: const Text('Auto Infos'),
-      state: _index > 0 ? StepState.complete : StepState.indexed,
+      state: stepInfo[0]!['error']
+          ? _index > 0
+              ? StepState.error
+              : StepState.indexed
+          : _index > 0
+              ? StepState.complete
+              : StepState.indexed,
       isActive: _index >= 0,
       content: Container(
         alignment: Alignment.centerLeft,
@@ -143,6 +172,14 @@ class _GarageStepper extends State<GarageStepper> {
                       name: value,
                     );
                   },
+                  validate: (String? value) {
+                    if (value == null || value.isEmpty) {
+                      stepInfo[0]!['error'] = true;
+                      return 'Es muss ein Name vergeben werden';
+                    }
+                    stepInfo[0]!['completed'] = true;
+                    return null;
+                  },
                 ),
               ],
             ),
@@ -152,6 +189,7 @@ class _GarageStepper extends State<GarageStepper> {
                   inputDecoration: const InputDecoration(
                     labelText: 'Kilometerstand',
                   ),
+                  textInputType: TextInputType.number,
                   textStyle: _carInputTextStyle(),
                   onSave: (String value) {
                     newCar = newCar.copyWith(
@@ -163,11 +201,20 @@ class _GarageStepper extends State<GarageStepper> {
                   inputDecoration: const InputDecoration(
                     labelText: 'Baujahr',
                   ),
+                  textInputType: TextInputType.number,
                   textStyle: _carInputTextStyle(),
                   onSave: (String value) {
                     newCar = newCar.copyWith(
                       vintage: int.tryParse(value),
                     );
+                  },
+                  validate: (String? value) {
+                    if (value == null || value.isEmpty) {
+                      stepInfo[0]!['error'] = true;
+                      return 'Das Baujahr fehlt.';
+                    }
+                    stepInfo[0]!['completed'] = true;
+                    return null;
                   },
                 ),
               ],
@@ -194,6 +241,14 @@ class _GarageStepper extends State<GarageStepper> {
                     labelText: 'Marke',
                   ),
                   textStyle: _carInputTextStyle(),
+                  onSave: (String value) {
+                    newCar = newCar.copyWith(
+                      technicalData: newCar.technicalData?.copyWith(
+                            brand: value,
+                          ) ??
+                          TechnicalData(brand: value),
+                    );
+                  },
                 ),
               ],
             ),
@@ -204,11 +259,27 @@ class _GarageStepper extends State<GarageStepper> {
                     labelText: 'Model',
                   ),
                   textStyle: _carInputTextStyle(),
+                  onSave: (String value) {
+                    newCar = newCar.copyWith(
+                      technicalData: newCar.technicalData?.copyWith(
+                            model: value,
+                          ) ??
+                          TechnicalData(model: value),
+                    );
+                  },
                 ),
                 CarDataInput(
                   inputDecoration: const InputDecoration(
                     labelText: 'Typ',
                   ),
+                  onSave: (String value) {
+                    newCar = newCar.copyWith(
+                      technicalData: newCar.technicalData?.copyWith(
+                            type: value,
+                          ) ??
+                          TechnicalData(type: value),
+                    );
+                  },
                   textStyle: _carInputTextStyle(),
                 ),
               ],
@@ -220,12 +291,28 @@ class _GarageStepper extends State<GarageStepper> {
                     labelText: 'HSN',
                   ),
                   textStyle: _carInputTextStyle(),
+                  onSave: (String value) {
+                    newCar = newCar.copyWith(
+                      technicalData: newCar.technicalData?.copyWith(
+                            hsn: value,
+                          ) ??
+                          TechnicalData(hsn: value),
+                    );
+                  },
                 ),
                 CarDataInput(
                   inputDecoration: const InputDecoration(
                     labelText: 'TSN',
                   ),
                   textStyle: _carInputTextStyle(),
+                  onSave: (String value) {
+                    newCar = newCar.copyWith(
+                      technicalData: newCar.technicalData?.copyWith(
+                            tsn: value,
+                          ) ??
+                          TechnicalData(tsn: value),
+                    );
+                  },
                 ),
               ],
             ),

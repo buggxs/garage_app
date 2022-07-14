@@ -14,6 +14,7 @@ class CarDataInput extends StatefulWidget {
     this.validate,
     this.maxLines,
     this.textStyle,
+    this.onChanged,
   }) : super(key: key);
 
   final InputDecoration? inputDecoration;
@@ -23,6 +24,7 @@ class CarDataInput extends StatefulWidget {
   final Validate? validate;
   final int? maxLines;
   final TextStyle? textStyle;
+  final void Function(String? value)? onChanged;
 
   @override
   _CarDataInputState createState() => _CarDataInputState();
@@ -42,6 +44,7 @@ class _CarDataInputState extends State<CarDataInput> {
           controller: _textEditingController,
           decoration: widget.inputDecoration,
           keyboardType: widget.textInputType,
+          onChanged: widget.onChanged,
           readOnly:
               widget.readOnly ?? widget.textInputType == TextInputType.datetime,
           style: widget.textStyle ??

@@ -30,8 +30,6 @@ class CreateCarManualScreenContent extends StatefulWidget {
 
 class _CreateCarManualScreenContentState
     extends State<CreateCarManualScreenContent> {
-  Car newCar = const Car();
-
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -42,14 +40,17 @@ class _CreateCarManualScreenContentState
       child: Form(
         key: _formKey,
         child: GarageStepper(
-          onCarCreated: () {
-            if (_formKey.currentState?.validate() ?? false) {
-              _formKey.currentState?.save();
-            }
-            cubit.saveVehicle(car: newCar);
-            Navigator.of(context).pushReplacementNamed(
+          onCarCreated: ({required Car car}) {
+            cubit.saveVehicle(car: car);
+            Navigator.of(context).pushNamedAndRemoveUntil(
               GarageScreen.route,
+              (Route<dynamic> route) => false,
             );
+          },
+          onFormSave: () {
+            if (_formKey.currentState!.validate()) {
+              _formKey.currentState!.save();
+            }
           },
         ),
       ),

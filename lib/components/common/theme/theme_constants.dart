@@ -8,10 +8,11 @@ InputDecoration defaultInputDecorationBlack({Widget? label}) {
       fontSize: 17,
       color: Colors.black,
     ),
-    focusedBorder: OutlineInputBorder(
+    errorBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(5.0),
       borderSide: const BorderSide(
-        color: Colors.black,
+        color: Colors.red,
+        width: 1.0,
       ),
     ),
     enabledBorder: OutlineInputBorder(
