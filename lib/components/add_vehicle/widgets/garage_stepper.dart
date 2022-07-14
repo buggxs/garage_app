@@ -1,6 +1,15 @@
+import 'dart:developer';
+import 'dart:io';
+
+import 'package:carousel_slider/carousel_controller.dart';
+import 'package:carousel_slider/carousel_options.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:garage_app/api/api.dart';
+import 'package:garage_app/components/car/properties/widgets/image_slider.dart';
 import 'package:garage_app/components/garage/widgets/car_data_input.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 
 class GarageStepper extends StatefulWidget {
   const GarageStepper({
@@ -26,8 +35,12 @@ class GarageStepper extends StatefulWidget {
 }
 
 class _GarageStepper extends State<GarageStepper> {
+  final CarouselController carouselController = CarouselController();
   int _index = 0;
   Car newCar = const Car();
+  List<File> images = [];
+  int imageIndex = 0;
+
   Map<int, Map<String, dynamic>> stepInfo = {
     0: {
       'error': false,
@@ -328,11 +341,67 @@ class _GarageStepper extends State<GarageStepper> {
       isActive: _index == 2,
       content: Container(
         alignment: Alignment.centerLeft,
-        child: const Center(
-          child: Text('Bilder'),
+        child: Column(
+          children: [
+            images.isNotEmpty
+                ? ImageSlider(
+                    withIndicator: true,
+                    activeIndex: imageIndex,
+                    carouselController: carouselController,
+                    urlList: images.map((e) => e.path).toList(),
+                    onDotClicked: (int? index) {
+                      if (index != null) {
+                        setState(() {
+                          imageIndex = index;
+                        });
+                        carouselController.animateToPage(index);
+                      }
+                    },
+                    carouselOptions: CarouselOptions(
+                        height: 300,
+                        initialPage: imageIndex,
+                        enlargeCenterPage: true,
+                        enlargeStrategy: CenterPageEnlargeStrategy.height,
+                        enableInfiniteScroll: true,
+                        onPageChanged: (index, reason) {
+                          setState(() {
+                            imageIndex = index;
+                          });
+                        }),
+                  )
+                : const SizedBox(),
+            Row(
+              children: [
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      _pickImage();
+                    },
+                    child: const Text('Photo'),
+                  ),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );
+  }
+
+  Future _pickImage() async {
+    // TODO: For IOS use need to add permissions
+    try {
+      final File? image =
+          await ImagePicker.pickImage(source: ImageSource.gallery);
+      if (image == null) return;
+      // final imageTemp = File(image.path);
+      final imagePermanent = await saveImagePermanently(image.path);
+      setState(() {
+        images = [imagePermanent, ...images];
+      });
+    } on PlatformException catch (e) {
+      log('Failed to pick image: $e');
+    }
   }
 
   TextStyle _carInputTextStyle() {
@@ -341,5 +410,18 @@ class _GarageStepper extends State<GarageStepper> {
       fontSize: 17,
       color: Colors.white,
     );
+  }
+
+  Future<File> saveImagePermanently(String imagePath) async {
+    final directory = await getApplicationDocumentsDirectory();
+    final localDir =
+        await Directory('${directory.path}/car_${newCar.id}').create();
+    final name = basename(imagePath, localDir.path);
+    return File(imagePath).copy(name);
+  }
+
+  String basename(String imagePath, String dirPath) {
+    String name = imagePath.split('/').last;
+    return dirPath + name;
   }
 }
