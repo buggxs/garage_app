@@ -112,7 +112,7 @@ class Car extends Equatable {
 
   String _calculateOilData() {
     double carMileage = mileage ?? 0.0;
-    double lastChange = oilData?.lastChangeMileage ?? 0.0;
+    // double lastChange = oilData?.lastChangeMileage ?? 0.0;
     double nextChange = oilData?.nextChangeMileage ?? 0.0;
 
     if (carMileage == 0.0) {
@@ -135,7 +135,7 @@ class Car extends Equatable {
 
   String _calculateAirConditionerData() {
     double carMileage = mileage ?? 0.0;
-    double lastChange = airConditioner?.lastChangeMileage ?? 0.0;
+    // double lastChange = airConditioner?.lastChangeMileage ?? 0.0;
     double nextChange = airConditioner?.nextChangeMileage ?? 0.0;
 
     if (carMileage == 0.0) {
@@ -158,7 +158,7 @@ class Car extends Equatable {
 
   String _calculateBrakeData() {
     double carMileage = mileage ?? 0.0;
-    double lastChange = brakeData?.lastChangeMileage ?? 0.0;
+    // double lastChange = brakeData?.lastChangeMileage ?? 0.0;
     double nextChange = brakeData?.nextChangeMileage ?? 0.0;
 
     if (carMileage == 0.0) {
@@ -181,7 +181,7 @@ class Car extends Equatable {
 
   String _calculateTimingBeltData() {
     double carMileage = mileage ?? 0.0;
-    double lastChange = timingBeltData?.lastChangeMileage ?? 0.0;
+    // double lastChange = timingBeltData?.lastChangeMileage ?? 0.0;
     double nextChange = timingBeltData?.nextChangeMileage ?? 0.0;
 
     if (carMileage == 0.0) {
@@ -200,6 +200,13 @@ class Car extends Equatable {
     }
 
     return 'danger';
+  }
+
+  bool hasAnyWarnings() {
+    return _calculateOilData() != 'success' ||
+        _calculateAirConditionerData() != 'success' ||
+        _calculateBrakeData() != 'success' ||
+        _calculateTimingBeltData() != 'success';
   }
 
   @override

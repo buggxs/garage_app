@@ -41,6 +41,18 @@ class GarageLoadedState extends GarageState {
       cars: cars ?? this.cars,
     );
   }
+
+  List<Car>? carsWithWarnings() {
+    final List<Car> warningCarsList =
+        cars.where((Car tmpCar) => tmpCar.hasAnyWarnings() == true).toList();
+    return warningCarsList.isEmpty ? null : warningCarsList;
+  }
+
+  String? carBrandsInGarage() {
+    final String? brandsList =
+        cars.map((Car tmpCar) => tmpCar.technicalData?.brand).join('\n');
+    return (brandsList?.isEmpty ?? true) ? null : brandsList;
+  }
 }
 
 class GarageEmptyState extends GarageState {

@@ -39,8 +39,14 @@ class GarageScreenContent extends StatelessWidget {
     );
 
     Widget? floatingActionButton;
+    int? parkedCars;
+    List<Car>? carsWithWarnings;
+    String? brandList;
 
     if (state is GarageLoadedState) {
+      parkedCars = state.cars.length;
+      brandList = state.carBrandsInGarage();
+      carsWithWarnings = state.carsWithWarnings();
       children = _buildCarList(cubit);
 
       if (state.cars.isNotEmpty) {
@@ -58,16 +64,19 @@ class GarageScreenContent extends StatelessWidget {
 
     return GarageScaffold(
       title: 'Deine Garage',
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            const GarageMetaPanel(),
-            const SizedBox(
-              height: 8.0,
-            ),
-            Container(
-              padding: const EdgeInsets.fromLTRB(0, 1.0, 16.0, 16.0),
-              child: Expanded(
+      elevation: 0,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          GarageMetaPanel(
+            parkedCars: parkedCars,
+            carsWithWarnings: carsWithWarnings,
+            brandList: brandList,
+          ),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Container(
+                padding: const EdgeInsets.fromLTRB(0, 0, 0, 16.0),
                 child: Column(
                   children: [
                     const GarageSlotTopDivider(),
@@ -77,8 +86,8 @@ class GarageScreenContent extends StatelessWidget {
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
       floatingActionButton: floatingActionButton,
     );

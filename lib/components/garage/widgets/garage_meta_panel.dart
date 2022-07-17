@@ -1,16 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:garage_app/api/car/data/car.dart';
 import 'package:garage_app/components/common/widgets/labled_text.dart';
 import 'package:garage_app/misc/color_constants.dart';
 
 class GarageMetaPanel extends StatelessWidget {
-  const GarageMetaPanel({Key? key}) : super(key: key);
+  const GarageMetaPanel({
+    Key? key,
+    this.parkedCars = 0,
+    this.brandList,
+    this.carsWithWarnings,
+  }) : super(key: key);
+
+  final int? parkedCars;
+  final String? brandList;
+  final List<Car>? carsWithWarnings;
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: EdgeInsets.zero,
+      margin: EdgeInsets.zero,
       width: double.infinity,
       color: Colors.amber,
       child: Card(
+        elevation: 0,
         margin: EdgeInsets.zero,
         shape: const RoundedRectangleBorder(
           side: BorderSide(
@@ -28,7 +41,7 @@ class GarageMetaPanel extends StatelessWidget {
                 children: [
                   LabeledText(
                     caption: 'Fahrzeuge / Parkplätze',
-                    text: '0 / 2',
+                    text: '$parkedCars / 2',
                     textStyle: const TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
@@ -39,7 +52,8 @@ class GarageMetaPanel extends StatelessWidget {
                   ),
                   LabeledText(
                     caption: 'Vorhandene Marken',
-                    text: 'VW, Audi',
+                    text: brandList ?? '-',
+                    multiLineText: true,
                     textStyle: const TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
@@ -54,7 +68,8 @@ class GarageMetaPanel extends StatelessWidget {
                 children: [
                   LabeledText(
                     caption: 'Autos mit Warnungen',
-                    text: 'Gigolo - Audi A3, Sweety - Golf 4',
+                    text: _buildWarningsText() ?? '-',
+                    multiLineText: true,
                     textStyle: const TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
@@ -64,11 +79,18 @@ class GarageMetaPanel extends StatelessWidget {
                         ),
                   ),
                 ],
-              )
+              ),
             ],
           ),
         ),
       ),
     );
+  }
+
+  String? _buildWarningsText() {
+    return carsWithWarnings
+        ?.map((Car tmpCar) =>
+            '${tmpCar.name} - ${tmpCar.technicalData?.brand} ${tmpCar.technicalData?.model}')
+        .join('\n');
   }
 }
