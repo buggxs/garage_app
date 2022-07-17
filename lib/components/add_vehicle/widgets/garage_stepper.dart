@@ -413,9 +413,9 @@ class _GarageStepper extends State<GarageStepper> {
       if (croppedImage == null) return;
 
       // final imageTemp = File(image.path);
-      final imagePermanent = await saveImagePermanently(croppedImage.path);
+      // final imagePermanent = await saveImagePermanently(croppedImage.path);
       setState(() {
-        images = [imagePermanent, ...images];
+        images = [croppedImage, ...images];
       });
     } on PlatformException catch (e) {
       log('Failed to pick image: $e');
