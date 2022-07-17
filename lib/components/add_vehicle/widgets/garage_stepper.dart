@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:garage_app/api/api.dart';
 import 'package:garage_app/components/car/properties/widgets/image_slider.dart';
 import 'package:garage_app/components/garage/widgets/car_data_input.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -341,6 +342,7 @@ class _GarageStepper extends State<GarageStepper> {
       isActive: _index == 2,
       content: Container(
         alignment: Alignment.centerLeft,
+        height: 400,
         child: Column(
           children: [
             images.isNotEmpty
@@ -358,7 +360,7 @@ class _GarageStepper extends State<GarageStepper> {
                       }
                     },
                     carouselOptions: CarouselOptions(
-                        height: 300,
+                        aspectRatio: 16 / 9,
                         initialPage: imageIndex,
                         enlargeCenterPage: true,
                         enlargeStrategy: CenterPageEnlargeStrategy.height,
@@ -377,7 +379,7 @@ class _GarageStepper extends State<GarageStepper> {
                     onPressed: () {
                       _pickImage();
                     },
-                    child: const Text('Photo'),
+                    child: const Text('Bild auswählen'),
                   ),
                 ),
               ],
@@ -394,8 +396,24 @@ class _GarageStepper extends State<GarageStepper> {
       final File? image =
           await ImagePicker.pickImage(source: ImageSource.gallery);
       if (image == null) return;
+
+      File? croppedImage = await ImageCropper().cropImage(
+        sourcePath: image.path,
+        aspectRatio: const CropAspectRatio(ratioX: 16, ratioY: 9),
+        compressQuality: 100,
+        compressFormat: ImageCompressFormat.png,
+        androidUiSettings: AndroidUiSettings(
+          toolbarColor: Colors.deepOrange,
+          toolbarTitle: 'Garage Cropper',
+          statusBarColor: Colors.deepOrange.shade700,
+          backgroundColor: Colors.black,
+        ),
+      );
+
+      if (croppedImage == null) return;
+
       // final imageTemp = File(image.path);
-      final imagePermanent = await saveImagePermanently(image.path);
+      final imagePermanent = await saveImagePermanently(croppedImage.path);
       setState(() {
         images = [imagePermanent, ...images];
       });

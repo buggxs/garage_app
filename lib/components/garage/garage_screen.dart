@@ -110,10 +110,6 @@ class GarageScreenContent extends StatelessWidget {
         car: constCar,
         onUpdate: cubit.updateCarData,
       ),
-      CarListItem(
-        car: constCar,
-        onUpdate: cubit.updateCarData,
-      ),
     ];
 
     if (carList.isNotEmpty) {

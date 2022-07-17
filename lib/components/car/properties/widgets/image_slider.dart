@@ -71,8 +71,8 @@ class ImageSlider extends StatelessWidget {
                 activeIndex: activeIndex,
                 count: urlList.length,
                 effect: const ExpandingDotsEffect(
-                  dotWidth: 20,
-                  dotHeight: 20,
+                  dotWidth: 15,
+                  dotHeight: 15,
                 ),
                 onDotClicked: onDotClicked,
               )
