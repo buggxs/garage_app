@@ -5,6 +5,7 @@ import 'package:garage_app/components/common/widgets/garage_scaffold.dart';
 import 'package:garage_app/components/garage/cubit/garage_cubit.dart';
 import 'package:garage_app/components/garage/widgets/car_list_item.dart';
 import 'package:garage_app/components/garage/widgets/car_list_item_empty.dart';
+import 'package:garage_app/components/garage/widgets/garage_meta_panel.dart';
 import 'package:garage_app/components/garage/widgets/garage_slot_bottom_divider.dart';
 import 'package:garage_app/components/garage/widgets/garage_slot_middle_divider.dart';
 import 'package:garage_app/components/garage/widgets/garage_slot_top_divider.dart';
@@ -38,8 +39,14 @@ class GarageScreenContent extends StatelessWidget {
     );
 
     Widget? floatingActionButton;
+    int? parkedCars;
+    List<Car>? carsWithWarnings;
+    String? brandList;
 
     if (state is GarageLoadedState) {
+      parkedCars = state.cars.length;
+      brandList = state.carBrandsInGarage();
+      carsWithWarnings = state.carsWithWarnings();
       children = _buildCarList(cubit);
 
       if (state.cars.isNotEmpty) {
@@ -57,17 +64,30 @@ class GarageScreenContent extends StatelessWidget {
 
     return GarageScaffold(
       title: 'Deine Garage',
-      child: Container(
-        padding: const EdgeInsets.fromLTRB(0, 1.0, 16.0, 16.0),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              const GarageSlotTopDivider(),
-              children,
-              const GarageSlotBottomDivider(),
-            ],
+      elevation: 0,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          GarageMetaPanel(
+            parkedCars: parkedCars,
+            carsWithWarnings: carsWithWarnings,
+            brandList: brandList,
           ),
-        ),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Container(
+                padding: const EdgeInsets.fromLTRB(0, 0, 0, 16.0),
+                child: Column(
+                  children: [
+                    const GarageSlotTopDivider(),
+                    children,
+                    const GarageSlotBottomDivider(),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
       floatingActionButton: floatingActionButton,
     );
@@ -85,6 +105,10 @@ class GarageScreenContent extends StatelessWidget {
       ),
       CarListItemEmpty(
         onTap: cubit.pushToAddCarScreen,
+      ),
+      CarListItem(
+        car: constCar,
+        onUpdate: cubit.updateCarData,
       ),
       CarListItem(
         car: constCar,
@@ -123,6 +147,7 @@ class GarageScreenContent extends StatelessWidget {
 
     return ListView.separated(
       shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
       itemCount: children.length,
       itemBuilder: (BuildContext context, int itemIndex) => children[itemIndex],
       separatorBuilder: (BuildContext context, int index) =>
