@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:garage_app/api/api.dart';
 import 'package:garage_app/components/car/car_screen.dart';
 import 'package:garage_app/components/common/widgets/icon_text.dart';
+import 'package:garage_app/components/common/widgets/image_placeholder.dart';
 import 'package:garage_app/components/common/widgets/modal_service.dart';
 import 'package:garage_app/components/garage/i18n/garage_i18n.dart';
 import 'package:garage_app/components/garage/i18n/garage_text.dart';
@@ -89,15 +90,9 @@ class CarListItem extends StatelessWidget {
         child: SizedBox(
           height: 100,
           width: 100,
-          child: (car.imageUrls?.isNotEmpty ?? false)
-              ? FadeInImage.assetNetwork(
-                  fit: BoxFit.cover,
-                  placeholder: 'assets/img/car-placeholder.png',
-                  image: car.imageUrls!.first,
-                )
-              : const Image(
-                  image: AssetImage('assets/img/car-placeholder.png'),
-                ),
+          child: ImagePlaceholder(
+            imageUrl: car.imageUrls?.first,
+          ),
         ),
       ),
     );

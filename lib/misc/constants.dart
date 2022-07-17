@@ -15,7 +15,7 @@ final Car constCar = Car(
   mileage: 132000,
   date: DateTime(2003, 4, 12),
   vintage: 2003,
-  imageUrls: const <String>[
+  networkImages: const <String>[
     'https://maserati.scene7.com/is/image/maserati/maserati/international/Models/my22/grecale/my22/modena/169/Maserati_Grecale_Modena_FULL_FRONT.jpg',
     'https://img.topky.sk/podkapotou/1280px/1721927.jpg/Maserati-Levante-2016.jpg',
     'https://www.reezocar.com/480/autoscout24.fr/RZCATSFRCA5912A875CB/MASERATI-LEVANTE-00.jpg',
@@ -44,7 +44,7 @@ final Car constCar = Car(
       lastChangeMileage: 124000,
       nextChangeDate: DateTime(2022, 7, 5),
       nextChangeMileage: 140000),
-  technicalData: TechnicalData(
+  technicalData: const TechnicalData(
     id: 1,
     brand: "Audi",
     model: "A3",

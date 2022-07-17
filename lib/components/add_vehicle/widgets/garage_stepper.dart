@@ -10,7 +10,6 @@ import 'package:garage_app/components/car/properties/widgets/image_slider.dart';
 import 'package:garage_app/components/garage/widgets/car_data_input.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:path_provider/path_provider.dart';
 
 class GarageStepper extends StatefulWidget {
   const GarageStepper({
@@ -340,51 +339,73 @@ class _GarageStepper extends State<GarageStepper> {
     return Step(
       title: const Text('Auto Bilder'),
       isActive: _index == 2,
-      content: Container(
-        alignment: Alignment.centerLeft,
-        height: 400,
-        child: Column(
-          children: [
-            images.isNotEmpty
-                ? ImageSlider(
-                    withIndicator: true,
-                    activeIndex: imageIndex,
-                    carouselController: carouselController,
-                    urlList: images.map((e) => e.path).toList(),
-                    onDotClicked: (int? index) {
-                      if (index != null) {
-                        setState(() {
-                          imageIndex = index;
-                        });
-                        carouselController.animateToPage(index);
-                      }
-                    },
-                    carouselOptions: CarouselOptions(
-                        aspectRatio: 16 / 9,
-                        initialPage: imageIndex,
-                        enlargeCenterPage: true,
-                        enlargeStrategy: CenterPageEnlargeStrategy.height,
-                        enableInfiniteScroll: true,
-                        onPageChanged: (index, reason) {
+      content: Expanded(
+        child: Container(
+          alignment: Alignment.centerLeft,
+          child: Column(
+            children: [
+              images.isNotEmpty
+                  ? ImageSlider(
+                      withIndicator: true,
+                      activeIndex: imageIndex,
+                      carouselController: carouselController,
+                      urlList: images.map((e) => e.path).toList(),
+                      onDotClicked: (int? index) {
+                        if (index != null) {
                           setState(() {
                             imageIndex = index;
                           });
-                        }),
-                  )
-                : const SizedBox(),
-            Row(
-              children: [
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: () {
-                      _pickImage();
-                    },
-                    child: const Text('Bild auswählen'),
+                          carouselController.animateToPage(index);
+                        }
+                      },
+                      carouselOptions: CarouselOptions(
+                          aspectRatio: 16 / 9,
+                          initialPage: imageIndex,
+                          enlargeCenterPage: true,
+                          enlargeStrategy: CenterPageEnlargeStrategy.height,
+                          enableInfiniteScroll: true,
+                          onPageChanged: (index, reason) {
+                            setState(() {
+                              imageIndex = index;
+                            });
+                          }),
+                    )
+                  : const SizedBox(),
+              const SizedBox(height: 16.0),
+              Row(
+                children: [
+                  images.isNotEmpty
+                      ? Expanded(
+                          child: ElevatedButton(
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                  Colors.redAccent.shade700),
+                            ),
+                            onPressed: () {
+                              // TODO: remove image from list method
+                              log('remove image..');
+                            },
+                            child: const Text('Bild entfernen'),
+                          ),
+                        )
+                      : const SizedBox(),
+                  const SizedBox(width: 16.0),
+                  Expanded(
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all<Color>(Colors.orange),
+                      ),
+                      onPressed: () {
+                        _pickImage();
+                      },
+                      child: const Text('Bild auswählen'),
+                    ),
                   ),
-                ),
-              ],
-            ),
-          ],
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -416,6 +437,7 @@ class _GarageStepper extends State<GarageStepper> {
       // final imagePermanent = await saveImagePermanently(croppedImage.path);
       setState(() {
         images = [croppedImage, ...images];
+        newCar = newCar.copyWith(localeImages: images);
       });
     } on PlatformException catch (e) {
       log('Failed to pick image: $e');
@@ -428,18 +450,5 @@ class _GarageStepper extends State<GarageStepper> {
       fontSize: 17,
       color: Colors.white,
     );
-  }
-
-  Future<File> saveImagePermanently(String imagePath) async {
-    final directory = await getApplicationDocumentsDirectory();
-    final localDir =
-        await Directory('${directory.path}/car_${newCar.id}').create();
-    final name = basename(imagePath, localDir.path);
-    return File(imagePath).copy(name);
-  }
-
-  String basename(String imagePath, String dirPath) {
-    String name = imagePath.split('/').last;
-    return dirPath + name;
   }
 }

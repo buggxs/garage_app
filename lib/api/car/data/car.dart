@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:equatable/equatable.dart';
 import 'package:garage_app/api/car/data/property_data.dart';
 import 'package:garage_app/api/car/data/technical_data.dart';
@@ -21,7 +23,8 @@ class Car extends Equatable {
     this.mileage,
     this.date,
     this.vintage,
-    this.imageUrls,
+    this.localeImages,
+    this.networkImages,
     this.oilData = const OilData(),
     this.airConditioner = const AirConditionerData(),
     this.brakeData = const BrakeData(),
@@ -36,7 +39,8 @@ class Car extends Equatable {
   final double? mileage;
   final DateTime? date;
   final int? vintage;
-  final List<String>? imageUrls;
+  final List<File>? localeImages;
+  final List<String>? networkImages;
   final OilData? oilData;
   final AirConditionerData? airConditioner;
   final BrakeData? brakeData;
@@ -55,7 +59,8 @@ class Car extends Equatable {
     double? mileage,
     DateTime? date,
     int? vintage,
-    List<String>? imageUrls,
+    List<File>? localeImages,
+    List<String>? networkImages,
     OilData? oilData,
     AirConditionerData? airConditioner,
     BrakeData? brakeData,
@@ -70,7 +75,8 @@ class Car extends Equatable {
       mileage: mileage ?? this.mileage,
       date: date ?? this.date,
       vintage: vintage ?? this.vintage,
-      imageUrls: imageUrls ?? this.imageUrls,
+      localeImages: localeImages ?? this.localeImages,
+      networkImages: networkImages ?? this.networkImages,
       oilData: oilData ?? this.oilData,
       airConditioner: airConditioner ?? this.airConditioner,
       brakeData: brakeData ?? this.brakeData,
@@ -208,6 +214,11 @@ class Car extends Equatable {
         _calculateBrakeData() != 'success' ||
         _calculateTimingBeltData() != 'success';
   }
+
+  List<String>? get imageUrls => [
+        ...?localeImages?.map((File file) => file.path).toList(),
+        ...?networkImages
+      ];
 
   @override
   List<Object?> get props => [

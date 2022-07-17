@@ -1,7 +1,9 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:garage_app/api/api.dart';
 import 'package:garage_app/misc/logger.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class CarService {
@@ -58,15 +60,17 @@ class LocalCarService with LoggerMixin implements CarService {
       throw Exception('Nothing to save');
     }
     List<Car>? carList = await getAllCars();
-    int? index = carList.indexWhere((Car tmpCar) => tmpCar.id == car.id);
+    int? index = carList.indexWhere((Car tmpCar) => tmpCar.id == car?.id);
     if (index == -1) {
-      carList.add(car.copyWith(id: carList.length));
+      car = car.copyWith(id: carList.length);
+      carList.add(car);
       log.info('Saved new car with id ${car.id}');
     } else {
       carList[index] = car;
       log.info('Updated car with id ${car.id}');
     }
-    saveCarList(carList);
+    await saveCarList(carList);
+    await saveImagePermanently(car);
   }
 
   @override
@@ -78,9 +82,10 @@ class LocalCarService with LoggerMixin implements CarService {
     }
     dynamic carList = jsonDecode(carListString!);
     if (carList is List) {
-      return carList
-          .map((e) => Car.fromJson(e as Map<String, dynamic>))
-          .toList();
+      List<Car> localCarList =
+          carList.map((e) => Car.fromJson(e as Map<String, dynamic>)).toList();
+      return Future.wait(
+          localCarList.map((Car tmpCar) => loadCarImages(tmpCar)).toList());
     } else {
       return <Car>[];
     }
@@ -102,5 +107,30 @@ class LocalCarService with LoggerMixin implements CarService {
   Future<void> saveCarList(List<Car> carList) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('car_list', jsonEncode(carList));
+  }
+
+  Future<Car> loadCarImages(Car car) async {
+    final directory = await getApplicationDocumentsDirectory();
+    final Directory dir = Directory('${directory.path}/car_${car.id}');
+    final List<FileSystemEntity> allFiles = await dir.list().toList();
+    final List<File> images = allFiles.whereType<File>().toList();
+    if (images.isEmpty) return car;
+    return car.copyWith(localeImages: images);
+  }
+
+  Future<void> saveImagePermanently(Car car) async {
+    final directory = await getApplicationDocumentsDirectory();
+    final localDir =
+        await Directory('${directory.path}/car_${car.id}').create();
+    if (car.localeImages?.isEmpty ?? true) return;
+    for (File file in car.localeImages!) {
+      final name = basename(file.path, localDir.path);
+      File(file.path).copy(name);
+    }
+  }
+
+  String basename(String imagePath, String dirPath) {
+    String name = imagePath.split('/').last;
+    return '$dirPath/$name';
   }
 }
