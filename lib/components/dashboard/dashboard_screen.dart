@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:garage_app/components/common/widgets/garage_scaffold.dart';
+import 'package:garage_app/common/widgets/garage_scaffold.dart';
 import 'package:garage_app/components/dashboard/widgets/counselor_card.dart';
 import 'package:garage_app/components/dashboard/widgets/heading_text.dart';
 import 'package:garage_app/components/dashboard/widgets/info_card.dart';

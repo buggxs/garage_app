@@ -1,5 +1,5 @@
-import 'package:garage_app/common/i18n/delegates/mygarage_i18n.dart';
 import 'package:garage_app/components/garage/i18n/garage_i18n.dart';
+import 'package:garage_app/core/i18n/delegates/mygarage_i18n.dart';
 
 extension GarageTextExtension on GarageText {
   String call({

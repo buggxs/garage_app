@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:garage_app/api/car/data/property_data.dart';
+import 'package:garage_app/common/widgets/labled_text.dart';
 import 'package:garage_app/components/car/properties/property_tab.dart';
 import 'package:garage_app/components/car/properties/util/card_content.dart';
-import 'package:garage_app/components/common/widgets/labled_text.dart';
 import 'package:garage_app/misc/number_formatter.dart';
 import 'package:garage_app/misc/text_formatter.dart';
 

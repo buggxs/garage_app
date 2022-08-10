@@ -50,8 +50,10 @@ class GarageLoadedState extends GarageState {
 
   String? carBrandsInGarage() {
     final String? brandsList =
-        cars.map((Car tmpCar) => tmpCar.technicalData?.brand).join('\n');
-    return (brandsList?.isEmpty ?? true) ? null : brandsList;
+        cars.map((Car tmpCar) => tmpCar.brand ?? '').join('\n');
+    return (brandsList?.isEmpty ?? true) && (brandsList != '\n')
+        ? null
+        : brandsList;
   }
 }
 

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:garage_app/api/api.dart';
+import 'package:garage_app/common/widgets/icon_text.dart';
+import 'package:garage_app/common/widgets/image_placeholder.dart';
+import 'package:garage_app/common/widgets/modal_service.dart';
 import 'package:garage_app/components/car/car_screen.dart';
-import 'package:garage_app/components/common/widgets/icon_text.dart';
-import 'package:garage_app/components/common/widgets/image_placeholder.dart';
-import 'package:garage_app/components/common/widgets/modal_service.dart';
 import 'package:garage_app/components/garage/i18n/garage_i18n.dart';
 import 'package:garage_app/components/garage/i18n/garage_text.dart';
 import 'package:garage_app/components/garage/widgets/car_item_slidable.dart';
@@ -102,7 +102,8 @@ class CarListItem extends StatelessWidget {
     return Builder(builder: (context) {
       return Container(
         child: Text(
-          '${car.name} - ${car.technicalData?.brand} ${car.technicalData?.model}',
+          '${car.name} ${(car.brand != null) || (car.model != null) ? '-' : ''} '
+          '${car.brand ?? ''} ${car.model ?? ''}',
           style: Theme.of(context).textTheme.headline2,
         ),
         padding: const EdgeInsets.all(8.0),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:garage_app/api/api.dart';
+import 'package:garage_app/common/widgets/modal_service.dart';
 import 'package:garage_app/components/car/cubit/car_cubit.dart';
 import 'package:garage_app/components/car/properties/cubit/property_cubit.dart';
 import 'package:garage_app/components/car/properties/details/property_details_screen.dart';
@@ -8,7 +9,6 @@ import 'package:garage_app/components/car/properties/widgets/image_slider.dart';
 import 'package:garage_app/components/car/properties/widgets/info_card.dart';
 import 'package:garage_app/components/car/properties/widgets/property_card.dart';
 import 'package:garage_app/components/car/properties/widgets/technical_card.dart';
-import 'package:garage_app/components/common/widgets/modal_service.dart';
 import 'package:garage_app/core/app_service_locator.dart';
 import 'package:garage_app/misc/number_formatter.dart';
 import 'package:garage_app/misc/text_formatter.dart';

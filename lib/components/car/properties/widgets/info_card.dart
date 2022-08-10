@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:garage_app/components/common/widgets/labled_text.dart';
+import 'package:garage_app/common/widgets/labled_text.dart';
 import 'package:garage_app/misc/misc.dart';
 
 class InfoCard extends StatelessWidget {

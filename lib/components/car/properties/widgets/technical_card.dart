@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:garage_app/api/api.dart';
+import 'package:garage_app/common/widgets/labled_text.dart';
 import 'package:garage_app/components/car/i18n/car_i18n.dart';
 import 'package:garage_app/components/car/i18n/car_text.dart';
-import 'package:garage_app/components/common/widgets/labled_text.dart';
 
 class TechnicalCard extends StatelessWidget {
   const TechnicalCard({
@@ -56,16 +56,6 @@ class TechnicalCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          LabeledText(
-                            caption: CarText.brand(),
-                            text: '${technicalData?.brand}',
-                            padding: const EdgeInsets.symmetric(vertical: 8),
-                          ),
-                          LabeledText(
-                            caption: CarText.model(),
-                            text: '${technicalData?.model}',
-                            padding: const EdgeInsets.symmetric(vertical: 8),
-                          ),
                           LabeledText(
                             caption: CarText.type(),
                             text: '${technicalData?.type}',

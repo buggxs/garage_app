@@ -1,4 +1,4 @@
-import 'package:garage_app/common/i18n/delegates/i18n.dart';
+import 'package:garage_app/core/i18n/delegates/i18n.dart';
 
 part 'car_i18n_de.dart';
 part 'car_i18n_en.dart';

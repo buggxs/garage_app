@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:garage_app/components/common/widgets/garage_scaffold.dart';
+import 'package:garage_app/common/widgets/garage_scaffold.dart';
 
 class SelectCarScreen extends StatelessWidget {
   const SelectCarScreen({Key? key}) : super(key: key);

@@ -1,6 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:garage_app/components/common/widgets/image_placeholder.dart';
+import 'package:garage_app/common/widgets/image_placeholder.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class ImageSlider extends StatelessWidget {

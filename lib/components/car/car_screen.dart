@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:garage_app/api/car/data/car.dart';
+import 'package:garage_app/common/widgets/garage_scaffold.dart';
+import 'package:garage_app/common/widgets/popup_service.dart';
 import 'package:garage_app/components/car/documents/document_tab.dart';
 import 'package:garage_app/components/car/documents/widgets/add_document_dialog.dart';
 import 'package:garage_app/components/car/i18n/car_i18n.dart';
@@ -9,8 +11,6 @@ import 'package:garage_app/components/car/i18n/car_text.dart';
 import 'package:garage_app/components/car/notes/notes_tab.dart';
 import 'package:garage_app/components/car/notes/widgets/add_note_dialog.dart';
 import 'package:garage_app/components/car/properties/property_tab.dart';
-import 'package:garage_app/components/common/widgets/garage_scaffold.dart';
-import 'package:garage_app/components/common/widgets/popup_service.dart';
 import 'package:garage_app/core/app_service_locator.dart';
 import 'package:garage_app/misc/constants.dart';
 

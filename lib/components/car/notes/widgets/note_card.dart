@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:garage_app/api/note/data/note.dart';
-import 'package:garage_app/components/common/widgets/labled_text.dart';
+import 'package:garage_app/common/widgets/labled_text.dart';
 import 'package:garage_app/misc/text_formatter.dart';
 
 class NoteCard extends StatelessWidget {

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:garage_app/common/i18n/delegates/mygarage_i18n_delegate.dart';
-import 'package:garage_app/components/common/theme/custom_dark_theme.dart';
-import 'package:garage_app/components/common/theme/custom_ligth_theme.dart';
+import 'package:garage_app/common/theme/custom_dark_theme.dart';
+import 'package:garage_app/common/theme/custom_ligth_theme.dart';
 import 'package:garage_app/components/garage/garage_screen.dart';
 import 'package:garage_app/core/app_navigator/app_navigator.dart';
+import 'package:garage_app/core/i18n/delegates/global_locale_delegate.dart';
+import 'package:garage_app/core/i18n/delegates/mygarage_i18n_delegate.dart';
 import 'package:logging/logging.dart';
 
-import 'common/i18n/delegates/global_locale_delegate.dart';
 import 'core/app_service_locator.dart';
 
 Future<void> main() async {

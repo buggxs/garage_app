@@ -17,7 +17,9 @@ abstract class CarService {
     Car? car,
   });
 
-  Future<void> deleteCar({required Car car});
+  Future<void> deleteCar({
+    required Car car,
+  });
 }
 
 class OnlineCarService extends CarService {
@@ -101,12 +103,21 @@ class LocalCarService with LoggerMixin implements CarService {
       carList.removeAt(carIndex);
       log.info('Deleted Car with name ${car.name}');
     }
+    deleteImages(car.localeImages);
     saveCarList(carList);
   }
 
   Future<void> saveCarList(List<Car> carList) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('car_list', jsonEncode(carList));
+  }
+
+  Future<void> deleteImages(List<File>? localeImages) async {
+    if (localeImages?.isEmpty ?? true) return;
+
+    localeImages?.forEach((File file) async {
+      await file.delete();
+    });
   }
 
   Future<Car> loadCarImages(Car car) async {

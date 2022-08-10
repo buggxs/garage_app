@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:garage_app/api/api.dart';
+import 'package:garage_app/common/i18n/common_i18n.dart';
+import 'package:garage_app/common/i18n/common_text.dart';
+import 'package:garage_app/common/theme/theme_constants.dart';
+import 'package:garage_app/common/widgets/bottom_modal_container.dart';
 import 'package:garage_app/components/car/i18n/car_i18n.dart';
 import 'package:garage_app/components/car/i18n/car_text.dart';
 import 'package:garage_app/components/car/properties/property_tab.dart';
 import 'package:garage_app/components/car/properties/util/card_content.dart';
-import 'package:garage_app/components/common/theme/theme_constants.dart';
-import 'package:garage_app/components/common/widgets/bottom_modal_container.dart';
 import 'package:garage_app/components/garage/widgets/car_data_input.dart';
 import 'package:garage_app/misc/logger.dart';
 
@@ -165,7 +167,7 @@ class ModalService with LoggerMixin {
                             Navigator.pop(context);
                           }
                         },
-                        child: const Text("Aktualisieren"),
+                        child: Text(CommonText.update()),
                       ),
                     ],
                   ),

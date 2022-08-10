@@ -13,6 +13,8 @@ final Car constCar = Car(
   id: 1,
   name: 'Gigolo',
   mileage: 132000,
+  brand: "Audi",
+  model: "A3",
   date: DateTime(2003, 4, 12),
   vintage: 2003,
   networkImages: const <String>[
@@ -46,8 +48,6 @@ final Car constCar = Car(
       nextChangeMileage: 140000),
   technicalData: const TechnicalData(
     id: 1,
-    brand: "Audi",
-    model: "A3",
     type: "abc",
     hsn: "3nf",
     tsn: "kl3",

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:garage_app/api/car/data/car.dart';
-import 'package:garage_app/components/common/widgets/labled_text.dart';
+import 'package:garage_app/common/widgets/labled_text.dart';
 import 'package:garage_app/misc/color_constants.dart';
 
 class GarageMetaPanel extends StatelessWidget {
@@ -90,7 +90,7 @@ class GarageMetaPanel extends StatelessWidget {
   String? _buildWarningsText() {
     return carsWithWarnings
         ?.map((Car tmpCar) =>
-            '${tmpCar.name} - ${tmpCar.technicalData?.brand} ${tmpCar.technicalData?.model}')
+            '${tmpCar.name} ${((tmpCar.brand?.isNotEmpty ?? false) || (tmpCar.model?.isNotEmpty ?? false)) ? '-' : ''} ${tmpCar.brand ?? ''} ${tmpCar.model ?? ''}')
         .join('\n');
   }
 }

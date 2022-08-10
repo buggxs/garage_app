@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/foundation.dart';
-import 'package:garage_app/common/i18n/delegates/common_localizations_delegate.dart';
+import 'package:garage_app/core/i18n/delegates/common_localizations_delegate.dart';
 
 import 'mygarage_i18n.dart';
 

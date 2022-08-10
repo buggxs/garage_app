@@ -256,10 +256,7 @@ class _GarageStepper extends State<GarageStepper> {
                   textStyle: _carInputTextStyle(),
                   onSave: (String value) {
                     newCar = newCar.copyWith(
-                      technicalData: newCar.technicalData?.copyWith(
-                            brand: value,
-                          ) ??
-                          TechnicalData(brand: value),
+                      brand: value,
                     );
                   },
                 ),
@@ -274,10 +271,7 @@ class _GarageStepper extends State<GarageStepper> {
                   textStyle: _carInputTextStyle(),
                   onSave: (String value) {
                     newCar = newCar.copyWith(
-                      technicalData: newCar.technicalData?.copyWith(
-                            model: value,
-                          ) ??
-                          TechnicalData(model: value),
+                      model: value,
                     );
                   },
                 ),

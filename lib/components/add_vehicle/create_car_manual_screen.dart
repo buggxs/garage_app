@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:garage_app/api/car/data/car.dart';
+import 'package:garage_app/common/widgets/garage_scaffold.dart';
 import 'package:garage_app/components/add_vehicle/cubit/add_vehicle_cubit.dart';
 import 'package:garage_app/components/add_vehicle/widgets/garage_stepper.dart';
-import 'package:garage_app/components/common/widgets/garage_scaffold.dart';
 import 'package:garage_app/components/garage/garage_screen.dart';
 
 class CreateCarManualScreen extends StatelessWidget {

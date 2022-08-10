@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:garage_app/components/common/widgets/popup_service.dart';
+import 'package:garage_app/common/widgets/popup_service.dart';
 import 'package:garage_app/core/app_service_locator.dart';
 
 typedef Validate = String? Function(String? value);

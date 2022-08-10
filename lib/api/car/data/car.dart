@@ -20,6 +20,8 @@ class Car extends Equatable {
   const Car({
     this.id,
     this.name,
+    this.brand,
+    this.model,
     this.mileage,
     this.date,
     this.vintage,
@@ -36,6 +38,8 @@ class Car extends Equatable {
 
   final int? id;
   final String? name;
+  final String? brand;
+  final String? model;
   final double? mileage;
   final DateTime? date;
   final int? vintage;
@@ -56,6 +60,8 @@ class Car extends Equatable {
   Car copyWith({
     int? id,
     String? name,
+    String? brand,
+    String? model,
     double? mileage,
     DateTime? date,
     int? vintage,
@@ -72,6 +78,8 @@ class Car extends Equatable {
     return Car(
       id: id ?? this.id,
       name: name ?? this.name,
+      brand: brand ?? this.brand,
+      model: model ?? this.model,
       mileage: mileage ?? this.mileage,
       date: date ?? this.date,
       vintage: vintage ?? this.vintage,

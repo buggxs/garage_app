@@ -6,16 +6,12 @@ part 'technical_data.g.dart';
 @JsonSerializable()
 class TechnicalData extends Equatable {
   final int? id;
-  final String? brand;
-  final String? model;
   final String? type;
   final String? hsn;
   final String? tsn;
 
   const TechnicalData({
     this.id,
-    this.brand,
-    this.model,
     this.type,
     this.hsn,
     this.tsn,
@@ -36,8 +32,6 @@ class TechnicalData extends Equatable {
   }) =>
       TechnicalData(
         id: id ?? this.id,
-        brand: brand ?? this.brand,
-        model: model ?? this.model,
         type: type ?? this.type,
         hsn: hsn ?? this.hsn,
         tsn: tsn ?? this.tsn,
@@ -46,8 +40,6 @@ class TechnicalData extends Equatable {
   @override
   List<Object?> get props => [
         id,
-        brand,
-        model,
         type,
         hsn,
         tsn,
