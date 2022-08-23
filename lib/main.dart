@@ -15,21 +15,29 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   SystemChrome.setPreferredOrientations(
-      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+    <DeviceOrientation>[
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ],
+  );
 
   Logger.root.level = Level.ALL;
-  Logger.root.onRecord.listen((record) {
+  Logger.root.onRecord.listen((LogRecord record) {
     // ignore: avoid_print
-    print('${record.time} - ${record.level.name} | '
-        '${record.loggerName} => ${record.message}');
+    print(
+      '${record.time} - ${record.level.name} | '
+      '${record.loggerName} => ${record.message}',
+    );
   });
 
   setup();
-  runApp(const MyGarage());
+  runApp(MyGarage());
 }
 
 class MyGarage extends StatelessWidget {
-  const MyGarage({Key? key}) : super(key: key);
+  MyGarage({Key? key}) : super(key: key);
+
+  final AppNavigator _appNavigator = AppNavigator();
 
   @override
   Widget build(BuildContext context) {
@@ -38,8 +46,8 @@ class MyGarage extends StatelessWidget {
       darkTheme: CustomDarkTheme.darkTheme,
       home: const GarageScreen(),
       initialRoute: GarageScreen.route,
-      onGenerateRoute: AppNavigator.generateRoute,
-      localizationsDelegates: const [
+      onGenerateRoute: _appNavigator.generateRoute,
+      localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
         MyGarageI18nDelegate(),
 
         // localization for material widgets (e.g. tooltips,
@@ -47,7 +55,7 @@ class MyGarage extends StatelessWidget {
         ...GlobalMaterialLocalizations.delegates,
         GlobalLocaleDelegate(),
       ],
-      supportedLocales: const [
+      supportedLocales: const <Locale>[
         Locale('en', 'US'),
         Locale('de', 'DE'),
       ],

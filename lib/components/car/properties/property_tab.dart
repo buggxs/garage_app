@@ -33,10 +33,10 @@ class PropertyTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    CarCubit carCubit = context.watch<CarCubit>();
+    final CarCubit carCubit = context.watch<CarCubit>();
 
-    return BlocProvider(
-      create: (context) => PropertyCubit(
+    return BlocProvider<PropertyCubit>(
+      create: (_) => PropertyCubit(
         car: carCubit.car,
         carCubit: carCubit,
       )..loadProperties(),
@@ -50,42 +50,42 @@ class PropertyTabContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    PropertyCubit cubit = context.watch<PropertyCubit>();
-    CarPropertiesState state = cubit.state;
+    final PropertyCubit cubit = context.watch<PropertyCubit>();
+    final CarPropertiesState state = cubit.state;
 
     Widget child = const Center(
       child: CircularProgressIndicator(),
     );
 
-    Car _car = state.car;
+    final Car _car = state.car;
 
     child = SingleChildScrollView(
-      padding: const EdgeInsets.only(bottom: 16.0),
+      padding: const EdgeInsets.only(bottom: 16),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+        children: <Widget>[
           ImageSlider(
             urlList: _car.imageUrls,
           ),
           Padding(
             padding: const EdgeInsets.symmetric(
-              vertical: 16.0,
-              horizontal: 16.0,
+              vertical: 16,
+              horizontal: 16,
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
+              children: <InfoCard>[
                 InfoCard(
-                  caption: "TÜV bis: ",
+                  caption: 'TÜV bis: ',
                   content: TextFormatter.formatDateToMonthAndYear(_car.date),
                 ),
                 InfoCard(
-                  caption: "Kilometerstand: ",
+                  caption: 'Kilometerstand: ',
                   content: NumberFormatter.mileageFormatter(_car.mileage),
                 ),
                 InfoCard(
-                  caption: "Baujahr: ",
+                  caption: 'Baujahr: ',
                   content: _car.vintage.toString(),
                 ),
               ],
@@ -95,10 +95,10 @@ class PropertyTabContent extends StatelessWidget {
             _car.oilData ?? const OilData(),
             type: _car.calculateCarType(_car.oilData),
             property: Car.getCarProperty(_car.oilData),
-            onTap: () => Navigator.push(
+            onTap: () => Navigator.push<dynamic>(
               context,
-              MaterialPageRoute(
-                builder: (context) => const PropertyDetailsScreen(),
+              MaterialPageRoute<dynamic>(
+                builder: (_) => const PropertyDetailsScreen(),
               ),
             ),
             onLongPress: () => app<ModalService>().showPropertyUpdateModal(
@@ -112,10 +112,10 @@ class PropertyTabContent extends StatelessWidget {
             _car.airConditioner ?? const AirConditionerData(),
             type: _car.calculateCarType(_car.airConditioner),
             property: Car.getCarProperty(_car.airConditioner),
-            onTap: () => Navigator.push(
+            onTap: () => Navigator.push<dynamic>(
               context,
-              MaterialPageRoute(
-                builder: (context) => const PropertyDetailsScreen(),
+              MaterialPageRoute<dynamic>(
+                builder: (_) => const PropertyDetailsScreen(),
               ),
             ),
             onLongPress: () => app<ModalService>().showPropertyUpdateModal(
@@ -129,10 +129,10 @@ class PropertyTabContent extends StatelessWidget {
             _car.brakeData ?? const BrakeData(),
             type: _car.calculateCarType(_car.brakeData),
             property: Car.getCarProperty(_car.brakeData),
-            onTap: () => Navigator.push(
+            onTap: () => Navigator.push<dynamic>(
               context,
-              MaterialPageRoute(
-                builder: (context) => const PropertyDetailsScreen(),
+              MaterialPageRoute<dynamic>(
+                builder: (_) => const PropertyDetailsScreen(),
               ),
             ),
             onLongPress: () => app<ModalService>().showPropertyUpdateModal(
@@ -146,10 +146,10 @@ class PropertyTabContent extends StatelessWidget {
             _car.timingBeltData ?? const TimingBeltData(),
             property: Car.getCarProperty(_car.timingBeltData),
             type: _car.calculateCarType(_car.timingBeltData),
-            onTap: () => Navigator.push(
+            onTap: () => Navigator.push<dynamic>(
               context,
-              MaterialPageRoute(
-                builder: (context) => const PropertyDetailsScreen(),
+              MaterialPageRoute<dynamic>(
+                builder: (_) => const PropertyDetailsScreen(),
               ),
             ),
             onLongPress: () => app<ModalService>().showPropertyUpdateModal(

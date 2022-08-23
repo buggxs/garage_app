@@ -18,10 +18,10 @@ class DocumentTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    CarCubit cubit = context.watch<CarCubit>();
+    final CarCubit cubit = context.watch<CarCubit>();
 
-    return BlocProvider(
-      create: (context) => DocumentCubit(
+    return BlocProvider<DocumentCubit>(
+      create: (_) => DocumentCubit(
         car: cubit.car,
         carCubit: cubit,
       )..loadDocuments(),
@@ -35,8 +35,8 @@ class DocumentTabContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    DocumentCubit cubit = context.watch<DocumentCubit>();
-    DocumentState state = cubit.state;
+    final DocumentCubit cubit = context.watch<DocumentCubit>();
+    final DocumentState state = cubit.state;
 
     Widget? child;
 
@@ -46,7 +46,7 @@ class DocumentTabContent extends StatelessWidget {
       );
     } else if (state is DocumentLoadedState) {
       child = SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16),
         child: _documentList(context, state.documentList),
       );
     } else {
@@ -63,7 +63,7 @@ class DocumentTabContent extends StatelessWidget {
   ) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
+      children: <Widget>[
         ..._generalDocumentBlock(documentList),
         ..._invoiceDocumentBlock(documentList),
         ..._otherDocumentBlock(documentList),
@@ -82,8 +82,8 @@ class DocumentTabContent extends StatelessWidget {
         ),
       ),
       Padding(
-        padding: const EdgeInsets.only(top: 12.0, bottom: 25.0),
-        child: _listingDocuments(documentList?[0] ?? []),
+        padding: const EdgeInsets.only(top: 12, bottom: 25),
+        child: _listingDocuments(documentList?[0] ?? <Document>[]),
       ),
     ];
   }
@@ -93,11 +93,14 @@ class DocumentTabContent extends StatelessWidget {
       Text(
         CarText.invoiceDocumentsHeading(),
         style: const TextStyle(
-            fontSize: 22, color: Colors.white, fontWeight: FontWeight.bold),
+          fontSize: 22,
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
+        ),
       ),
       Padding(
-        padding: const EdgeInsets.only(top: 12.0, bottom: 25.0),
-        child: _listingDocuments(documentList?[1] ?? []),
+        padding: const EdgeInsets.only(top: 12, bottom: 25),
+        child: _listingDocuments(documentList?[1] ?? <Document>[]),
       ),
     ];
   }
@@ -107,56 +110,61 @@ class DocumentTabContent extends StatelessWidget {
       Text(
         CarText.otherDocumentsHeading(),
         style: const TextStyle(
-            fontSize: 22, color: Colors.white, fontWeight: FontWeight.bold),
+          fontSize: 22,
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
+        ),
       ),
       Padding(
-        padding: const EdgeInsets.only(top: 12.0, bottom: 25.0),
-        child: _listingDocuments(documentList?[2] ?? []),
+        padding: const EdgeInsets.only(top: 12, bottom: 25),
+        child: _listingDocuments(documentList?[2] ?? <Document>[]),
       ),
     ];
   }
 
   Widget _listingDocuments(List<Document> documents) {
     return ListView.separated(
-      itemBuilder: (context, index) => _listTile(
+      itemBuilder: (BuildContext context, int index) => _listTile(
         text: documents[index].name,
-        onTap: () => Navigator.push(
+        onTap: () => Navigator.push<Route<MaterialPageRoute<dynamic>>>(
           context,
           MaterialPageRoute(
-            builder: (context) => DocumentScreen(
+            builder: (BuildContext context) => DocumentScreen(
               document: documents[index],
             ),
           ),
         ),
       ),
-      separatorBuilder: (context, index) => _divider(),
+      separatorBuilder: (BuildContext context, int index) => _divider(),
       itemCount: documents.length,
       shrinkWrap: true,
     );
   }
 
   Widget _listTile({String? text, Function()? onTap}) {
-    return Builder(builder: (context) {
-      return InkWell(
-        child: Row(
-          children: [
-            Text(
-              text ?? 'Unknown',
-              style: const TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
+    return Builder(
+      builder: (BuildContext context) {
+        return InkWell(
+          onTap: onTap,
+          child: Row(
+            children: <Widget>[
+              Text(
+                text ?? 'Unknown',
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
-          ],
-        ),
-        onTap: onTap,
-      );
-    });
+            ],
+          ),
+        );
+      },
+    );
   }
 
   Widget _divider() {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 12.0),
+      padding: const EdgeInsets.symmetric(vertical: 12),
       child: Container(
         height: 3,
         width: double.infinity,

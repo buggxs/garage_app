@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:garage_app/api/car/data/car.dart';
 import 'package:garage_app/components/add_vehicle/add_screen.dart';
@@ -8,35 +7,35 @@ import 'package:garage_app/components/car/car_screen.dart';
 import 'package:garage_app/components/garage/garage_screen.dart';
 
 class AppNavigator {
-  static Route<dynamic> generateRoute(RouteSettings settings) {
-    final args = settings.arguments;
+  Route<dynamic> generateRoute(RouteSettings settings) {
+    final Object? args = settings.arguments;
 
     switch (settings.name) {
       case GarageScreen.route:
-        return MaterialPageRoute(
+        return MaterialPageRoute<dynamic>(
           builder: (_) => const GarageScreen(),
         );
       case CarScreen.route:
         if (args is Car) {
-          return MaterialPageRoute(
+          return MaterialPageRoute<dynamic>(
             builder: (_) => CarScreen(
               car: args,
             ),
           );
         }
-        return MaterialPageRoute(
-          builder: (_) => GarageScreen(),
+        return MaterialPageRoute<dynamic>(
+          builder: (_) => const GarageScreen(),
         );
       case AddScreen.route:
-        return MaterialPageRoute(
+        return MaterialPageRoute<dynamic>(
           builder: (_) => const AddScreen(),
         );
       case SelectCarScreen.route:
-        return MaterialPageRoute(
+        return MaterialPageRoute<dynamic>(
           builder: (_) => const SelectCarScreen(),
         );
       case CreateCarManualScreen.route:
-        return MaterialPageRoute(
+        return MaterialPageRoute<dynamic>(
           builder: (_) => const CreateCarManualScreen(),
         );
       default:
@@ -44,16 +43,18 @@ class AppNavigator {
     }
   }
 
-  static Route<dynamic> _errorRoute() {
-    return MaterialPageRoute(builder: (_) {
-      return Scaffold(
-        appBar: AppBar(
-          title: Text('Error'),
-        ),
-        body: Center(
-          child: Text('ERROR'),
-        ),
-      );
-    });
+  Route<dynamic> _errorRoute() {
+    return MaterialPageRoute<dynamic>(
+      builder: (_) {
+        return Scaffold(
+          appBar: AppBar(
+            title: const Text('Error'),
+          ),
+          body: const Center(
+            child: Text('ERROR'),
+          ),
+        );
+      },
+    );
   }
 }
