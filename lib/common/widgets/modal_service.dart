@@ -31,8 +31,8 @@ class ModalService with LoggerMixin {
     required dynamic data,
     required UpdateCarProperty onUpdate,
   }) {
-    final _formKey = GlobalKey<FormState>();
-    CarProperty carProperty = Car.getCarProperty(data);
+    final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+    final CarProperty carProperty = Car.getCarProperty(data);
     showModalBottomSheet<void>(
       context: context,
       isScrollControlled: true,
@@ -43,16 +43,16 @@ class ModalService with LoggerMixin {
           ),
           title: getCardContent(context, carProperty)!['card_heading'],
           icon: getCardContent(context, carProperty)!['card_icon'],
-          children: [
+          children: <Widget>[
             Row(
-              children: [
+              children: <Widget>[
                 Form(
                   key: _formKey,
                   child: Expanded(
                     child: Column(
-                      children: [
+                      children: <Widget>[
                         Row(
-                          children: [
+                          children: <Widget>[
                             CarDataInput(
                               inputDecoration: defaultInputDecorationBlack(
                                 label: Text(CarText.mileage()),
@@ -86,7 +86,8 @@ class ModalService with LoggerMixin {
                           child: ElevatedButton(
                             style: ButtonStyle(
                               backgroundColor: MaterialStateProperty.all<Color>(
-                                  Colors.blueGrey.shade900),
+                                Colors.blueGrey.shade900,
+                              ),
                             ),
                             onPressed: () {
                               if (_formKey.currentState!.validate()) {
@@ -110,71 +111,73 @@ class ModalService with LoggerMixin {
     );
   }
 
-  showUpdateModal({
+  void showUpdateModal({
     required BuildContext context,
     required UpdateCarData onUpdate,
     required Car car,
   }) {
-    final _formKey = GlobalKey<FormState>();
+    final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
     showModalBottomSheet<void>(
-        context: context,
-        isScrollControlled: true,
-        builder: (BuildContext context) {
-          String? lastChangeMileageString;
-          String? lastChangeDateString;
-          return BottomModalContainer(
-            title: car.name,
-            children: [
-              SingleChildScrollView(
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          CarDataInput(
-                            inputDecoration: defaultInputDecorationBlack(
-                              label: Text(CarText.mileage()),
-                            ),
-                            textInputType: TextInputType.number,
-                            onSave: (String value) =>
-                                lastChangeMileageString = value,
+      context: context,
+      isScrollControlled: true,
+      builder: (BuildContext context) {
+        String? lastChangeMileageString;
+        String? lastChangeDateString;
+        return BottomModalContainer(
+          title: car.name,
+          children: <Widget>[
+            SingleChildScrollView(
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  children: <Widget>[
+                    Row(
+                      children: <Widget>[
+                        CarDataInput(
+                          inputDecoration: defaultInputDecorationBlack(
+                            label: Text(CarText.mileage()),
                           ),
-                          CarDataInput(
-                            inputDecoration: defaultInputDecorationBlack(
-                              label: Text(CarText.tuevUntil()),
-                            ),
-                            textInputType: TextInputType.datetime,
-                            readOnly: true,
-                            onSave: (String value) =>
-                                lastChangeDateString = value,
-                          ),
-                        ],
-                      ),
-                      ElevatedButton(
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(
-                              Colors.blueGrey.shade900),
+                          textInputType: TextInputType.number,
+                          onSave: (String value) =>
+                              lastChangeMileageString = value,
                         ),
-                        onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            _formKey.currentState!.save();
-                            onUpdate(
-                              car: car,
-                              lastChangeMileageString: lastChangeMileageString,
-                              lastChangeDateString: lastChangeDateString,
-                            );
-                            Navigator.pop(context);
-                          }
-                        },
-                        child: Text(CommonText.update()),
+                        CarDataInput(
+                          inputDecoration: defaultInputDecorationBlack(
+                            label: Text(CarText.tuevUntil()),
+                          ),
+                          textInputType: TextInputType.datetime,
+                          readOnly: true,
+                          onSave: (String value) =>
+                              lastChangeDateString = value,
+                        ),
+                      ],
+                    ),
+                    ElevatedButton(
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                          Colors.blueGrey.shade900,
+                        ),
                       ),
-                    ],
-                  ),
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          _formKey.currentState!.save();
+                          onUpdate(
+                            car: car,
+                            lastChangeMileageString: lastChangeMileageString,
+                            lastChangeDateString: lastChangeDateString,
+                          );
+                          Navigator.pop(context);
+                        }
+                      },
+                      child: Text(CommonText.update()),
+                    ),
+                  ],
                 ),
               ),
-            ],
-          );
-        });
+            ),
+          ],
+        );
+      },
+    );
   }
 }

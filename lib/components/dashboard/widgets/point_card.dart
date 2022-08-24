@@ -18,42 +18,16 @@ class PointCard extends StatelessWidget {
                   Text(
                     'Kilometerstand aktualisieren:',
                     style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 15.0,
-                      fontWeight: FontWeight.bold
-                    ),
+                        color: Colors.white,
+                        fontSize: 15.0,
+                        fontWeight: FontWeight.bold),
                   ),
                   Text(
                     '+ 5',
                     style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 15.0,
-                      fontWeight: FontWeight.bold
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(5.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Kilometerstand aktualisieren:',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 15.0,
-                      fontWeight: FontWeight.bold
-                    ),
-                  ),
-                  Text(
-                    '+ 5',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 15.0,
-                      fontWeight: FontWeight.bold
-                    ),
+                        color: Colors.white,
+                        fontSize: 15.0,
+                        fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
@@ -68,16 +42,36 @@ class PointCard extends StatelessWidget {
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 15.0,
-                        fontWeight: FontWeight.bold
-                    ),
+                        fontWeight: FontWeight.bold),
                   ),
                   Text(
                     '+ 5',
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 15.0,
-                        fontWeight: FontWeight.bold
-                    ),
+                        fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(5.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Kilometerstand aktualisieren:',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 15.0,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    '+ 5',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 15.0,
+                        fontWeight: FontWeight.bold),
                   ),
                 ],
               ),

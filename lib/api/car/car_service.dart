@@ -46,14 +46,15 @@ class OnlineCarService extends CarService {
 class LocalCarService with LoggerMixin implements CarService {
   @override
   Future<Car?> getCarById({required int carId}) async {
-    List<Car> carList = await getAllCars();
+    final List<Car> carList = await getAllCars();
 
     if (carList.isEmpty) {
       return null;
     }
 
-    return Future.value(
-        carList.where((Car tmpCar) => tmpCar.id == carId).first);
+    return Future<Car?>.value(
+      carList.where((Car tmpCar) => tmpCar.id == carId).first,
+    );
   }
 
   @override
@@ -61,14 +62,16 @@ class LocalCarService with LoggerMixin implements CarService {
     if (car == null) {
       throw Exception('Nothing to save');
     }
-    List<Car>? carList = await getAllCars();
-    int? index = carList.indexWhere((Car tmpCar) => tmpCar.id == car?.id);
+    final List<Car>? carList = await getAllCars();
+    final int? index = carList?.indexWhere(
+      (Car tmpCar) => tmpCar.id == car?.id,
+    );
     if (index == -1) {
-      car = car.copyWith(id: carList.length);
-      carList.add(car);
+      car = car.copyWith(id: carList?.length);
+      carList?.add(car);
       log.info('Saved new car with id ${car.id}');
     } else {
-      carList[index] = car;
+      carList?[index!] = car;
       log.info('Updated car with id ${car.id}');
     }
     await saveCarList(carList);
@@ -77,17 +80,21 @@ class LocalCarService with LoggerMixin implements CarService {
 
   @override
   Future<List<Car>> getAllCars() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? carListString = prefs.get('car_list');
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? carListString = prefs.get('car_list');
     if (carListString?.isEmpty ?? true) {
       return <Car>[];
     }
-    dynamic carList = jsonDecode(carListString!);
+    final dynamic carList = jsonDecode(carListString!);
     if (carList is List) {
-      List<Car> localCarList =
-          carList.map((e) => Car.fromJson(e as Map<String, dynamic>)).toList();
+      final List<Car> localCarList = carList
+          .map(
+            (dynamic e) => Car.fromJson(e as Map<String, dynamic>),
+          )
+          .toList();
       return Future.wait(
-          localCarList.map((Car tmpCar) => loadCarImages(tmpCar)).toList());
+        localCarList.map(loadCarImages).toList(),
+      );
     } else {
       return <Car>[];
     }
@@ -97,9 +104,9 @@ class LocalCarService with LoggerMixin implements CarService {
   Future<void> deleteCar({
     required Car car,
   }) async {
-    List<Car> carList = await getAllCars();
+    final List<Car> carList = await getAllCars();
     if (carList.isNotEmpty) {
-      final int carIndex = carList.indexWhere((tempCar) => car == tempCar);
+      final int carIndex = carList.indexWhere((Car tempCar) => car == tempCar);
       carList.removeAt(carIndex);
       log.info('Deleted Car with name ${car.name}');
     }
@@ -107,13 +114,18 @@ class LocalCarService with LoggerMixin implements CarService {
     saveCarList(carList);
   }
 
-  Future<void> saveCarList(List<Car> carList) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+  Future<void> saveCarList(List<Car>? carList) async {
+    if (carList == null) {
+      return;
+    }
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('car_list', jsonEncode(carList));
   }
 
   Future<void> deleteImages(List<File>? localeImages) async {
-    if (localeImages?.isEmpty ?? true) return;
+    if (localeImages?.isEmpty ?? true) {
+      return;
+    }
 
     localeImages?.forEach((File file) async {
       await file.delete();
@@ -121,27 +133,31 @@ class LocalCarService with LoggerMixin implements CarService {
   }
 
   Future<Car> loadCarImages(Car car) async {
-    final directory = await getApplicationDocumentsDirectory();
+    final Directory directory = await getApplicationDocumentsDirectory();
     final Directory dir = Directory('${directory.path}/car_${car.id}');
     final List<FileSystemEntity> allFiles = await dir.list().toList();
     final List<File> images = allFiles.whereType<File>().toList();
-    if (images.isEmpty) return car;
+    if (images.isEmpty) {
+      return car;
+    }
     return car.copyWith(localeImages: images);
   }
 
   Future<void> saveImagePermanently(Car car) async {
-    final directory = await getApplicationDocumentsDirectory();
-    final localDir =
+    final Directory directory = await getApplicationDocumentsDirectory();
+    final Directory localDir =
         await Directory('${directory.path}/car_${car.id}').create();
-    if (car.localeImages?.isEmpty ?? true) return;
+    if (car.localeImages?.isEmpty ?? true) {
+      return;
+    }
     for (File file in car.localeImages!) {
-      final name = basename(file.path, localDir.path);
+      final String name = basename(file.path, localDir.path);
       File(file.path).copy(name);
     }
   }
 
   String basename(String imagePath, String dirPath) {
-    String name = imagePath.split('/').last;
+    final String name = imagePath.split('/').last;
     return '$dirPath/$name';
   }
 }

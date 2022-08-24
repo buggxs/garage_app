@@ -24,20 +24,24 @@ class IconText extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.only(right: 5.0),
-          child: iconData != null ?
-          Icon(
-            iconData,
-            color: iconColor,
-            size: size,
-          )
-          :
-          ImageIcon(
-            assetImage,
-            color: iconColor,
-            size: size,
-          ),
+          child: iconData != null
+              ? Icon(
+                  iconData,
+                  color: iconColor,
+                  size: size,
+                )
+              : ImageIcon(
+                  assetImage,
+                  color: iconColor,
+                  size: size,
+                ),
         ),
-        textStyle != null ? Text(text) : Text(text, style: textStyle,)
+        textStyle != null
+            ? Text(text)
+            : Text(
+                text,
+                style: textStyle,
+              )
       ],
     );
   }

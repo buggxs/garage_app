@@ -38,19 +38,19 @@ class _GarageStepper extends State<GarageStepper> {
   final CarouselController carouselController = CarouselController();
   int _index = 0;
   Car newCar = const Car();
-  List<File> images = [];
+  List<File> images = <File>[];
   int imageIndex = 0;
 
-  Map<int, Map<String, dynamic>> stepInfo = {
-    0: {
+  Map<int, Map<String, dynamic>> stepInfo = <int, Map<String, dynamic>>{
+    0: <String, bool>{
       'error': false,
       'completed': false,
     },
-    1: {
+    1: <String, bool>{
       'error': false,
       'completed': false,
     },
-    2: {
+    2: <String, bool>{
       'error': false,
       'completed': false,
     },
@@ -95,29 +95,30 @@ class _GarageStepper extends State<GarageStepper> {
   ) {
     return Padding(
       padding: const EdgeInsets.symmetric(
-        vertical: 12.0,
-        horizontal: 8.0,
+        vertical: 12,
+        horizontal: 8,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          controlsBuilder.currentStep == 0
-              ? const SizedBox()
-              : ElevatedButton(
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(
-                      Colors.redAccent,
-                    ),
-                  ),
-                  onPressed: () {
-                    if (_index >= 0) {
-                      setState(() {
-                        _index -= 1;
-                      });
-                    }
-                  },
-                  child: const Text('Zurück'),
+        children: <Widget>[
+          if (controlsBuilder.currentStep == 0)
+            const SizedBox()
+          else
+            ElevatedButton(
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(
+                  Colors.redAccent,
                 ),
+              ),
+              onPressed: () {
+                if (_index >= 0) {
+                  setState(() {
+                    _index -= 1;
+                  });
+                }
+              },
+              child: const Text('Zurück'),
+            ),
           ElevatedButton(
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all<Color>(
@@ -172,9 +173,9 @@ class _GarageStepper extends State<GarageStepper> {
       content: Container(
         alignment: Alignment.centerLeft,
         child: Column(
-          children: [
+          children: <Widget>[
             Row(
-              children: [
+              children: <Widget>[
                 CarDataInput(
                   inputDecoration: const InputDecoration(
                     labelText: 'Fahrzeug Name',
@@ -197,7 +198,7 @@ class _GarageStepper extends State<GarageStepper> {
               ],
             ),
             Row(
-              children: [
+              children: <Widget>[
                 CarDataInput(
                   inputDecoration: const InputDecoration(
                     labelText: 'Kilometerstand',
@@ -246,9 +247,9 @@ class _GarageStepper extends State<GarageStepper> {
       content: Container(
         alignment: Alignment.centerLeft,
         child: Column(
-          children: [
+          children: <Widget>[
             Row(
-              children: [
+              children: <Widget>[
                 CarDataInput(
                   inputDecoration: const InputDecoration(
                     labelText: 'Marke',
@@ -263,7 +264,7 @@ class _GarageStepper extends State<GarageStepper> {
               ],
             ),
             Row(
-              children: [
+              children: <Widget>[
                 CarDataInput(
                   inputDecoration: const InputDecoration(
                     labelText: 'Model',
@@ -292,7 +293,7 @@ class _GarageStepper extends State<GarageStepper> {
               ],
             ),
             Row(
-              children: [
+              children: <Widget>[
                 CarDataInput(
                   inputDecoration: const InputDecoration(
                     labelText: 'HSN',
@@ -337,62 +338,64 @@ class _GarageStepper extends State<GarageStepper> {
         child: Container(
           alignment: Alignment.centerLeft,
           child: Column(
-            children: [
-              images.isNotEmpty
-                  ? ImageSlider(
-                      withIndicator: true,
-                      activeIndex: imageIndex,
-                      carouselController: carouselController,
-                      urlList: images.map((e) => e.path).toList(),
-                      onDotClicked: (int? index) {
-                        if (index != null) {
-                          setState(() {
-                            imageIndex = index;
-                          });
-                          carouselController.animateToPage(index);
-                        }
-                      },
-                      carouselOptions: CarouselOptions(
-                          aspectRatio: 16 / 9,
-                          initialPage: imageIndex,
-                          enlargeCenterPage: true,
-                          enlargeStrategy: CenterPageEnlargeStrategy.height,
-                          enableInfiniteScroll: true,
-                          onPageChanged: (index, reason) {
-                            setState(() {
-                              imageIndex = index;
-                            });
-                          }),
-                    )
-                  : const SizedBox(),
-              const SizedBox(height: 16.0),
+            children: <Widget>[
+              if (images.isNotEmpty)
+                ImageSlider(
+                  withIndicator: true,
+                  activeIndex: imageIndex,
+                  carouselController: carouselController,
+                  urlList: images.map((File e) => e.path).toList(),
+                  onDotClicked: (int? index) {
+                    if (index != null) {
+                      setState(() {
+                        imageIndex = index;
+                      });
+                      carouselController.animateToPage(index);
+                    }
+                  },
+                  carouselOptions: CarouselOptions(
+                    aspectRatio: 16 / 9,
+                    initialPage: imageIndex,
+                    enlargeCenterPage: true,
+                    enlargeStrategy: CenterPageEnlargeStrategy.height,
+                    enableInfiniteScroll: true,
+                    onPageChanged: (int index, _) {
+                      setState(() {
+                        imageIndex = index;
+                      });
+                    },
+                  ),
+                )
+              else
+                const SizedBox(),
+              const SizedBox(height: 16),
               Row(
-                children: [
-                  images.isNotEmpty
-                      ? Expanded(
-                          child: ElevatedButton(
-                            style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                  Colors.redAccent.shade700),
-                            ),
-                            onPressed: () {
-                              // TODO: remove image from list method
-                              log('remove image..');
-                            },
-                            child: const Text('Bild entfernen'),
+                children: <Widget>[
+                  if (images.isNotEmpty)
+                    Expanded(
+                      child: ElevatedButton(
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                            Colors.redAccent.shade700,
                           ),
-                        )
-                      : const SizedBox(),
-                  const SizedBox(width: 16.0),
+                        ),
+                        onPressed: () {
+                          // TODO: remove image from list method
+                          log('remove image..');
+                        },
+                        child: const Text('Bild entfernen'),
+                      ),
+                    )
+                  else
+                    const SizedBox(),
+                  const SizedBox(width: 16),
                   Expanded(
                     child: ElevatedButton(
                       style: ButtonStyle(
                         backgroundColor:
                             MaterialStateProperty.all<Color>(Colors.orange),
                       ),
-                      onPressed: () {
-                        _pickImage();
-                      },
+                      onPressed: _pickImage,
                       child: const Text('Bild auswählen'),
                     ),
                   ),
@@ -405,14 +408,16 @@ class _GarageStepper extends State<GarageStepper> {
     );
   }
 
-  Future _pickImage() async {
+  Future<void> _pickImage() async {
     // TODO: For IOS use need to add permissions
     try {
       final File? image =
           await ImagePicker.pickImage(source: ImageSource.gallery);
-      if (image == null) return;
+      if (image == null) {
+        return;
+      }
 
-      File? croppedImage = await ImageCropper().cropImage(
+      final File? croppedImage = await ImageCropper().cropImage(
         sourcePath: image.path,
         aspectRatio: const CropAspectRatio(ratioX: 16, ratioY: 9),
         compressQuality: 100,
@@ -425,12 +430,14 @@ class _GarageStepper extends State<GarageStepper> {
         ),
       );
 
-      if (croppedImage == null) return;
+      if (croppedImage == null) {
+        return;
+      }
 
       // final imageTemp = File(image.path);
       // final imagePermanent = await saveImagePermanently(croppedImage.path);
       setState(() {
-        images = [croppedImage, ...images];
+        images = <File>[croppedImage, ...images];
         newCar = newCar.copyWith(localeImages: images);
       });
     } on PlatformException catch (e) {

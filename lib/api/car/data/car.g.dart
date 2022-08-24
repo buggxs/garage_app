@@ -21,25 +21,31 @@ Car _$CarFromJson(Map<String, dynamic> json) => Car(
       airConditioner: json['airConditioner'] == null
           ? null
           : AirConditionerData.fromJson(
-              json['airConditioner'] as Map<String, dynamic>),
+              json['airConditioner'] as Map<String, dynamic>,
+            ),
       brakeData: json['brakeData'] == null
           ? null
           : BrakeData.fromJson(json['brakeData'] as Map<String, dynamic>),
       timingBeltData: json['timingBeltData'] == null
           ? null
           : TimingBeltData.fromJson(
-              json['timingBeltData'] as Map<String, dynamic>),
+              json['timingBeltData'] as Map<String, dynamic>,
+            ),
       technicalData: json['technicalData'] == null
           ? null
           : TechnicalData.fromJson(
-              json['technicalData'] as Map<String, dynamic>),
+              json['technicalData'] as Map<String, dynamic>,
+            ),
       documentList: (json['documentList'] as List<dynamic>?)
-          ?.map((e) => (e as List<dynamic>)
-              .map((e) => Document.fromJson(e as Map<String, dynamic>))
-              .toList())
+          ?.map(
+            (dynamic e) => (e as List<dynamic>)
+                .map(
+                    (dynamic e) => Document.fromJson(e as Map<String, dynamic>))
+                .toList(),
+          )
           .toList(),
       noteList: (json['noteList'] as List<dynamic>?)
-          ?.map((e) => Note.fromJson(e as Map<String, dynamic>))
+          ?.map((dynamic e) => Note.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 

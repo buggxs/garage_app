@@ -9,9 +9,12 @@ class AddDocumentDialog extends StatelessWidget {
 
   final void Function(String?)? onSubmit;
 
-  final _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  final Map<String, dynamic> documentData = {'name': null, 'type': null};
+  final Map<String, dynamic> documentData = <String, dynamic>{
+    'name': null,
+    'type': null,
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -19,9 +22,9 @@ class AddDocumentDialog extends StatelessWidget {
       child: Form(
         key: _formKey,
         child: Column(
-          children: [
+          children: <Widget>[
             Row(
-              children: [
+              children: <Widget>[
                 CarDataInput(
                   onSave: (String value) {
                     documentData['name'] = value;
@@ -30,8 +33,10 @@ class AddDocumentDialog extends StatelessWidget {
                   inputDecoration: const InputDecoration(
                     alignLabelWithHint: true,
                     label: Text('Document name'),
-                    contentPadding: const EdgeInsets.symmetric(
-                        vertical: 0.0, horizontal: 8.0),
+                    contentPadding: EdgeInsets.symmetric(
+                      vertical: 0,
+                      horizontal: 8,
+                    ),
                     border: OutlineInputBorder(
                       borderSide: BorderSide(),
                     ),
@@ -41,13 +46,12 @@ class AddDocumentDialog extends StatelessWidget {
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
+              children: <Widget>[
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(8),
                     child: CarDocumentDropDown(
                       onChange: (String value) {
-                        print('type onChange: $value');
                         documentData['type'] = value;
                       },
                     ),
@@ -57,7 +61,7 @@ class AddDocumentDialog extends StatelessWidget {
             ),
             const Divider(),
             Row(
-              children: [
+              children: <Widget>[
                 Expanded(
                   child: ElevatedButton(
                     onPressed: () {
@@ -66,7 +70,7 @@ class AddDocumentDialog extends StatelessWidget {
                         Navigator.pop(context, documentData);
                       }
                     },
-                    child: const Text("Aktualisieren"),
+                    child: const Text('Aktualisieren'),
                   ),
                 ),
               ],

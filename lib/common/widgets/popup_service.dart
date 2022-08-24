@@ -5,7 +5,7 @@ class PopupService {
     required BuildContext context,
     TextEditingController? controller,
   }) async {
-    DateTime selectedDate = DateTime.now();
+    final DateTime selectedDate = DateTime.now();
 
     final DateTime? picked = await showDatePicker(
       context: context,
@@ -15,7 +15,7 @@ class PopupService {
     );
 
     if (picked != null && picked != selectedDate) {
-      String date =
+      final String date =
           '''${picked.day}.${picked.month.toString().length == 1 ? '0${picked.month}' : picked.month}.${picked.year}''';
 
       if (controller != null) {
@@ -34,13 +34,13 @@ class PopupService {
     Widget? title,
     Widget buildPopupDialog,
   ) {
-    return showDialog(
+    return showDialog<void>(
       context: context,
       builder: (BuildContext context) => AlertDialog(
         title: title,
         content: buildPopupDialog,
-        contentPadding: const EdgeInsets.all(8.0),
-        titlePadding: const EdgeInsets.all(8.0),
+        contentPadding: const EdgeInsets.all(8),
+        titlePadding: const EdgeInsets.all(8),
       ),
     );
   }

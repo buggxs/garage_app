@@ -20,28 +20,30 @@ class InfoCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 16.0),
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 6.0, horizontal: 16.0),
                   child: Text(
                     text ?? "Alle Fahrzeuge einwandfrei",
                     style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold
-                    ),
+                        fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 16.0),
-                  child: icon ?? const Icon(
-                    Icons.check,
-                    color: Colors.greenAccent,
-                    size: 32,
-                  ),
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 0.0, horizontal: 16.0),
+                  child: icon ??
+                      const Icon(
+                        Icons.check,
+                        color: Colors.greenAccent,
+                        size: 32,
+                      ),
                 )
               ],
             ),
           ),
         ),
       ],
-    );;
+    );
+    ;
   }
 }
