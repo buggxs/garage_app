@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:garage_app/misc/color_constants.dart';
 
 class ShieldButton extends StatelessWidget {
-  const ShieldButton(
-      {Key? key,
-      required this.text,
-      required this.onTap,
-      this.maxHeight = 130.0,
-      this.maxWidth = 180.0})
-      : super(key: key);
+  const ShieldButton({
+    Key? key,
+    required this.text,
+    required this.onTap,
+    this.maxHeight = 150.0,
+    this.maxWidth = 180.0,
+  }) : super(key: key);
 
   final String text;
   final VoidCallback onTap;
@@ -30,12 +30,19 @@ class ShieldButton extends StatelessWidget {
           maxHeight: maxHeight,
         ),
         decoration: BoxDecoration(
-          color: ColorConstants.shieldBlue,
-          border: Border.all(color: Colors.white, width: 4.0),
-          borderRadius: const BorderRadius.all(
-            Radius.circular(7.0),
-          ),
-        ),
+            color: ColorConstants.shieldBlue,
+            border: Border.all(color: Colors.white, width: 4.0),
+            borderRadius: const BorderRadius.all(
+              Radius.circular(7.0),
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.5),
+                spreadRadius: 2,
+                blurRadius: 7,
+                offset: const Offset(0, 4),
+              )
+            ]),
         child: Center(
           child: Text(
             text,
