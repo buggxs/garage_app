@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:garage_app/common/widgets/garage_scaffold.dart';
+import 'package:garage_app/components/add_vehicle/I18n/add_vehicle_i18n.dart';
+import 'package:garage_app/components/add_vehicle/I18n/add_vehicle_text.dart';
 import 'package:garage_app/components/add_vehicle/create_car_automated_screen.dart';
 import 'package:garage_app/components/add_vehicle/create_car_manual_screen.dart';
 import 'package:garage_app/components/add_vehicle/cubit/add_vehicle_cubit.dart';
@@ -28,7 +30,7 @@ class AddScreenContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GarageScaffold(
-      title: 'Ein neues Auto parken',
+      title: AddVehicleText.parkNewCar(),
       child: Column(
         children: [
           const AddVehicleMetaPanel(),
@@ -42,12 +44,12 @@ class AddScreenContent extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       ShieldButton(
-                        text: 'Auto manuell Eingeben',
+                        text: AddVehicleText.addCarManually(),
                         onTap: () => Navigator.of(context)
                             .pushNamed(CreateCarManualScreen.route),
                       ),
                       ShieldButton(
-                        text: 'Auto auswählen',
+                        text: AddVehicleText.selectCar(),
                         onTap: () => Navigator.of(context)
                             .pushNamed(SelectCarScreen.route),
                       ),

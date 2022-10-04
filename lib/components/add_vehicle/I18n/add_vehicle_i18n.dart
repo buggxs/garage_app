@@ -4,7 +4,9 @@ part 'add_vehicle_i18n_de.dart';
 part 'add_vehicle_i18n_en.dart';
 
 enum AddVehicleText {
-  hello,
+  parkNewCar,
+  addCarManually,
+  selectCar,
 }
 
 class AddVehicleI18n extends I18n<AddVehicleText> {
