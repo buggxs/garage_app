@@ -6,6 +6,12 @@ import 'package:carousel_slider/carousel_options.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:garage_app/api/api.dart';
+import 'package:garage_app/common/i18n/common_i18n.dart';
+import 'package:garage_app/common/i18n/common_text.dart';
+import 'package:garage_app/components/add_vehicle/I18n/add_vehicle_i18n.dart';
+import 'package:garage_app/components/add_vehicle/I18n/add_vehicle_text.dart';
+import 'package:garage_app/components/car/i18n/car_i18n.dart';
+import 'package:garage_app/components/car/i18n/car_text.dart';
 import 'package:garage_app/components/car/properties/widgets/image_slider.dart';
 import 'package:garage_app/components/garage/widgets/car_data_input.dart';
 import 'package:image_cropper/image_cropper.dart';
@@ -117,7 +123,7 @@ class _GarageStepper extends State<GarageStepper> {
                   });
                 }
               },
-              child: const Text('Zurück'),
+              child: Text(CommonText.back()),
             ),
           ElevatedButton(
             style: ButtonStyle(
@@ -151,8 +157,8 @@ class _GarageStepper extends State<GarageStepper> {
               });
             },
             child: controlsBuilder.currentStep < 2
-                ? const Text('Next')
-                : const Text('Speichern'),
+                ? Text(CommonText.next())
+                : Text(CommonText.save()),
           ),
         ],
       ),
@@ -161,7 +167,7 @@ class _GarageStepper extends State<GarageStepper> {
 
   Step _stepOne() {
     return Step(
-      title: const Text('Auto Infos'),
+      title: Text(AddVehicleText.carInformationShort()),
       state: stepInfo[0]!['error']
           ? _index > 0
               ? StepState.error
@@ -177,8 +183,8 @@ class _GarageStepper extends State<GarageStepper> {
             Row(
               children: <Widget>[
                 CarDataInput(
-                  inputDecoration: const InputDecoration(
-                    labelText: 'Fahrzeug Name',
+                  inputDecoration: InputDecoration(
+                    labelText: AddVehicleText.vehicleName(),
                   ),
                   textStyle: _carInputTextStyle(),
                   onSave: (String value) {
@@ -189,7 +195,7 @@ class _GarageStepper extends State<GarageStepper> {
                   validate: (String? value) {
                     if (value == null || value.isEmpty) {
                       stepInfo[0]!['error'] = true;
-                      return 'Es muss ein Name vergeben werden';
+                      return AddVehicleText.nameMissingError();
                     }
                     stepInfo[0]!['completed'] = true;
                     return null;
@@ -200,8 +206,8 @@ class _GarageStepper extends State<GarageStepper> {
             Row(
               children: <Widget>[
                 CarDataInput(
-                  inputDecoration: const InputDecoration(
-                    labelText: 'Kilometerstand',
+                  inputDecoration: InputDecoration(
+                    labelText: CarText.mileage(),
                   ),
                   textInputType: TextInputType.number,
                   textStyle: _carInputTextStyle(),
@@ -225,7 +231,7 @@ class _GarageStepper extends State<GarageStepper> {
                   validate: (String? value) {
                     if (value == null || value.isEmpty) {
                       stepInfo[0]!['error'] = true;
-                      return 'Das Baujahr fehlt.';
+                      return AddVehicleText.vintageMissingError();
                     }
                     stepInfo[0]!['completed'] = true;
                     return null;
@@ -241,7 +247,7 @@ class _GarageStepper extends State<GarageStepper> {
 
   Step _stepTwo() {
     return Step(
-      title: const Text('Auto Daten'),
+      title: Text(AddVehicleText.carData()),
       state: _index > 1 ? StepState.complete : StepState.indexed,
       isActive: _index >= 1,
       content: Container(
@@ -251,8 +257,8 @@ class _GarageStepper extends State<GarageStepper> {
             Row(
               children: <Widget>[
                 CarDataInput(
-                  inputDecoration: const InputDecoration(
-                    labelText: 'Marke',
+                  inputDecoration: InputDecoration(
+                    labelText: CarText.brand(),
                   ),
                   textStyle: _carInputTextStyle(),
                   onSave: (String value) {
@@ -266,8 +272,8 @@ class _GarageStepper extends State<GarageStepper> {
             Row(
               children: <Widget>[
                 CarDataInput(
-                  inputDecoration: const InputDecoration(
-                    labelText: 'Model',
+                  inputDecoration: InputDecoration(
+                    labelText: CarText.model(),
                   ),
                   textStyle: _carInputTextStyle(),
                   onSave: (String value) {
@@ -277,8 +283,8 @@ class _GarageStepper extends State<GarageStepper> {
                   },
                 ),
                 CarDataInput(
-                  inputDecoration: const InputDecoration(
-                    labelText: 'Typ',
+                  inputDecoration: InputDecoration(
+                    labelText: CarText.type(),
                   ),
                   onSave: (String value) {
                     newCar = newCar.copyWith(
@@ -295,8 +301,8 @@ class _GarageStepper extends State<GarageStepper> {
             Row(
               children: <Widget>[
                 CarDataInput(
-                  inputDecoration: const InputDecoration(
-                    labelText: 'HSN',
+                  inputDecoration: InputDecoration(
+                    labelText: CarText.hsn(),
                   ),
                   textStyle: _carInputTextStyle(),
                   onSave: (String value) {
@@ -309,8 +315,8 @@ class _GarageStepper extends State<GarageStepper> {
                   },
                 ),
                 CarDataInput(
-                  inputDecoration: const InputDecoration(
-                    labelText: 'TSN',
+                  inputDecoration: InputDecoration(
+                    labelText: CarText.tsn(),
                   ),
                   textStyle: _carInputTextStyle(),
                   onSave: (String value) {
@@ -332,7 +338,7 @@ class _GarageStepper extends State<GarageStepper> {
 
   Step _stepThree() {
     return Step(
-      title: const Text('Auto Bilder'),
+      title: Text(AddVehicleText.carImages()),
       isActive: _index == 2,
       content: Expanded(
         child: Container(

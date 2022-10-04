@@ -5,6 +5,9 @@ part 'common_i18n_en.dart';
 
 enum CommonText {
   update,
+  back,
+  next,
+  save,
 }
 
 class CommonI18n extends I18n<CommonText> {
