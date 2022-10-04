@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:garage_app/common/widgets/garage_scaffold.dart';
+import 'package:garage_app/components/add_vehicle/I18n/add_vehicle_i18n.dart';
+import 'package:garage_app/components/add_vehicle/I18n/add_vehicle_text.dart';
 import 'package:garage_app/components/add_vehicle/create_car_automated_screen.dart';
 import 'package:garage_app/components/add_vehicle/create_car_manual_screen.dart';
 import 'package:garage_app/components/add_vehicle/cubit/add_vehicle_cubit.dart';
+import 'package:garage_app/components/add_vehicle/widgets/add_vehicle_meta_panel.dart';
+import 'package:garage_app/components/add_vehicle/widgets/shield_button.dart';
 
 class AddScreen extends StatelessWidget {
   const AddScreen({Key? key}) : super(key: key);
@@ -25,56 +30,36 @@ class AddScreenContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GarageScaffold(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: SizedBox(
-          width: double.infinity,
-          child: Column(
-            children: [
-              Expanded(
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Expanded(
-                      child: ElevatedButton(
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(
-                            Colors.blue,
-                          ),
-                        ),
-                        onPressed: () => Navigator.of(context)
+      title: AddVehicleText.parkNewCar(),
+      child: Column(
+        children: [
+          const AddVehicleMetaPanel(),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      ShieldButton(
+                        text: AddVehicleText.addCarManually(),
+                        onTap: () => Navigator.of(context)
                             .pushNamed(CreateCarManualScreen.route),
-                        child: const Text('Auto manuell Eingeben'),
                       ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(
-                height: 8,
-              ),
-              Expanded(
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Expanded(
-                      child: ElevatedButton(
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(
-                            Colors.blue,
-                          ),
-                        ),
-                        onPressed: () => Navigator.of(context)
+                      ShieldButton(
+                        text: AddVehicleText.selectCar(),
+                        onTap: () => Navigator.of(context)
                             .pushNamed(SelectCarScreen.route),
-                        child: const Text('Auto auswählen'),
                       ),
-                    ),
-                  ],
-                ),
+                    ],
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
