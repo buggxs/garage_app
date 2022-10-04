@@ -14,6 +14,7 @@ import 'package:garage_app/components/car/i18n/car_i18n.dart';
 import 'package:garage_app/components/car/i18n/car_text.dart';
 import 'package:garage_app/components/car/properties/widgets/image_slider.dart';
 import 'package:garage_app/components/garage/widgets/car_data_input.dart';
+import 'package:garage_app/misc/color_constants.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -66,9 +67,17 @@ class _GarageStepper extends State<GarageStepper> {
   Widget build(BuildContext context) {
     return Theme(
       data: Theme.of(context).copyWith(
-        colorScheme: const ColorScheme.light(
-          primary: Colors.green,
+        canvasColor: ColorConstants.shieldBlue,
+        colorScheme: ColorScheme.light(
+          secondary: Colors.green.shade600,
+          background: Colors.grey.shade500,
+          brightness: Brightness.dark,
         ),
+        textTheme: Theme.of(context).textTheme.copyWith(
+              bodyText1: const TextStyle(
+                color: Colors.white,
+              ),
+            ),
       ),
       child: Stepper(
         controlsBuilder: widget.controlsBuilder ?? _defaultControlWidget,
@@ -113,7 +122,15 @@ class _GarageStepper extends State<GarageStepper> {
             ElevatedButton(
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all<Color>(
-                  Colors.redAccent,
+                  ColorConstants.myGarageDangerRed,
+                ),
+                shadowColor: MaterialStateProperty.all<Color>(Colors.black),
+                elevation: MaterialStateProperty.all<double>(4),
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(15)),
+                    side: BorderSide(width: 2),
+                  ),
                 ),
               ),
               onPressed: () {
@@ -128,7 +145,15 @@ class _GarageStepper extends State<GarageStepper> {
           ElevatedButton(
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all<Color>(
-                Colors.green,
+                ColorConstants.myGarageSuccessGreen,
+              ),
+              shadowColor: MaterialStateProperty.all<Color>(Colors.black),
+              elevation: MaterialStateProperty.all<double>(4),
+              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(15)),
+                  side: BorderSide(width: 2),
+                ),
               ),
             ),
             onPressed: () {
@@ -218,8 +243,8 @@ class _GarageStepper extends State<GarageStepper> {
                   },
                 ),
                 CarDataInput(
-                  inputDecoration: const InputDecoration(
-                    labelText: 'Baujahr',
+                  inputDecoration: InputDecoration(
+                    labelText: CarText.vintage(),
                   ),
                   textInputType: TextInputType.number,
                   textStyle: _carInputTextStyle(),
@@ -393,15 +418,52 @@ class _GarageStepper extends State<GarageStepper> {
                   )
                 else
                   const SizedBox(),
-                const SizedBox(width: 16),
                 Expanded(
                   child: ElevatedButton(
                     style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all<Color>(Colors.orange),
+                      backgroundColor: MaterialStateProperty.all<Color>(
+                        ColorConstants.myGarageBlue,
+                      ),
+                      padding: MaterialStateProperty.all<EdgeInsets>(
+                        const EdgeInsets.symmetric(
+                          vertical: 8,
+                          horizontal: 8,
+                        ),
+                      ),
+                      shadowColor: MaterialStateProperty.all<Color>(
+                        Colors.black,
+                      ),
+                      elevation: MaterialStateProperty.all<double>(4),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(7)),
+                          side: BorderSide(
+                            width: 2,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
                     ),
                     onPressed: _pickImage,
-                    child: const Text('Bild auswählen'),
+                    child: Row(
+                      children: <Widget>[
+                        const ImageIcon(
+                          AssetImage('assets/icons/file.png'),
+                          size: 28,
+                        ),
+                        Expanded(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                CommonText.selectImage(),
+                                style: const TextStyle(fontSize: 20),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],

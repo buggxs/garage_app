@@ -8,6 +8,7 @@ enum CommonText {
   back,
   next,
   save,
+  selectImage,
 }
 
 class CommonI18n extends I18n<CommonText> {

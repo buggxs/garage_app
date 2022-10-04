@@ -5,4 +5,5 @@ Map<CommonText, String> _deValues = <CommonText, String>{
   CommonText.back: 'Zurück',
   CommonText.next: 'Weiter',
   CommonText.save: 'Speichern',
+  CommonText.selectImage: 'Bild auswählen',
 };

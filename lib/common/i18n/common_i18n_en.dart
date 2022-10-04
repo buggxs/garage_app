@@ -5,4 +5,5 @@ Map<CommonText, String> _enValues = <CommonText, String>{
   CommonText.back: 'Back',
   CommonText.next: 'Next',
   CommonText.save: 'Save',
+  CommonText.selectImage: 'Select image',
 };
