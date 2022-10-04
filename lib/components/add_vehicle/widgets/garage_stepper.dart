@@ -340,75 +340,73 @@ class _GarageStepper extends State<GarageStepper> {
     return Step(
       title: Text(AddVehicleText.carImages()),
       isActive: _index == 2,
-      content: Expanded(
-        child: Container(
-          alignment: Alignment.centerLeft,
-          child: Column(
-            children: <Widget>[
-              if (images.isNotEmpty)
-                ImageSlider(
-                  withIndicator: true,
-                  activeIndex: imageIndex,
-                  carouselController: carouselController,
-                  urlList: images.map((File e) => e.path).toList(),
-                  onDotClicked: (int? index) {
-                    if (index != null) {
-                      setState(() {
-                        imageIndex = index;
-                      });
-                      carouselController.animateToPage(index);
-                    }
+      content: Container(
+        alignment: Alignment.centerLeft,
+        child: Column(
+          children: <Widget>[
+            if (images.isNotEmpty)
+              ImageSlider(
+                withIndicator: true,
+                activeIndex: imageIndex,
+                carouselController: carouselController,
+                urlList: images.map((File e) => e.path).toList(),
+                onDotClicked: (int? index) {
+                  if (index != null) {
+                    setState(() {
+                      imageIndex = index;
+                    });
+                    carouselController.animateToPage(index);
+                  }
+                },
+                carouselOptions: CarouselOptions(
+                  aspectRatio: 16 / 9,
+                  initialPage: imageIndex,
+                  enlargeCenterPage: true,
+                  enlargeStrategy: CenterPageEnlargeStrategy.height,
+                  enableInfiniteScroll: true,
+                  onPageChanged: (int index, _) {
+                    setState(() {
+                      imageIndex = index;
+                    });
                   },
-                  carouselOptions: CarouselOptions(
-                    aspectRatio: 16 / 9,
-                    initialPage: imageIndex,
-                    enlargeCenterPage: true,
-                    enlargeStrategy: CenterPageEnlargeStrategy.height,
-                    enableInfiniteScroll: true,
-                    onPageChanged: (int index, _) {
-                      setState(() {
-                        imageIndex = index;
-                      });
-                    },
-                  ),
-                )
-              else
-                const SizedBox(),
-              const SizedBox(height: 16),
-              Row(
-                children: <Widget>[
-                  if (images.isNotEmpty)
-                    Expanded(
-                      child: ElevatedButton(
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(
-                            Colors.redAccent.shade700,
-                          ),
-                        ),
-                        onPressed: () {
-                          // TODO: remove image from list method
-                          log('remove image..');
-                        },
-                        child: const Text('Bild entfernen'),
-                      ),
-                    )
-                  else
-                    const SizedBox(),
-                  const SizedBox(width: 16),
+                ),
+              )
+            else
+              const SizedBox(),
+            const SizedBox(height: 16),
+            Row(
+              children: <Widget>[
+                if (images.isNotEmpty)
                   Expanded(
                     child: ElevatedButton(
                       style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all<Color>(Colors.orange),
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                          Colors.redAccent.shade700,
+                        ),
                       ),
-                      onPressed: _pickImage,
-                      child: const Text('Bild auswählen'),
+                      onPressed: () {
+                        // TODO: remove image from list method
+                        log('remove image..');
+                      },
+                      child: const Text('Bild entfernen'),
                     ),
+                  )
+                else
+                  const SizedBox(),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: ElevatedButton(
+                    style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(Colors.orange),
+                    ),
+                    onPressed: _pickImage,
+                    child: const Text('Bild auswählen'),
                   ),
-                ],
-              ),
-            ],
-          ),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );
