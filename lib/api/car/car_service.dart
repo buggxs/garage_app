@@ -134,13 +134,16 @@ class LocalCarService with LoggerMixin implements CarService {
 
   Future<Car> loadCarImages(Car car) async {
     final Directory directory = await getApplicationDocumentsDirectory();
-    final Directory dir = Directory('${directory.path}/car_${car.id}');
-    final List<FileSystemEntity> allFiles = await dir.list().toList();
-    final List<File> images = allFiles.whereType<File>().toList();
-    if (images.isEmpty) {
-      return car;
-    }
-    return car.copyWith(localeImages: images);
+    return Directory('${directory.path}/car_${car.id}')
+        .create(recursive: true)
+        .then((Directory dir) async {
+      final List<FileSystemEntity> allFiles = await dir.list().toList();
+      final List<File> images = allFiles.whereType<File>().toList();
+      if (images.isEmpty) {
+        return car;
+      }
+      return car.copyWith(localeImages: images);
+    });
   }
 
   Future<void> saveImagePermanently(Car car) async {

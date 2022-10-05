@@ -13,7 +13,8 @@ class ImagePlaceholder extends StatelessWidget {
   final String? imageUrl;
 
   bool get isLocalImage =>
-      imageUrl!.startsWith('file:///') || imageUrl!.startsWith('/data/');
+      (imageUrl?.startsWith('file:///') ?? false) ||
+      (imageUrl?.startsWith('/data/') ?? false);
 
   @override
   Widget build(BuildContext context) {

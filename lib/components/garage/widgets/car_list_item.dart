@@ -79,19 +79,24 @@ class CarListItem extends StatelessWidget {
   }
 
   Widget _carImage() {
+    String? imageUrl;
+    if (car.imageUrls.isNotEmpty) {
+      imageUrl = car.imageUrls.first;
+    }
     return Container(
-      padding: const EdgeInsets.all(1.0),
+      padding: const EdgeInsets.all(1),
       child: ClipRRect(
         borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(8),
-            topRight: Radius.circular(0),
-            bottomLeft: Radius.circular(8),
-            bottomRight: Radius.circular(0)),
+          topLeft: Radius.circular(8),
+          topRight: Radius.circular(0),
+          bottomLeft: Radius.circular(8),
+          bottomRight: Radius.circular(0),
+        ),
         child: SizedBox(
           height: 100,
           width: 100,
           child: ImagePlaceholder(
-            imageUrl: car.imageUrls?.first,
+            imageUrl: imageUrl,
           ),
         ),
       ),

@@ -14,7 +14,7 @@ class ImageSlider extends StatelessWidget {
     this.carouselController,
   }) : super(key: key);
 
-  final List<String>? urlList;
+  final List<String?>? urlList;
   final CarouselOptions? carouselOptions;
   final bool withIndicator;
   final int activeIndex;
@@ -32,7 +32,7 @@ class ImageSlider extends StatelessWidget {
 
     if (urlList?.isNotEmpty ?? false) {
       if (urlList!.length == 1) {
-        child = ImagePlaceholder(imageUrl: urlList!.first);
+        child = ImagePlaceholder(imageUrl: urlList?.first);
       } else {
         child = _buildCarouselSlider(
           urlList!,
@@ -44,20 +44,20 @@ class ImageSlider extends StatelessWidget {
   }
 
   Widget _buildCarouselSlider(
-    List<String> urlList, {
+    List<String?> urlList, {
     CarouselOptions? carouselOptions,
   }) {
     return Column(
-      children: [
+      children: <Widget>[
         CarouselSlider.builder(
           carouselController: carouselController,
           options: carouselOptions ??
               CarouselOptions(
                 enlargeCenterPage: true,
                 enableInfiniteScroll: false,
-                viewportFraction: 1.0,
+                viewportFraction: 1,
               ),
-          itemBuilder: (context, index, realIndex) => ImagePlaceholder(
+          itemBuilder: (_, int index, __) => ImagePlaceholder(
             imageUrl: urlList[index],
             fit: BoxFit.cover,
           ),
@@ -66,17 +66,18 @@ class ImageSlider extends StatelessWidget {
         const SizedBox(
           height: 8,
         ),
-        withIndicator
-            ? AnimatedSmoothIndicator(
-                activeIndex: activeIndex,
-                count: urlList.length,
-                effect: const ExpandingDotsEffect(
-                  dotWidth: 15,
-                  dotHeight: 15,
-                ),
-                onDotClicked: onDotClicked,
-              )
-            : const SizedBox(),
+        if (withIndicator)
+          AnimatedSmoothIndicator(
+            activeIndex: activeIndex,
+            count: urlList.length,
+            effect: const ExpandingDotsEffect(
+              dotWidth: 15,
+              dotHeight: 15,
+            ),
+            onDotClicked: onDotClicked,
+          )
+        else
+          const SizedBox(),
       ],
     );
   }
