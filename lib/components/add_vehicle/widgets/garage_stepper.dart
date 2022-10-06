@@ -231,6 +231,34 @@ class _GarageStepper extends State<GarageStepper> {
             Row(
               children: <Widget>[
                 CarDataInput(
+                  textInputType: TextInputType.datetime,
+                  inputDecoration: InputDecoration(
+                    labelText: AddVehicleText.tuev(),
+                  ),
+                  textStyle: _carInputTextStyle(),
+                  onSave: (String value) {
+                    final List<String> dateValues = value.split('.');
+                    final String parsableDate =
+                        '${dateValues[2]}-${dateValues[1]}-${dateValues[0]}';
+                    final DateTime? date = DateTime.tryParse(parsableDate);
+                    newCar = newCar.copyWith(
+                      date: date,
+                    );
+                  },
+                  validate: (String? value) {
+                    if (value == null || value.isEmpty) {
+                      stepInfo[0]!['error'] = true;
+                      return AddVehicleText.tuevMissingError();
+                    }
+                    stepInfo[0]!['completed'] = true;
+                    return null;
+                  },
+                ),
+              ],
+            ),
+            Row(
+              children: <Widget>[
+                CarDataInput(
                   inputDecoration: InputDecoration(
                     labelText: CarText.mileage(),
                   ),
@@ -320,6 +348,38 @@ class _GarageStepper extends State<GarageStepper> {
                     );
                   },
                   textStyle: _carInputTextStyle(),
+                ),
+              ],
+            ),
+            Row(
+              children: <Widget>[
+                CarDataInput(
+                  inputDecoration: InputDecoration(
+                    labelText: CarText.hsn(),
+                  ),
+                  textStyle: _carInputTextStyle(),
+                  onSave: (String value) {
+                    newCar = newCar.copyWith(
+                      technicalData: newCar.technicalData?.copyWith(
+                            hsn: value,
+                          ) ??
+                          TechnicalData(hsn: value),
+                    );
+                  },
+                ),
+                CarDataInput(
+                  inputDecoration: InputDecoration(
+                    labelText: CarText.tsn(),
+                  ),
+                  textStyle: _carInputTextStyle(),
+                  onSave: (String value) {
+                    newCar = newCar.copyWith(
+                      technicalData: newCar.technicalData?.copyWith(
+                            tsn: value,
+                          ) ??
+                          TechnicalData(tsn: value),
+                    );
+                  },
                 ),
               ],
             ),

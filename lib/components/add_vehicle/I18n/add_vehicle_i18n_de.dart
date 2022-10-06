@@ -10,4 +10,6 @@ Map<AddVehicleText, String> _deValues = <AddVehicleText, String>{
   AddVehicleText.vintageMissingError: 'Das Baujahr fehlt',
   AddVehicleText.vehicleName: 'Fahrzeug Name',
   AddVehicleText.nameMissingError: 'Es muss ein Name vergeben werden',
+  AddVehicleText.tuevMissingError: 'Es muss ein TÜV Datum vergeben werden',
+  AddVehicleText.tuev: 'TÜV',
 };

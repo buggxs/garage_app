@@ -12,7 +12,9 @@ enum AddVehicleText {
   carImages,
   vintageMissingError,
   nameMissingError,
+  tuevMissingError,
   vehicleName,
+  tuev,
 }
 
 class AddVehicleI18n extends I18n<AddVehicleText> {

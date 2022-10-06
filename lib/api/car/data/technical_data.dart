@@ -3,22 +3,34 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'technical_data.g.dart';
 
+enum FuelType {
+  diesel,
+  petrol,
+  electric,
+}
+
 @JsonSerializable()
 class TechnicalData extends Equatable {
-  final int? id;
-  final String? type;
-  final String? hsn;
-  final String? tsn;
-
   const TechnicalData({
     this.id,
     this.type,
     this.hsn,
     this.tsn,
+    this.kfzTax,
+    this.purchasePrice,
+    this.fuelType,
   });
 
   factory TechnicalData.fromJson(Map<String, dynamic> json) =>
       _$TechnicalDataFromJson(json);
+
+  final int? id;
+  final String? type;
+  final String? hsn;
+  final String? tsn;
+  final double? kfzTax;
+  final double? purchasePrice;
+  final List<FuelType>? fuelType;
 
   Map<String, dynamic> toJson() => _$TechnicalDataToJson(this);
 
@@ -29,19 +41,28 @@ class TechnicalData extends Equatable {
     String? type,
     String? hsn,
     String? tsn,
+    double? kfzTax,
+    double? purchasePrice,
+    List<FuelType>? fuelType,
   }) =>
       TechnicalData(
         id: id ?? this.id,
         type: type ?? this.type,
         hsn: hsn ?? this.hsn,
         tsn: tsn ?? this.tsn,
+        kfzTax: kfzTax ?? this.kfzTax,
+        purchasePrice: purchasePrice ?? this.purchasePrice,
+        fuelType: fuelType ?? this.fuelType,
       );
 
   @override
-  List<Object?> get props => [
+  List<Object?> get props => <Object?>[
         id,
         type,
         hsn,
         tsn,
+        kfzTax,
+        purchasePrice,
+        fuelType,
       ];
 }

@@ -10,4 +10,6 @@ Map<AddVehicleText, String> _enValues = <AddVehicleText, String>{
   AddVehicleText.vintageMissingError: 'The vintage is missing',
   AddVehicleText.vehicleName: 'Vehicle name',
   AddVehicleText.nameMissingError: 'A name must be assigned',
+  AddVehicleText.tuevMissingError: 'A tuev date must be assigned',
+  AddVehicleText.tuev: 'TÜV',
 };
