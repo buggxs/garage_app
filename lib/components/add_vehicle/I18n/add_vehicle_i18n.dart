@@ -15,6 +15,8 @@ enum AddVehicleText {
   tuevMissingError,
   vehicleName,
   tuev,
+  vehicleTax,
+  purchasePrice,
 }
 
 class AddVehicleI18n extends I18n<AddVehicleText> {

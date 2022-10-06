@@ -16,7 +16,7 @@ class TechnicalData extends Equatable {
     this.type,
     this.hsn,
     this.tsn,
-    this.kfzTax,
+    this.vehicleTax,
     this.purchasePrice,
     this.fuelType,
   });
@@ -28,7 +28,7 @@ class TechnicalData extends Equatable {
   final String? type;
   final String? hsn;
   final String? tsn;
-  final double? kfzTax;
+  final double? vehicleTax;
   final double? purchasePrice;
   final List<FuelType>? fuelType;
 
@@ -41,7 +41,7 @@ class TechnicalData extends Equatable {
     String? type,
     String? hsn,
     String? tsn,
-    double? kfzTax,
+    double? vehicleTax,
     double? purchasePrice,
     List<FuelType>? fuelType,
   }) =>
@@ -50,7 +50,7 @@ class TechnicalData extends Equatable {
         type: type ?? this.type,
         hsn: hsn ?? this.hsn,
         tsn: tsn ?? this.tsn,
-        kfzTax: kfzTax ?? this.kfzTax,
+        vehicleTax: vehicleTax ?? this.vehicleTax,
         purchasePrice: purchasePrice ?? this.purchasePrice,
         fuelType: fuelType ?? this.fuelType,
       );
@@ -61,7 +61,7 @@ class TechnicalData extends Equatable {
         type,
         hsn,
         tsn,
-        kfzTax,
+        vehicleTax,
         purchasePrice,
         fuelType,
       ];

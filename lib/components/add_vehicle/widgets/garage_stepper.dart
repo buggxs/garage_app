@@ -10,6 +10,7 @@ import 'package:garage_app/common/i18n/common_i18n.dart';
 import 'package:garage_app/common/i18n/common_text.dart';
 import 'package:garage_app/components/add_vehicle/I18n/add_vehicle_i18n.dart';
 import 'package:garage_app/components/add_vehicle/I18n/add_vehicle_text.dart';
+import 'package:garage_app/components/add_vehicle/widgets/garage_checkbox.dart';
 import 'package:garage_app/components/car/i18n/car_i18n.dart';
 import 'package:garage_app/components/car/i18n/car_text.dart';
 import 'package:garage_app/components/car/properties/widgets/image_slider.dart';
@@ -387,13 +388,14 @@ class _GarageStepper extends State<GarageStepper> {
               children: <Widget>[
                 CarDataInput(
                   inputDecoration: InputDecoration(
-                    labelText: CarText.hsn(),
+                    labelText: AddVehicleText.vehicleTax(),
                   ),
+                  textInputType: TextInputType.number,
                   textStyle: _carInputTextStyle(),
                   onSave: (String value) {
                     newCar = newCar.copyWith(
                       technicalData: newCar.technicalData?.copyWith(
-                            hsn: value,
+                            vehicleTax: double.tryParse(value),
                           ) ??
                           TechnicalData(hsn: value),
                     );
@@ -401,18 +403,24 @@ class _GarageStepper extends State<GarageStepper> {
                 ),
                 CarDataInput(
                   inputDecoration: InputDecoration(
-                    labelText: CarText.tsn(),
+                    labelText: AddVehicleText.purchasePrice(),
                   ),
+                  textInputType: TextInputType.number,
                   textStyle: _carInputTextStyle(),
                   onSave: (String value) {
                     newCar = newCar.copyWith(
                       technicalData: newCar.technicalData?.copyWith(
-                            tsn: value,
+                            purchasePrice: double.tryParse(value),
                           ) ??
                           TechnicalData(tsn: value),
                     );
                   },
                 ),
+              ],
+            ),
+            Row(
+              children: <Widget>[
+                GarageCheckbox(),
               ],
             ),
           ],

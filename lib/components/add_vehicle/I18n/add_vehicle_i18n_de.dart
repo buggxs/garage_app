@@ -12,4 +12,6 @@ Map<AddVehicleText, String> _deValues = <AddVehicleText, String>{
   AddVehicleText.nameMissingError: 'Es muss ein Name vergeben werden',
   AddVehicleText.tuevMissingError: 'Es muss ein TÜV Datum vergeben werden',
   AddVehicleText.tuev: 'TÜV',
+  AddVehicleText.vehicleTax: 'Kfz Steuer',
+  AddVehicleText.purchasePrice: 'Kaufpreis',
 };
