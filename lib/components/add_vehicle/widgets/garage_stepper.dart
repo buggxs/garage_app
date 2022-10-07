@@ -16,6 +16,7 @@ import 'package:garage_app/components/car/i18n/car_text.dart';
 import 'package:garage_app/components/car/properties/widgets/image_slider.dart';
 import 'package:garage_app/components/garage/widgets/car_data_input.dart';
 import 'package:garage_app/misc/color_constants.dart';
+import 'package:garage_app/misc/icon_constants.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -483,6 +484,7 @@ class _GarageStepper extends State<GarageStepper> {
       content: Container(
         alignment: Alignment.centerLeft,
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             if (images.isNotEmpty)
               ImageSlider(
@@ -515,57 +517,65 @@ class _GarageStepper extends State<GarageStepper> {
               const SizedBox(),
             const SizedBox(height: 16),
             Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 if (images.isNotEmpty)
-                  Expanded(
-                    child: ElevatedButton(
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all<Color>(
-                          Colors.redAccent.shade700,
-                        ),
-                      ),
-                      onPressed: () {
-                        // TODO: remove image from list method
-                        log('remove image..');
-                      },
-                      child: const Text('Bild entfernen'),
-                    ),
-                  )
-                else
-                  const SizedBox(),
-                Expanded(
-                  child: ElevatedButton(
+                  ElevatedButton(
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all<Color>(
-                        ColorConstants.myGarageBlue,
+                        Colors.redAccent.shade700,
                       ),
-                      padding: MaterialStateProperty.all<EdgeInsets>(
-                        const EdgeInsets.symmetric(
-                          vertical: 8,
-                          horizontal: 8,
-                        ),
-                      ),
-                      shadowColor: MaterialStateProperty.all<Color>(
-                        Colors.black,
-                      ),
-                      elevation: MaterialStateProperty.all<double>(4),
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                         const RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(7)),
                           side: BorderSide(
                             width: 2,
-                            color: Colors.white,
+                            color: Colors.black,
                           ),
                         ),
                       ),
                     ),
-                    onPressed: _pickImage,
-                    child: Row(
-                      children: <Widget>[
-                        const ImageIcon(
-                          AssetImage('assets/icons/file.png'),
-                          size: 28,
+                    onPressed: () {
+                      // TODO: remove image from list method
+                      log('remove image..');
+                    },
+                    child: const Icon(Icons.close),
+                  )
+                else
+                  const SizedBox(),
+                const SizedBox(
+                  width: 16,
+                ),
+                ElevatedButton(
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(
+                      ColorConstants.myGarageBlue,
+                    ),
+                    padding: MaterialStateProperty.all<EdgeInsets>(
+                      const EdgeInsets.symmetric(
+                        vertical: 8,
+                        horizontal: 8,
+                      ),
+                    ),
+                    shadowColor: MaterialStateProperty.all<Color>(
+                      Colors.black,
+                    ),
+                    elevation: MaterialStateProperty.all<double>(4),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(7)),
+                        side: BorderSide(
+                          width: 2,
+                          color: Colors.white,
                         ),
+                      ),
+                    ),
+                  ),
+                  onPressed: _pickImage,
+                  child: Row(
+                    children: <Widget>[
+                      GarageIcons.fileIcon,
+                      if (images.isEmpty)
                         Expanded(
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -577,8 +587,7 @@ class _GarageStepper extends State<GarageStepper> {
                             ],
                           ),
                         ),
-                      ],
-                    ),
+                    ],
                   ),
                 ),
               ],
