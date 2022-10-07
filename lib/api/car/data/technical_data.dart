@@ -18,7 +18,7 @@ class TechnicalData extends Equatable {
     this.tsn,
     this.vehicleTax,
     this.purchasePrice,
-    this.fuelType,
+    this.fuelType = const <FuelType>[],
   });
 
   factory TechnicalData.fromJson(Map<String, dynamic> json) =>
@@ -30,7 +30,7 @@ class TechnicalData extends Equatable {
   final String? tsn;
   final double? vehicleTax;
   final double? purchasePrice;
-  final List<FuelType>? fuelType;
+  final List<FuelType> fuelType;
 
   Map<String, dynamic> toJson() => _$TechnicalDataToJson(this);
 

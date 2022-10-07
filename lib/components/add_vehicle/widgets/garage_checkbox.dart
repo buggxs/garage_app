@@ -19,36 +19,44 @@ class _GarageCheckboxState extends State<GarageCheckbox> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: <Widget>[
-        widget.title ?? const SizedBox(),
-        InkWell(
-          onTap: () => setState(() {
-            _value = !_value;
-            widget.onChange?.call(_value);
-          }),
-          child: Container(
-            height: 30,
-            width: 30,
-            decoration: BoxDecoration(
-              border: Border.all(
-                width: 2,
-                color: Colors.white,
-              ),
-              borderRadius: const BorderRadius.all(
-                Radius.circular(5),
+    return Flexible(
+      child: Padding(
+        padding: const EdgeInsets.all(8),
+        child: Row(
+          children: <Widget>[
+            InkWell(
+              onTap: () => setState(() {
+                _value = !_value;
+                widget.onChange?.call(_value);
+              }),
+              child: Container(
+                height: 30,
+                width: 30,
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    width: 2,
+                    color: Colors.white,
+                  ),
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(5),
+                  ),
+                ),
+                child: _value
+                    ? const Icon(
+                        Icons.check,
+                        color: Colors.white,
+                        size: 24,
+                      )
+                    : null,
               ),
             ),
-            child: _value
-                ? const Icon(
-                    Icons.check,
-                    color: Colors.white,
-                    size: 24,
-                  )
-                : null,
-          ),
-        )
-      ],
+            Padding(
+              padding: const EdgeInsets.only(left: 8),
+              child: widget.title ?? const SizedBox(),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

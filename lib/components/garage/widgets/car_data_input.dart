@@ -39,7 +39,7 @@ class _CarDataInputState extends State<CarDataInput> {
   Widget build(BuildContext context) {
     return Flexible(
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(8),
         child: TextFormField(
           controller: _textEditingController,
           decoration: widget.inputDecoration,

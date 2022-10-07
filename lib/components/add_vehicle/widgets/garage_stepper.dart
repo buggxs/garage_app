@@ -420,7 +420,54 @@ class _GarageStepper extends State<GarageStepper> {
             ),
             Row(
               children: <Widget>[
-                GarageCheckbox(),
+                GarageCheckbox(
+                  title: Text(
+                    'Diesel',
+                    style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                          fontSize: 20,
+                          color: Colors.white,
+                        ),
+                  ),
+                  onChange: (bool value) {
+                    if (value) {
+                      newCar.technicalData?.fuelType.add(FuelType.petrol);
+                    } else {
+                      newCar.technicalData?.fuelType.remove(FuelType.petrol);
+                    }
+                  },
+                ),
+                GarageCheckbox(
+                  title: Text(
+                    'Benzin',
+                    style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                          fontSize: 20,
+                          color: Colors.white,
+                        ),
+                  ),
+                  onChange: (bool value) {
+                    if (value) {
+                      newCar.technicalData?.fuelType.add(FuelType.petrol);
+                    } else {
+                      newCar.technicalData?.fuelType.remove(FuelType.petrol);
+                    }
+                  },
+                ),
+                GarageCheckbox(
+                  title: Text(
+                    'Elektro',
+                    style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                          fontSize: 20,
+                          color: Colors.white,
+                        ),
+                  ),
+                  onChange: (bool value) {
+                    if (value) {
+                      newCar.technicalData?.fuelType.add(FuelType.electric);
+                    } else {
+                      newCar.technicalData?.fuelType.remove(FuelType.electric);
+                    }
+                  },
+                ),
               ],
             ),
           ],
@@ -522,7 +569,7 @@ class _GarageStepper extends State<GarageStepper> {
                         Expanded(
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
+                            children: <Widget>[
                               Text(
                                 CommonText.selectImage(),
                                 style: const TextStyle(fontSize: 20),
