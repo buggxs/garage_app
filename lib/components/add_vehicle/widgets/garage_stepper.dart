@@ -360,9 +360,8 @@ class _GarageStepper extends State<GarageStepper> {
                     setState(() {
                       newCar = newCar.copyWith(
                         technicalData: newCar.technicalData?.copyWith(
-                              type: value,
-                            ) ??
-                            TechnicalData(type: value),
+                          type: value,
+                        ),
                       );
                     });
                   },
@@ -381,9 +380,8 @@ class _GarageStepper extends State<GarageStepper> {
                     setState(() {
                       newCar = newCar.copyWith(
                         technicalData: newCar.technicalData?.copyWith(
-                              hsn: value,
-                            ) ??
-                            TechnicalData(hsn: value),
+                          hsn: value,
+                        ),
                       );
                     });
                   },
@@ -398,9 +396,8 @@ class _GarageStepper extends State<GarageStepper> {
                     setState(() {
                       newCar = newCar.copyWith(
                         technicalData: newCar.technicalData?.copyWith(
-                              tsn: value,
-                            ) ??
-                            TechnicalData(tsn: value),
+                          tsn: value,
+                        ),
                       );
                     });
                   },
@@ -419,9 +416,8 @@ class _GarageStepper extends State<GarageStepper> {
                     setState(() {
                       newCar = newCar.copyWith(
                         technicalData: newCar.technicalData?.copyWith(
-                              vehicleTax: double.tryParse(value),
-                            ) ??
-                            TechnicalData(vehicleTax: double.tryParse(value)),
+                          vehicleTax: double.tryParse(value),
+                        ),
                       );
                     });
                   },
@@ -437,10 +433,8 @@ class _GarageStepper extends State<GarageStepper> {
                     setState(() {
                       newCar = newCar.copyWith(
                         technicalData: newCar.technicalData?.copyWith(
-                              purchasePrice: double.tryParse(value),
-                            ) ??
-                            TechnicalData(
-                                purchasePrice: double.tryParse(value)),
+                          purchasePrice: double.tryParse(value),
+                        ),
                       );
                     });
                   },
