@@ -42,9 +42,9 @@ class _CreateCarManualScreenContentState
         child: GarageStepper(
           onCarCreated: ({
             required Car car,
-          }) {
+          }) async {
             if (_formKey.currentState!.validate()) {
-              cubit.saveVehicle(car: car);
+              await cubit.saveVehicle(car: car);
               Navigator.of(context).pushNamedAndRemoveUntil(
                 GarageScreen.route,
                 (Route<dynamic> route) => false,

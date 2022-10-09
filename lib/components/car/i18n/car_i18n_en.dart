@@ -27,4 +27,5 @@ Map<CarText, String> _enValues = <CarText, String>{
   CarText.vintage: 'Vintage',
   CarText.changedOn: 'Exchanged on',
   CarText.update: 'Update',
+  CarText.fuelType: 'Fuel type',
 };

@@ -14,8 +14,8 @@ TechnicalData _$TechnicalDataFromJson(Map<String, dynamic> json) =>
       tsn: json['tsn'] as String?,
       vehicleTax: (json['vehicleTax'] as num?)?.toDouble(),
       purchasePrice: (json['purchasePrice'] as num?)?.toDouble(),
-      fuelType: (json['fuelType'] as List<FuelType>?)
-              ?.map((FuelType e) => $enumDecode(_$FuelTypeEnumMap, e))
+      fuelType: (json['fuelType'] as List<dynamic>?)
+              ?.map((dynamic e) => $enumDecode(_$FuelTypeEnumMap, e))
               .toList() ??
           const <FuelType>[],
     );

@@ -31,7 +31,7 @@ class Car extends Equatable {
     this.airConditioner = const AirConditionerData(),
     this.brakeData = const BrakeData(),
     this.timingBeltData = const TimingBeltData(),
-    this.technicalData,
+    this.technicalData = const TechnicalData(),
     this.documentList,
     this.noteList,
   });

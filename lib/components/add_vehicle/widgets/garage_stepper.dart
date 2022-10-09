@@ -49,6 +49,7 @@ class _GarageStepper extends State<GarageStepper> {
   int _index = 0;
   Car newCar = const Car();
   List<File> images = <File>[];
+  List<FuelType> fuelTypes = <FuelType>[];
   int imageIndex = 0;
 
   Map<int, Map<String, dynamic>> stepInfo = <int, Map<String, dynamic>>{
@@ -215,9 +216,11 @@ class _GarageStepper extends State<GarageStepper> {
                   ),
                   textStyle: _carInputTextStyle(),
                   onSave: (String value) {
-                    newCar = newCar.copyWith(
-                      name: value,
-                    );
+                    setState(() {
+                      newCar = newCar.copyWith(
+                        name: value,
+                      );
+                    });
                   },
                   validate: (String? value) {
                     if (value == null || value.isEmpty) {
@@ -243,9 +246,11 @@ class _GarageStepper extends State<GarageStepper> {
                     final String parsableDate =
                         '${dateValues[2]}-${dateValues[1]}-${dateValues[0]}';
                     final DateTime? date = DateTime.tryParse(parsableDate);
-                    newCar = newCar.copyWith(
-                      date: date,
-                    );
+                    setState(() {
+                      newCar = newCar.copyWith(
+                        date: date,
+                      );
+                    });
                   },
                   validate: (String? value) {
                     if (value == null || value.isEmpty) {
@@ -267,9 +272,11 @@ class _GarageStepper extends State<GarageStepper> {
                   textInputType: TextInputType.number,
                   textStyle: _carInputTextStyle(),
                   onSave: (String value) {
-                    newCar = newCar.copyWith(
-                      mileage: double.tryParse(value),
-                    );
+                    setState(() {
+                      newCar = newCar.copyWith(
+                        mileage: double.tryParse(value),
+                      );
+                    });
                   },
                 ),
                 kHorizontalSpacer,
@@ -280,9 +287,11 @@ class _GarageStepper extends State<GarageStepper> {
                   textInputType: TextInputType.number,
                   textStyle: _carInputTextStyle(),
                   onSave: (String value) {
-                    newCar = newCar.copyWith(
-                      vintage: int.tryParse(value),
-                    );
+                    setState(() {
+                      newCar = newCar.copyWith(
+                        vintage: int.tryParse(value),
+                      );
+                    });
                   },
                   validate: (String? value) {
                     if (value == null || value.isEmpty) {
@@ -318,9 +327,11 @@ class _GarageStepper extends State<GarageStepper> {
                   ),
                   textStyle: _carInputTextStyle(),
                   onSave: (String value) {
-                    newCar = newCar.copyWith(
-                      brand: value,
-                    );
+                    setState(() {
+                      newCar = newCar.copyWith(
+                        brand: value,
+                      );
+                    });
                   },
                 ),
               ],
@@ -333,9 +344,11 @@ class _GarageStepper extends State<GarageStepper> {
                   ),
                   textStyle: _carInputTextStyle(),
                   onSave: (String value) {
-                    newCar = newCar.copyWith(
-                      model: value,
-                    );
+                    setState(() {
+                      newCar = newCar.copyWith(
+                        model: value,
+                      );
+                    });
                   },
                 ),
                 kHorizontalSpacer,
@@ -344,12 +357,14 @@ class _GarageStepper extends State<GarageStepper> {
                     labelText: CarText.type(),
                   ),
                   onSave: (String value) {
-                    newCar = newCar.copyWith(
-                      technicalData: newCar.technicalData?.copyWith(
-                            type: value,
-                          ) ??
-                          TechnicalData(type: value),
-                    );
+                    setState(() {
+                      newCar = newCar.copyWith(
+                        technicalData: newCar.technicalData?.copyWith(
+                              type: value,
+                            ) ??
+                            TechnicalData(type: value),
+                      );
+                    });
                   },
                   textStyle: _carInputTextStyle(),
                 ),
@@ -363,12 +378,14 @@ class _GarageStepper extends State<GarageStepper> {
                   ),
                   textStyle: _carInputTextStyle(),
                   onSave: (String value) {
-                    newCar = newCar.copyWith(
-                      technicalData: newCar.technicalData?.copyWith(
-                            hsn: value,
-                          ) ??
-                          TechnicalData(hsn: value),
-                    );
+                    setState(() {
+                      newCar = newCar.copyWith(
+                        technicalData: newCar.technicalData?.copyWith(
+                              hsn: value,
+                            ) ??
+                            TechnicalData(hsn: value),
+                      );
+                    });
                   },
                 ),
                 kHorizontalSpacer,
@@ -378,12 +395,14 @@ class _GarageStepper extends State<GarageStepper> {
                   ),
                   textStyle: _carInputTextStyle(),
                   onSave: (String value) {
-                    newCar = newCar.copyWith(
-                      technicalData: newCar.technicalData?.copyWith(
-                            tsn: value,
-                          ) ??
-                          TechnicalData(tsn: value),
-                    );
+                    setState(() {
+                      newCar = newCar.copyWith(
+                        technicalData: newCar.technicalData?.copyWith(
+                              tsn: value,
+                            ) ??
+                            TechnicalData(tsn: value),
+                      );
+                    });
                   },
                 ),
               ],
@@ -397,12 +416,14 @@ class _GarageStepper extends State<GarageStepper> {
                   textInputType: TextInputType.number,
                   textStyle: _carInputTextStyle(),
                   onSave: (String value) {
-                    newCar = newCar.copyWith(
-                      technicalData: newCar.technicalData?.copyWith(
-                            vehicleTax: double.tryParse(value),
-                          ) ??
-                          TechnicalData(hsn: value),
-                    );
+                    setState(() {
+                      newCar = newCar.copyWith(
+                        technicalData: newCar.technicalData?.copyWith(
+                              vehicleTax: double.tryParse(value),
+                            ) ??
+                            TechnicalData(vehicleTax: double.tryParse(value)),
+                      );
+                    });
                   },
                 ),
                 kHorizontalSpacer,
@@ -413,12 +434,15 @@ class _GarageStepper extends State<GarageStepper> {
                   textInputType: TextInputType.number,
                   textStyle: _carInputTextStyle(),
                   onSave: (String value) {
-                    newCar = newCar.copyWith(
-                      technicalData: newCar.technicalData?.copyWith(
-                            purchasePrice: double.tryParse(value),
-                          ) ??
-                          TechnicalData(tsn: value),
-                    );
+                    setState(() {
+                      newCar = newCar.copyWith(
+                        technicalData: newCar.technicalData?.copyWith(
+                              purchasePrice: double.tryParse(value),
+                            ) ??
+                            TechnicalData(
+                                purchasePrice: double.tryParse(value)),
+                      );
+                    });
                   },
                 ),
               ],
@@ -438,10 +462,17 @@ class _GarageStepper extends State<GarageStepper> {
                     ),
                     onChange: (bool value) {
                       if (value) {
-                        newCar.technicalData?.fuelType.add(FuelType.petrol);
+                        fuelTypes.add(FuelType.petrol);
                       } else {
-                        newCar.technicalData?.fuelType.remove(FuelType.petrol);
+                        fuelTypes.remove(FuelType.petrol);
                       }
+                      setState(() {
+                        newCar = newCar.copyWith(
+                          technicalData: newCar.technicalData?.copyWith(
+                            fuelType: fuelTypes,
+                          ),
+                        );
+                      });
                     },
                   ),
                   GarageCheckbox(
@@ -454,10 +485,17 @@ class _GarageStepper extends State<GarageStepper> {
                     ),
                     onChange: (bool value) {
                       if (value) {
-                        newCar.technicalData?.fuelType.add(FuelType.petrol);
+                        fuelTypes.add(FuelType.petrol);
                       } else {
-                        newCar.technicalData?.fuelType.remove(FuelType.petrol);
+                        fuelTypes.remove(FuelType.petrol);
                       }
+                      setState(() {
+                        newCar = newCar.copyWith(
+                          technicalData: newCar.technicalData?.copyWith(
+                            fuelType: fuelTypes,
+                          ),
+                        );
+                      });
                     },
                   ),
                   GarageCheckbox(
@@ -470,11 +508,17 @@ class _GarageStepper extends State<GarageStepper> {
                     ),
                     onChange: (bool value) {
                       if (value) {
-                        newCar.technicalData?.fuelType.add(FuelType.electric);
+                        fuelTypes.add(FuelType.electric);
                       } else {
-                        newCar.technicalData?.fuelType
-                            .remove(FuelType.electric);
+                        fuelTypes.remove(FuelType.electric);
                       }
+                      setState(() {
+                        newCar = newCar.copyWith(
+                          technicalData: newCar.technicalData?.copyWith(
+                            fuelType: fuelTypes,
+                          ),
+                        );
+                      });
                     },
                   ),
                 ],

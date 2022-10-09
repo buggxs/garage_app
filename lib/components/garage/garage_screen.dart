@@ -19,8 +19,8 @@ class GarageScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => GarageCubit()..loadGarageCars(),
+    return BlocProvider<GarageCubit>(
+      create: (_) => GarageCubit()..loadGarageCars(),
       child: const GarageScreenContent(),
     );
   }

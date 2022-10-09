@@ -30,6 +30,7 @@ enum CarText {
   vintage,
   changedOn,
   update,
+  fuelType,
 }
 
 class CarI18n extends I18n<CarText> {
