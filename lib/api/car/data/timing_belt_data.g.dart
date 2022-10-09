@@ -8,7 +8,7 @@ part of 'timing_belt_data.dart';
 
 TimingBeltData _$TimingBeltDataFromJson(Map<String, dynamic> json) =>
     TimingBeltData(
-      id: json['id'] as int,
+      id: json['id'] as int?,
       lastChangeMileage: (json['lastChangeMileage'] as num?)?.toDouble(),
       lastChangeDate: json['lastChangeDate'] == null
           ? null
@@ -22,8 +22,8 @@ TimingBeltData _$TimingBeltDataFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$TimingBeltDataToJson(TimingBeltData instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'lastChangeMileage': instance.lastChangeMileage,
       'lastChangeDate': instance.lastChangeDate?.toIso8601String(),
-      'nextChangeMileage': instance.nextChangeMileage,
+      'lastChangeMileage': instance.lastChangeMileage,
       'nextChangeDate': instance.nextChangeDate?.toIso8601String(),
+      'nextChangeMileage': instance.nextChangeMileage,
     };

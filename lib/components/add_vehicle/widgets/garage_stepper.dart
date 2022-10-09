@@ -16,6 +16,7 @@ import 'package:garage_app/components/car/i18n/car_text.dart';
 import 'package:garage_app/components/car/properties/widgets/image_slider.dart';
 import 'package:garage_app/components/garage/widgets/car_data_input.dart';
 import 'package:garage_app/misc/color_constants.dart';
+import 'package:garage_app/misc/constants.dart';
 import 'package:garage_app/misc/icon_constants.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
@@ -113,7 +114,6 @@ class _GarageStepper extends State<GarageStepper> {
     return Padding(
       padding: const EdgeInsets.symmetric(
         vertical: 12,
-        horizontal: 8,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -272,6 +272,7 @@ class _GarageStepper extends State<GarageStepper> {
                     );
                   },
                 ),
+                kHorizontalSpacer,
                 CarDataInput(
                   inputDecoration: InputDecoration(
                     labelText: CarText.vintage(),
@@ -337,6 +338,7 @@ class _GarageStepper extends State<GarageStepper> {
                     );
                   },
                 ),
+                kHorizontalSpacer,
                 CarDataInput(
                   inputDecoration: InputDecoration(
                     labelText: CarText.type(),
@@ -369,6 +371,7 @@ class _GarageStepper extends State<GarageStepper> {
                     );
                   },
                 ),
+                kHorizontalSpacer,
                 CarDataInput(
                   inputDecoration: InputDecoration(
                     labelText: CarText.tsn(),
@@ -402,6 +405,7 @@ class _GarageStepper extends State<GarageStepper> {
                     );
                   },
                 ),
+                kHorizontalSpacer,
                 CarDataInput(
                   inputDecoration: InputDecoration(
                     labelText: AddVehicleText.purchasePrice(),
@@ -419,57 +423,62 @@ class _GarageStepper extends State<GarageStepper> {
                 ),
               ],
             ),
-            Row(
-              children: <Widget>[
-                GarageCheckbox(
-                  title: Text(
-                    'Diesel',
-                    style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                          fontSize: 20,
-                          color: Colors.white,
-                        ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  GarageCheckbox(
+                    title: Text(
+                      'Diesel',
+                      style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                            fontSize: 20,
+                            color: Colors.white,
+                          ),
+                    ),
+                    onChange: (bool value) {
+                      if (value) {
+                        newCar.technicalData?.fuelType.add(FuelType.petrol);
+                      } else {
+                        newCar.technicalData?.fuelType.remove(FuelType.petrol);
+                      }
+                    },
                   ),
-                  onChange: (bool value) {
-                    if (value) {
-                      newCar.technicalData?.fuelType.add(FuelType.petrol);
-                    } else {
-                      newCar.technicalData?.fuelType.remove(FuelType.petrol);
-                    }
-                  },
-                ),
-                GarageCheckbox(
-                  title: Text(
-                    'Benzin',
-                    style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                          fontSize: 20,
-                          color: Colors.white,
-                        ),
+                  GarageCheckbox(
+                    title: Text(
+                      'Benzin',
+                      style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                            fontSize: 20,
+                            color: Colors.white,
+                          ),
+                    ),
+                    onChange: (bool value) {
+                      if (value) {
+                        newCar.technicalData?.fuelType.add(FuelType.petrol);
+                      } else {
+                        newCar.technicalData?.fuelType.remove(FuelType.petrol);
+                      }
+                    },
                   ),
-                  onChange: (bool value) {
-                    if (value) {
-                      newCar.technicalData?.fuelType.add(FuelType.petrol);
-                    } else {
-                      newCar.technicalData?.fuelType.remove(FuelType.petrol);
-                    }
-                  },
-                ),
-                GarageCheckbox(
-                  title: Text(
-                    'Elektro',
-                    style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                          fontSize: 20,
-                          color: Colors.white,
-                        ),
+                  GarageCheckbox(
+                    title: Text(
+                      'Elektro',
+                      style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                            fontSize: 20,
+                            color: Colors.white,
+                          ),
+                    ),
+                    onChange: (bool value) {
+                      if (value) {
+                        newCar.technicalData?.fuelType.add(FuelType.electric);
+                      } else {
+                        newCar.technicalData?.fuelType
+                            .remove(FuelType.electric);
+                      }
+                    },
                   ),
-                  onChange: (bool value) {
-                    if (value) {
-                      newCar.technicalData?.fuelType.add(FuelType.electric);
-                    } else {
-                      newCar.technicalData?.fuelType.remove(FuelType.electric);
-                    }
-                  },
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         ),
@@ -481,101 +490,77 @@ class _GarageStepper extends State<GarageStepper> {
     return Step(
       title: Text(AddVehicleText.carImages()),
       isActive: _index == 2,
-      content: Container(
-        alignment: Alignment.centerLeft,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            if (images.isNotEmpty)
-              ImageSlider(
-                withIndicator: true,
-                activeIndex: imageIndex,
-                carouselController: carouselController,
-                urlList: images.map((File e) => e.path).toList(),
-                onDotClicked: (int? index) {
-                  if (index != null) {
-                    setState(() {
-                      imageIndex = index;
-                    });
-                    carouselController.animateToPage(index);
-                  }
+      content: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          if (images.isNotEmpty)
+            ImageSlider(
+              withIndicator: true,
+              activeIndex: imageIndex,
+              carouselController: carouselController,
+              urlList: images.map((File e) => e.path).toList(),
+              onDotClicked: (int? index) {
+                if (index != null) {
+                  setState(() {
+                    imageIndex = index;
+                  });
+                  carouselController.animateToPage(index);
+                }
+              },
+              carouselOptions: CarouselOptions(
+                aspectRatio: 16 / 9,
+                initialPage: imageIndex,
+                enlargeCenterPage: true,
+                enlargeStrategy: CenterPageEnlargeStrategy.height,
+                enableInfiniteScroll: true,
+                onPageChanged: (int index, _) {
+                  setState(() {
+                    imageIndex = index;
+                  });
                 },
-                carouselOptions: CarouselOptions(
-                  aspectRatio: 16 / 9,
-                  initialPage: imageIndex,
-                  enlargeCenterPage: true,
-                  enlargeStrategy: CenterPageEnlargeStrategy.height,
-                  enableInfiniteScroll: true,
-                  onPageChanged: (int index, _) {
-                    setState(() {
-                      imageIndex = index;
-                    });
-                  },
-                ),
-              )
-            else
-              const SizedBox(),
-            const SizedBox(height: 16),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                if (images.isNotEmpty)
-                  ElevatedButton(
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all<Color>(
-                        Colors.redAccent.shade700,
-                      ),
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(7)),
-                          side: BorderSide(
-                            width: 2,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                    ),
-                    onPressed: () {
-                      // TODO: remove image from list method
-                      log('remove image..');
-                    },
-                    child: const Icon(Icons.close),
-                  )
-                else
-                  const SizedBox(),
-                const SizedBox(
-                  width: 16,
-                ),
+              ),
+            )
+          else
+            const SizedBox(),
+          kVerticalSpacer,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              if (images.isNotEmpty)
                 ElevatedButton(
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all<Color>(
-                      ColorConstants.myGarageBlue,
+                      Colors.redAccent.shade700,
                     ),
-                    padding: MaterialStateProperty.all<EdgeInsets>(
-                      const EdgeInsets.symmetric(
-                        vertical: 8,
-                        horizontal: 8,
-                      ),
-                    ),
-                    shadowColor: MaterialStateProperty.all<Color>(
-                      Colors.black,
-                    ),
-                    elevation: MaterialStateProperty.all<double>(4),
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                       const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(7)),
                         side: BorderSide(
                           width: 2,
-                          color: Colors.white,
+                          color: Colors.black,
                         ),
                       ),
                     ),
                   ),
-                  onPressed: _pickImage,
-                  child: Row(
-                    children: <Widget>[
-                      GarageIcons.fileIcon,
-                      if (images.isEmpty)
+                  onPressed: () {
+                    // TODO: remove image from list method
+                    log('remove image..');
+                  },
+                  child: const Icon(
+                    Icons.close,
+                    size: 24,
+                  ),
+                )
+              else
+                const SizedBox(),
+              kHorizontalSpacer,
+              if (images.isEmpty)
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: _pickImage,
+                    child: Row(
+                      children: <Widget>[
+                        GarageIcons.fileIcon,
                         Expanded(
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -587,13 +572,18 @@ class _GarageStepper extends State<GarageStepper> {
                             ],
                           ),
                         ),
-                    ],
+                      ],
+                    ),
                   ),
+                )
+              else
+                ElevatedButton(
+                  onPressed: _pickImage,
+                  child: GarageIcons.fileIcon,
                 ),
-              ],
-            ),
-          ],
-        ),
+            ],
+          ),
+        ],
       ),
     );
   }

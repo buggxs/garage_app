@@ -11,7 +11,7 @@ class AddVehicleCubit extends Cubit<AddVehicleState> {
 
   final CarService _carService = app<CarService>();
 
-  void saveVehicle({required Car car}) async {
+  Future<void> saveVehicle({required Car car}) async {
     await _carService.saveCar(car: car);
   }
 }

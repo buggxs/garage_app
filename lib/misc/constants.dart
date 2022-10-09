@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:garage_app/api/car/data/air_conditioner_data.dart';
 import 'package:garage_app/api/car/data/brake_data.dart';
 import 'package:garage_app/api/car/data/car.dart';
@@ -8,6 +9,28 @@ import 'package:garage_app/api/document/data/document.dart';
 import 'package:garage_app/api/note/data/note.dart';
 
 const double kTabHeight = 50;
+
+const double kSizeSmall = 8;
+const double kSize = 16;
+const double kSizeBig = 24;
+
+const EdgeInsets kPaddingVerticalSmall = EdgeInsets.symmetric(
+  vertical: kSizeSmall,
+);
+const EdgeInsets kPaddingVertical = EdgeInsets.symmetric(
+  vertical: kSize,
+);
+const EdgeInsets kPaddingVerticalBig = EdgeInsets.symmetric(
+  vertical: kSizeBig,
+);
+
+const SizedBox kVerticalSpacerSmall = SizedBox(height: kSizeSmall);
+const SizedBox kVerticalSpacer = SizedBox(height: kSize);
+const SizedBox kVerticalSpacerBig = SizedBox(height: kSizeBig);
+
+const SizedBox kHorizontalSpacerSmall = SizedBox(width: kSizeSmall);
+const SizedBox kHorizontalSpacer = SizedBox(width: kSize);
+const SizedBox kHorizontalSpacerBig = SizedBox(width: kSizeBig);
 
 final Car constCar = Car(
   id: 1,

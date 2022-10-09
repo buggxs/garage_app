@@ -43,11 +43,13 @@ class _CreateCarManualScreenContentState
           onCarCreated: ({
             required Car car,
           }) {
-            cubit.saveVehicle(car: car);
-            Navigator.of(context).pushNamedAndRemoveUntil(
-              GarageScreen.route,
-              (Route<dynamic> route) => false,
-            );
+            if (_formKey.currentState!.validate()) {
+              cubit.saveVehicle(car: car);
+              Navigator.of(context).pushNamedAndRemoveUntil(
+                GarageScreen.route,
+                (Route<dynamic> route) => false,
+              );
+            }
           },
           onFormSave: () {
             if (_formKey.currentState!.validate()) {

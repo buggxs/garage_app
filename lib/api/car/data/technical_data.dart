@@ -4,8 +4,11 @@ import 'package:json_annotation/json_annotation.dart';
 part 'technical_data.g.dart';
 
 enum FuelType {
+  @JsonValue('diesel')
   diesel,
+  @JsonValue('patrol')
   petrol,
+  @JsonValue('electric')
   electric,
 }
 

@@ -43,6 +43,7 @@ class Car extends Equatable {
   final double? mileage;
   final DateTime? date;
   final int? vintage;
+  @JsonKey(ignore: true)
   final List<File>? localeImages;
   final List<String>? networkImages;
   final OilData? oilData;
