@@ -31,7 +31,7 @@ class Car extends Equatable {
     this.airConditioner = const AirConditionerData(),
     this.brakeData = const BrakeData(),
     this.timingBeltData = const TimingBeltData(),
-    this.technicalData,
+    this.technicalData = const TechnicalData(),
     this.documentList,
     this.noteList,
   });
@@ -43,6 +43,7 @@ class Car extends Equatable {
   final double? mileage;
   final DateTime? date;
   final int? vintage;
+  @JsonKey(ignore: true)
   final List<File>? localeImages;
   final List<String>? networkImages;
   final OilData? oilData;
@@ -223,13 +224,25 @@ class Car extends Equatable {
         _calculateTimingBeltData() != 'success';
   }
 
-  List<String>? get imageUrls => [
-        ...?localeImages?.map((File file) => file.path).toList(),
-        ...?networkImages
+  List<String?> get imageUrls {
+    List<String> urls = <String>[];
+    if (localeImages != null) {
+      urls = <String>[
+        ...urls,
+        ...localeImages!.map((File file) => file.path).toList(),
       ];
+    }
+    if (networkImages != null) {
+      urls = <String>[
+        ...urls,
+        ...networkImages!,
+      ];
+    }
+    return urls;
+  }
 
   @override
-  List<Object?> get props => [
+  List<Object?> get props => <Object?>[
         id,
         name,
         mileage,

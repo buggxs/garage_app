@@ -13,7 +13,7 @@ class CreateCarManualScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
+    return BlocProvider<AddVehicleCubit>(
       create: (_) => AddVehicleCubit(),
       child: const CreateCarManualScreenContent(),
     );
@@ -30,7 +30,7 @@ class CreateCarManualScreenContent extends StatefulWidget {
 
 class _CreateCarManualScreenContentState
     extends State<CreateCarManualScreenContent> {
-  final _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -42,12 +42,14 @@ class _CreateCarManualScreenContentState
         child: GarageStepper(
           onCarCreated: ({
             required Car car,
-          }) {
-            cubit.saveVehicle(car: car);
-            Navigator.of(context).pushNamedAndRemoveUntil(
-              GarageScreen.route,
-              (Route<dynamic> route) => false,
-            );
+          }) async {
+            if (_formKey.currentState!.validate()) {
+              await cubit.saveVehicle(car: car);
+              Navigator.of(context).pushNamedAndRemoveUntil(
+                GarageScreen.route,
+                (Route<dynamic> route) => false,
+              );
+            }
           },
           onFormSave: () {
             if (_formKey.currentState!.validate()) {

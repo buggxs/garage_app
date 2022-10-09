@@ -17,7 +17,7 @@ class AddScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
+    return BlocProvider<AddVehicleCubit>(
       create: (_) => AddVehicleCubit(),
       child: const AddScreenContent(),
     );
@@ -32,17 +32,17 @@ class AddScreenContent extends StatelessWidget {
     return GarageScaffold(
       title: AddVehicleText.parkNewCar(),
       child: Column(
-        children: [
+        children: <Widget>[
           const AddVehicleMetaPanel(),
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [
+                children: <Widget>[
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
+                    children: <ShieldButton>[
                       ShieldButton(
                         text: AddVehicleText.addCarManually(),
                         onTap: () => Navigator.of(context)

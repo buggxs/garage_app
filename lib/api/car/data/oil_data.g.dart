@@ -7,7 +7,7 @@ part of 'oil_data.dart';
 // **************************************************************************
 
 OilData _$OilDataFromJson(Map<String, dynamic> json) => OilData(
-      id: json['id'] as int,
+      id: json['id'] as int?,
       lastChangeMileage: (json['lastChangeMileage'] as num?)?.toDouble(),
       lastChangeDate: json['lastChangeDate'] == null
           ? null
@@ -22,10 +22,10 @@ OilData _$OilDataFromJson(Map<String, dynamic> json) => OilData(
 
 Map<String, dynamic> _$OilDataToJson(OilData instance) => <String, dynamic>{
       'id': instance.id,
-      'lastChangeMileage': instance.lastChangeMileage,
-      'lastChangeDate': instance.lastChangeDate?.toIso8601String(),
-      'nextChangeMileage': instance.nextChangeMileage,
-      'nextChangeDate': instance.nextChangeDate?.toIso8601String(),
       'oilBrand': instance.oilBrand,
       'oilType': instance.oilType,
+      'lastChangeDate': instance.lastChangeDate?.toIso8601String(),
+      'lastChangeMileage': instance.lastChangeMileage,
+      'nextChangeDate': instance.nextChangeDate?.toIso8601String(),
+      'nextChangeMileage': instance.nextChangeMileage,
     };

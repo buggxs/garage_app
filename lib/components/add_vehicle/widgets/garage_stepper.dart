@@ -6,8 +6,18 @@ import 'package:carousel_slider/carousel_options.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:garage_app/api/api.dart';
+import 'package:garage_app/common/i18n/common_i18n.dart';
+import 'package:garage_app/common/i18n/common_text.dart';
+import 'package:garage_app/components/add_vehicle/I18n/add_vehicle_i18n.dart';
+import 'package:garage_app/components/add_vehicle/I18n/add_vehicle_text.dart';
+import 'package:garage_app/components/add_vehicle/widgets/garage_checkbox.dart';
+import 'package:garage_app/components/car/i18n/car_i18n.dart';
+import 'package:garage_app/components/car/i18n/car_text.dart';
 import 'package:garage_app/components/car/properties/widgets/image_slider.dart';
 import 'package:garage_app/components/garage/widgets/car_data_input.dart';
+import 'package:garage_app/misc/color_constants.dart';
+import 'package:garage_app/misc/constants.dart';
+import 'package:garage_app/misc/icon_constants.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -39,6 +49,7 @@ class _GarageStepper extends State<GarageStepper> {
   int _index = 0;
   Car newCar = const Car();
   List<File> images = <File>[];
+  List<FuelType> fuelTypes = <FuelType>[];
   int imageIndex = 0;
 
   Map<int, Map<String, dynamic>> stepInfo = <int, Map<String, dynamic>>{
@@ -60,9 +71,17 @@ class _GarageStepper extends State<GarageStepper> {
   Widget build(BuildContext context) {
     return Theme(
       data: Theme.of(context).copyWith(
-        colorScheme: const ColorScheme.light(
-          primary: Colors.green,
+        canvasColor: ColorConstants.shieldBlue,
+        colorScheme: ColorScheme.light(
+          secondary: Colors.green.shade600,
+          background: Colors.grey.shade500,
+          brightness: Brightness.dark,
         ),
+        textTheme: Theme.of(context).textTheme.copyWith(
+              bodyText1: const TextStyle(
+                color: Colors.white,
+              ),
+            ),
       ),
       child: Stepper(
         controlsBuilder: widget.controlsBuilder ?? _defaultControlWidget,
@@ -96,7 +115,6 @@ class _GarageStepper extends State<GarageStepper> {
     return Padding(
       padding: const EdgeInsets.symmetric(
         vertical: 12,
-        horizontal: 8,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -107,7 +125,15 @@ class _GarageStepper extends State<GarageStepper> {
             ElevatedButton(
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all<Color>(
-                  Colors.redAccent,
+                  ColorConstants.myGarageDangerRed,
+                ),
+                shadowColor: MaterialStateProperty.all<Color>(Colors.black),
+                elevation: MaterialStateProperty.all<double>(4),
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(15)),
+                    side: BorderSide(width: 2),
+                  ),
                 ),
               ),
               onPressed: () {
@@ -117,12 +143,20 @@ class _GarageStepper extends State<GarageStepper> {
                   });
                 }
               },
-              child: const Text('Zurück'),
+              child: Text(CommonText.back()),
             ),
           ElevatedButton(
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all<Color>(
-                Colors.green,
+                ColorConstants.myGarageSuccessGreen,
+              ),
+              shadowColor: MaterialStateProperty.all<Color>(Colors.black),
+              elevation: MaterialStateProperty.all<double>(4),
+              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(15)),
+                  side: BorderSide(width: 2),
+                ),
               ),
             ),
             onPressed: () {
@@ -151,8 +185,8 @@ class _GarageStepper extends State<GarageStepper> {
               });
             },
             child: controlsBuilder.currentStep < 2
-                ? const Text('Next')
-                : const Text('Speichern'),
+                ? Text(CommonText.next())
+                : Text(CommonText.save()),
           ),
         ],
       ),
@@ -161,7 +195,7 @@ class _GarageStepper extends State<GarageStepper> {
 
   Step _stepOne() {
     return Step(
-      title: const Text('Auto Infos'),
+      title: Text(AddVehicleText.carInformationShort()),
       state: stepInfo[0]!['error']
           ? _index > 0
               ? StepState.error
@@ -177,19 +211,21 @@ class _GarageStepper extends State<GarageStepper> {
             Row(
               children: <Widget>[
                 CarDataInput(
-                  inputDecoration: const InputDecoration(
-                    labelText: 'Fahrzeug Name',
+                  inputDecoration: InputDecoration(
+                    labelText: AddVehicleText.vehicleName(),
                   ),
                   textStyle: _carInputTextStyle(),
                   onSave: (String value) {
-                    newCar = newCar.copyWith(
-                      name: value,
-                    );
+                    setState(() {
+                      newCar = newCar.copyWith(
+                        name: value,
+                      );
+                    });
                   },
                   validate: (String? value) {
                     if (value == null || value.isEmpty) {
                       stepInfo[0]!['error'] = true;
-                      return 'Es muss ein Name vergeben werden';
+                      return AddVehicleText.nameMissingError();
                     }
                     stepInfo[0]!['completed'] = true;
                     return null;
@@ -200,32 +236,67 @@ class _GarageStepper extends State<GarageStepper> {
             Row(
               children: <Widget>[
                 CarDataInput(
-                  inputDecoration: const InputDecoration(
-                    labelText: 'Kilometerstand',
+                  textInputType: TextInputType.datetime,
+                  inputDecoration: InputDecoration(
+                    labelText: AddVehicleText.tuev(),
                   ),
-                  textInputType: TextInputType.number,
                   textStyle: _carInputTextStyle(),
                   onSave: (String value) {
-                    newCar = newCar.copyWith(
-                      mileage: double.tryParse(value),
-                    );
-                  },
-                ),
-                CarDataInput(
-                  inputDecoration: const InputDecoration(
-                    labelText: 'Baujahr',
-                  ),
-                  textInputType: TextInputType.number,
-                  textStyle: _carInputTextStyle(),
-                  onSave: (String value) {
-                    newCar = newCar.copyWith(
-                      vintage: int.tryParse(value),
-                    );
+                    final List<String> dateValues = value.split('.');
+                    final String parsableDate =
+                        '${dateValues[2]}-${dateValues[1]}-${dateValues[0]}';
+                    final DateTime? date = DateTime.tryParse(parsableDate);
+                    setState(() {
+                      newCar = newCar.copyWith(
+                        date: date,
+                      );
+                    });
                   },
                   validate: (String? value) {
                     if (value == null || value.isEmpty) {
                       stepInfo[0]!['error'] = true;
-                      return 'Das Baujahr fehlt.';
+                      return AddVehicleText.tuevMissingError();
+                    }
+                    stepInfo[0]!['completed'] = true;
+                    return null;
+                  },
+                ),
+              ],
+            ),
+            Row(
+              children: <Widget>[
+                CarDataInput(
+                  inputDecoration: InputDecoration(
+                    labelText: CarText.mileage(),
+                  ),
+                  textInputType: TextInputType.number,
+                  textStyle: _carInputTextStyle(),
+                  onSave: (String value) {
+                    setState(() {
+                      newCar = newCar.copyWith(
+                        mileage: double.tryParse(value),
+                      );
+                    });
+                  },
+                ),
+                kHorizontalSpacer,
+                CarDataInput(
+                  inputDecoration: InputDecoration(
+                    labelText: CarText.vintage(),
+                  ),
+                  textInputType: TextInputType.number,
+                  textStyle: _carInputTextStyle(),
+                  onSave: (String value) {
+                    setState(() {
+                      newCar = newCar.copyWith(
+                        vintage: int.tryParse(value),
+                      );
+                    });
+                  },
+                  validate: (String? value) {
+                    if (value == null || value.isEmpty) {
+                      stepInfo[0]!['error'] = true;
+                      return AddVehicleText.vintageMissingError();
                     }
                     stepInfo[0]!['completed'] = true;
                     return null;
@@ -241,7 +312,7 @@ class _GarageStepper extends State<GarageStepper> {
 
   Step _stepTwo() {
     return Step(
-      title: const Text('Auto Daten'),
+      title: Text(AddVehicleText.carData()),
       state: _index > 1 ? StepState.complete : StepState.indexed,
       isActive: _index >= 1,
       content: Container(
@@ -251,14 +322,16 @@ class _GarageStepper extends State<GarageStepper> {
             Row(
               children: <Widget>[
                 CarDataInput(
-                  inputDecoration: const InputDecoration(
-                    labelText: 'Marke',
+                  inputDecoration: InputDecoration(
+                    labelText: CarText.brand(),
                   ),
                   textStyle: _carInputTextStyle(),
                   onSave: (String value) {
-                    newCar = newCar.copyWith(
-                      brand: value,
-                    );
+                    setState(() {
+                      newCar = newCar.copyWith(
+                        brand: value,
+                      );
+                    });
                   },
                 ),
               ],
@@ -266,27 +339,31 @@ class _GarageStepper extends State<GarageStepper> {
             Row(
               children: <Widget>[
                 CarDataInput(
-                  inputDecoration: const InputDecoration(
-                    labelText: 'Model',
+                  inputDecoration: InputDecoration(
+                    labelText: CarText.model(),
                   ),
                   textStyle: _carInputTextStyle(),
                   onSave: (String value) {
-                    newCar = newCar.copyWith(
-                      model: value,
-                    );
+                    setState(() {
+                      newCar = newCar.copyWith(
+                        model: value,
+                      );
+                    });
                   },
                 ),
+                kHorizontalSpacer,
                 CarDataInput(
-                  inputDecoration: const InputDecoration(
-                    labelText: 'Typ',
+                  inputDecoration: InputDecoration(
+                    labelText: CarText.type(),
                   ),
                   onSave: (String value) {
-                    newCar = newCar.copyWith(
-                      technicalData: newCar.technicalData?.copyWith(
-                            type: value,
-                          ) ??
-                          TechnicalData(type: value),
-                    );
+                    setState(() {
+                      newCar = newCar.copyWith(
+                        technicalData: newCar.technicalData?.copyWith(
+                          type: value,
+                        ),
+                      );
+                    });
                   },
                   textStyle: _carInputTextStyle(),
                 ),
@@ -295,34 +372,151 @@ class _GarageStepper extends State<GarageStepper> {
             Row(
               children: <Widget>[
                 CarDataInput(
-                  inputDecoration: const InputDecoration(
-                    labelText: 'HSN',
+                  inputDecoration: InputDecoration(
+                    labelText: CarText.hsn(),
                   ),
                   textStyle: _carInputTextStyle(),
                   onSave: (String value) {
-                    newCar = newCar.copyWith(
-                      technicalData: newCar.technicalData?.copyWith(
-                            hsn: value,
-                          ) ??
-                          TechnicalData(hsn: value),
-                    );
+                    setState(() {
+                      newCar = newCar.copyWith(
+                        technicalData: newCar.technicalData?.copyWith(
+                          hsn: value,
+                        ),
+                      );
+                    });
                   },
                 ),
+                kHorizontalSpacer,
                 CarDataInput(
-                  inputDecoration: const InputDecoration(
-                    labelText: 'TSN',
+                  inputDecoration: InputDecoration(
+                    labelText: CarText.tsn(),
                   ),
                   textStyle: _carInputTextStyle(),
                   onSave: (String value) {
-                    newCar = newCar.copyWith(
-                      technicalData: newCar.technicalData?.copyWith(
-                            tsn: value,
-                          ) ??
-                          TechnicalData(tsn: value),
-                    );
+                    setState(() {
+                      newCar = newCar.copyWith(
+                        technicalData: newCar.technicalData?.copyWith(
+                          tsn: value,
+                        ),
+                      );
+                    });
                   },
                 ),
               ],
+            ),
+            Row(
+              children: <Widget>[
+                CarDataInput(
+                  inputDecoration: InputDecoration(
+                    labelText: AddVehicleText.vehicleTax(),
+                  ),
+                  textInputType: TextInputType.number,
+                  textStyle: _carInputTextStyle(),
+                  onSave: (String value) {
+                    setState(() {
+                      newCar = newCar.copyWith(
+                        technicalData: newCar.technicalData?.copyWith(
+                          vehicleTax: double.tryParse(value),
+                        ),
+                      );
+                    });
+                  },
+                ),
+                kHorizontalSpacer,
+                CarDataInput(
+                  inputDecoration: InputDecoration(
+                    labelText: AddVehicleText.purchasePrice(),
+                  ),
+                  textInputType: TextInputType.number,
+                  textStyle: _carInputTextStyle(),
+                  onSave: (String value) {
+                    setState(() {
+                      newCar = newCar.copyWith(
+                        technicalData: newCar.technicalData?.copyWith(
+                          purchasePrice: double.tryParse(value),
+                        ),
+                      );
+                    });
+                  },
+                ),
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  GarageCheckbox(
+                    title: Text(
+                      'Diesel',
+                      style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                            fontSize: 20,
+                            color: Colors.white,
+                          ),
+                    ),
+                    onChange: (bool value) {
+                      if (value) {
+                        fuelTypes.add(FuelType.petrol);
+                      } else {
+                        fuelTypes.remove(FuelType.petrol);
+                      }
+                      setState(() {
+                        newCar = newCar.copyWith(
+                          technicalData: newCar.technicalData?.copyWith(
+                            fuelType: fuelTypes,
+                          ),
+                        );
+                      });
+                    },
+                  ),
+                  GarageCheckbox(
+                    title: Text(
+                      'Benzin',
+                      style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                            fontSize: 20,
+                            color: Colors.white,
+                          ),
+                    ),
+                    onChange: (bool value) {
+                      if (value) {
+                        fuelTypes.add(FuelType.petrol);
+                      } else {
+                        fuelTypes.remove(FuelType.petrol);
+                      }
+                      setState(() {
+                        newCar = newCar.copyWith(
+                          technicalData: newCar.technicalData?.copyWith(
+                            fuelType: fuelTypes,
+                          ),
+                        );
+                      });
+                    },
+                  ),
+                  GarageCheckbox(
+                    title: Text(
+                      'Elektro',
+                      style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                            fontSize: 20,
+                            color: Colors.white,
+                          ),
+                    ),
+                    onChange: (bool value) {
+                      if (value) {
+                        fuelTypes.add(FuelType.electric);
+                      } else {
+                        fuelTypes.remove(FuelType.electric);
+                      }
+                      setState(() {
+                        newCar = newCar.copyWith(
+                          technicalData: newCar.technicalData?.copyWith(
+                            fuelType: fuelTypes,
+                          ),
+                        );
+                      });
+                    },
+                  ),
+                ],
+              ),
             ),
           ],
         ),
@@ -332,78 +526,102 @@ class _GarageStepper extends State<GarageStepper> {
 
   Step _stepThree() {
     return Step(
-      title: const Text('Auto Bilder'),
+      title: Text(AddVehicleText.carImages()),
       isActive: _index == 2,
-      content: Expanded(
-        child: Container(
-          alignment: Alignment.centerLeft,
-          child: Column(
+      content: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          if (images.isNotEmpty)
+            ImageSlider(
+              withIndicator: true,
+              activeIndex: imageIndex,
+              carouselController: carouselController,
+              urlList: images.map((File e) => e.path).toList(),
+              onDotClicked: (int? index) {
+                if (index != null) {
+                  setState(() {
+                    imageIndex = index;
+                  });
+                  carouselController.animateToPage(index);
+                }
+              },
+              carouselOptions: CarouselOptions(
+                aspectRatio: 16 / 9,
+                initialPage: imageIndex,
+                enlargeCenterPage: true,
+                enlargeStrategy: CenterPageEnlargeStrategy.height,
+                enableInfiniteScroll: true,
+                onPageChanged: (int index, _) {
+                  setState(() {
+                    imageIndex = index;
+                  });
+                },
+              ),
+            )
+          else
+            const SizedBox(),
+          kVerticalSpacer,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               if (images.isNotEmpty)
-                ImageSlider(
-                  withIndicator: true,
-                  activeIndex: imageIndex,
-                  carouselController: carouselController,
-                  urlList: images.map((File e) => e.path).toList(),
-                  onDotClicked: (int? index) {
-                    if (index != null) {
-                      setState(() {
-                        imageIndex = index;
-                      });
-                      carouselController.animateToPage(index);
-                    }
+                ElevatedButton(
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(
+                      Colors.redAccent.shade700,
+                    ),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(7)),
+                        side: BorderSide(
+                          width: 2,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                  ),
+                  onPressed: () {
+                    // TODO: remove image from list method
+                    log('remove image..');
                   },
-                  carouselOptions: CarouselOptions(
-                    aspectRatio: 16 / 9,
-                    initialPage: imageIndex,
-                    enlargeCenterPage: true,
-                    enlargeStrategy: CenterPageEnlargeStrategy.height,
-                    enableInfiniteScroll: true,
-                    onPageChanged: (int index, _) {
-                      setState(() {
-                        imageIndex = index;
-                      });
-                    },
+                  child: const Icon(
+                    Icons.close,
+                    size: 24,
                   ),
                 )
               else
                 const SizedBox(),
-              const SizedBox(height: 16),
-              Row(
-                children: <Widget>[
-                  if (images.isNotEmpty)
-                    Expanded(
-                      child: ElevatedButton(
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(
-                            Colors.redAccent.shade700,
+              kHorizontalSpacer,
+              if (images.isEmpty)
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: _pickImage,
+                    child: Row(
+                      children: <Widget>[
+                        GarageIcons.fileIcon,
+                        Expanded(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Text(
+                                CommonText.selectImage(),
+                                style: const TextStyle(fontSize: 20),
+                              ),
+                            ],
                           ),
                         ),
-                        onPressed: () {
-                          // TODO: remove image from list method
-                          log('remove image..');
-                        },
-                        child: const Text('Bild entfernen'),
-                      ),
-                    )
-                  else
-                    const SizedBox(),
-                  const SizedBox(width: 16),
-                  Expanded(
-                    child: ElevatedButton(
-                      style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all<Color>(Colors.orange),
-                      ),
-                      onPressed: _pickImage,
-                      child: const Text('Bild auswählen'),
+                      ],
                     ),
                   ),
-                ],
-              ),
+                )
+              else
+                ElevatedButton(
+                  onPressed: _pickImage,
+                  child: GarageIcons.fileIcon,
+                ),
             ],
           ),
-        ),
+        ],
       ),
     );
   }

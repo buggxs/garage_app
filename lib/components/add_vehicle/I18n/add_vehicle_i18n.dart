@@ -7,6 +7,16 @@ enum AddVehicleText {
   parkNewCar,
   addCarManually,
   selectCar,
+  carInformationShort,
+  carData,
+  carImages,
+  vintageMissingError,
+  nameMissingError,
+  tuevMissingError,
+  vehicleName,
+  tuev,
+  vehicleTax,
+  purchasePrice,
 }
 
 class AddVehicleI18n extends I18n<AddVehicleText> {

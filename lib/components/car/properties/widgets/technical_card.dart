@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:garage_app/api/api.dart';
 import 'package:garage_app/common/widgets/labled_text.dart';
+import 'package:garage_app/components/add_vehicle/I18n/add_vehicle_i18n.dart';
+import 'package:garage_app/components/add_vehicle/I18n/add_vehicle_text.dart';
 import 'package:garage_app/components/car/i18n/car_i18n.dart';
 import 'package:garage_app/components/car/i18n/car_text.dart';
 
@@ -61,6 +63,16 @@ class TechnicalCard extends StatelessWidget {
                             text: '${technicalData?.type}',
                             padding: const EdgeInsets.symmetric(vertical: 8),
                           ),
+                          LabeledText(
+                            caption: AddVehicleText.purchasePrice(),
+                            text: '${technicalData?.purchasePrice}',
+                            padding: const EdgeInsets.symmetric(vertical: 8),
+                          ),
+                          LabeledText(
+                            caption: AddVehicleText.vehicleTax(),
+                            text: '${technicalData?.vehicleTax}',
+                            padding: const EdgeInsets.symmetric(vertical: 8),
+                          ),
                         ],
                       ),
                     ),
@@ -77,6 +89,27 @@ class TechnicalCard extends StatelessWidget {
                           LabeledText(
                             caption: CarText.tsn(),
                             text: '${technicalData?.tsn}',
+                            padding: const EdgeInsets.symmetric(vertical: 8),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.zero,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          LabeledText(
+                            caption: CarText.fuelType(),
+                            text: '${technicalData?.fuelType.toString()}',
                             padding: const EdgeInsets.symmetric(vertical: 8),
                           ),
                         ],

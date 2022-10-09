@@ -29,7 +29,7 @@ class CarScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return car != null
-        ? BlocProvider(
+        ? BlocProvider<CarCubit>(
             create: (context) => CarCubit(car: car!),
             child: const CarScreenTabs(),
           )
