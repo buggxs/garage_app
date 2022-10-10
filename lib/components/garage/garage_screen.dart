@@ -31,8 +31,8 @@ class GarageScreenContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    GarageCubit cubit = context.watch<GarageCubit>();
-    GarageState state = cubit.state;
+    final GarageCubit cubit = context.watch<GarageCubit>();
+    final GarageState state = cubit.state;
 
     Widget children = CarListItemEmpty(
       onTap: cubit.pushToAddCarScreen,
@@ -65,9 +65,10 @@ class GarageScreenContent extends StatelessWidget {
     return GarageScaffold(
       title: 'Deine Garage',
       elevation: 0,
+      floatingActionButton: floatingActionButton,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
+        children: <Widget>[
           GarageMetaPanel(
             parkedCars: parkedCars,
             carsWithWarnings: carsWithWarnings,
@@ -76,9 +77,9 @@ class GarageScreenContent extends StatelessWidget {
           Expanded(
             child: SingleChildScrollView(
               child: Container(
-                padding: const EdgeInsets.fromLTRB(0, 0, 0, 16.0),
+                padding: const EdgeInsets.fromLTRB(0, 0, 0, 16),
                 child: Column(
-                  children: [
+                  children: <Widget>[
                     const GarageSlotTopDivider(),
                     children,
                     const GarageSlotBottomDivider(),
@@ -89,17 +90,16 @@ class GarageScreenContent extends StatelessWidget {
           ),
         ],
       ),
-      floatingActionButton: floatingActionButton,
     );
   }
 
   Widget _buildCarList(
     GarageCubit cubit,
   ) {
-    GarageLoadedState state = cubit.state as GarageLoadedState;
+    final GarageLoadedState state = cubit.state as GarageLoadedState;
     final List<Car> carList = state.cars;
 
-    List<Widget> children = [
+    List<Widget> children = <Widget>[
       CarListItemEmpty(
         onTap: cubit.pushToAddCarScreen,
       ),
