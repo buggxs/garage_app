@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:garage_app/api/api.dart';
 import 'package:garage_app/misc/logger.dart';
 import 'package:path_provider/path_provider.dart';
@@ -66,16 +67,21 @@ class LocalCarService with LoggerMixin implements CarService {
     final int? index = carList?.indexWhere(
       (Car tmpCar) => tmpCar.id == car?.id,
     );
+    // add new car to the list
     if (index == -1) {
       car = car.copyWith(id: carList?.length);
       carList?.add(car);
       log.info('Saved new car with id ${car.id}');
-    } else {
+    }
+    // update already existing car
+    else {
       carList?[index!] = car;
       log.info('Updated car with id ${car.id}');
     }
     await saveCarList(carList);
-    await saveImagePermanently(car);
+    if (!listEquals(carList![car.id!].imageUrls, car.imageUrls)) {
+      await saveImagePermanently(car);
+    }
   }
 
   @override
@@ -147,14 +153,24 @@ class LocalCarService with LoggerMixin implements CarService {
   }
 
   Future<void> saveImagePermanently(Car car) async {
+    // app directory
     final Directory directory = await getApplicationDocumentsDirectory();
+    // specific car directory
     final Directory localDir =
         await Directory('${directory.path}/car_${car.id}').create();
+
     if (car.localeImages?.isEmpty ?? true) {
       return;
     }
+
+    // Todo: just add new images on save and ignore existing ones
+
     for (File file in car.localeImages!) {
       final String name = basename(file.path, localDir.path);
+      // If file already exists in localImages dir
+      if (car.localeImages!.contains(File(name))) {
+        return;
+      }
       File(file.path).copy(name);
     }
   }

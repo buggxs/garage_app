@@ -39,19 +39,21 @@ class PropertyCubit extends Cubit<CarPropertiesState> with LoggerMixin {
 
     switch (carProperty) {
       case CarProperty.oil:
-        OilData? newOilData = _calculateOilData(
+        final OilData? newOilData = _calculateOilData(
           oilData: state.car.oilData,
           lastChangeMileage: lastChangeMileage,
           lastChangeDate: lastChangeDate,
         );
-        emit(state.copyWith(
-          car: state.car.copyWith(
-            oilData: newOilData,
+        emit(
+          state.copyWith(
+            car: state.car.copyWith(
+              oilData: newOilData,
+            ),
           ),
-        ));
+        );
         break;
       case CarProperty.airConditioner:
-        AirConditionerData? newAirConditionerData =
+        final AirConditionerData? newAirConditionerData =
             _calculateAirConditionerData(
           airConditionerData: state.car.airConditioner,
           lastChangeMileage: lastChangeMileage,
@@ -59,13 +61,14 @@ class PropertyCubit extends Cubit<CarPropertiesState> with LoggerMixin {
         );
         emit(
           state.copyWith(
-              car: state.car.copyWith(
-            airConditioner: newAirConditionerData,
-          )),
+            car: state.car.copyWith(
+              airConditioner: newAirConditionerData,
+            ),
+          ),
         );
         break;
       case CarProperty.brake:
-        BrakeData? brakeData = _calculateBrakeData(
+        final BrakeData? brakeData = _calculateBrakeData(
           brakeData: state.car.brakeData,
           lastChangeMileage: lastChangeMileage,
           lastChangeDate: lastChangeDate,
@@ -79,7 +82,7 @@ class PropertyCubit extends Cubit<CarPropertiesState> with LoggerMixin {
         );
         break;
       case CarProperty.timingBelt:
-        TimingBeltData? timingBeltData = _calculateTimingBeltData(
+        final TimingBeltData? timingBeltData = _calculateTimingBeltData(
           timingBeltData: state.car.timingBeltData,
           lastChangeDate: lastChangeDate,
           lastChangeMileage: lastChangeMileage,
