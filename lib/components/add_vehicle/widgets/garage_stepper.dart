@@ -546,10 +546,9 @@ class _GarageStepper extends State<GarageStepper> {
                 }
               },
               carouselOptions: CarouselOptions(
-                aspectRatio: 16 / 9,
+                aspectRatio: 2.0,
                 initialPage: imageIndex,
                 enlargeCenterPage: true,
-                enlargeStrategy: CenterPageEnlargeStrategy.height,
                 enableInfiniteScroll: true,
                 onPageChanged: (int index, _) {
                   setState(() {
@@ -585,7 +584,7 @@ class _GarageStepper extends State<GarageStepper> {
                     log('remove image..');
                   },
                   child: const Icon(
-                    Icons.close,
+                    Icons.delete,
                     size: 24,
                   ),
                 )

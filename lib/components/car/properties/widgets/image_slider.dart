@@ -57,9 +57,12 @@ class ImageSlider extends StatelessWidget {
                 enableInfiniteScroll: false,
                 viewportFraction: 1,
               ),
-          itemBuilder: (_, int index, __) => ImagePlaceholder(
-            imageUrl: urlList[index],
-            fit: BoxFit.cover,
+          itemBuilder: (_, int index, __) => ClipRRect(
+            borderRadius: const BorderRadius.all(Radius.circular(5)),
+            child: ImagePlaceholder(
+              imageUrl: urlList[index],
+              fit: BoxFit.cover,
+            ),
           ),
           itemCount: urlList.length,
         ),
@@ -71,8 +74,8 @@ class ImageSlider extends StatelessWidget {
             activeIndex: activeIndex,
             count: urlList.length,
             effect: const ExpandingDotsEffect(
-              dotWidth: 15,
-              dotHeight: 15,
+              dotWidth: 10,
+              dotHeight: 10,
             ),
             onDotClicked: onDotClicked,
           )
