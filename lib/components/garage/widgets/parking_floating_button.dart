@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:garage_app/misc/color_constants.dart';
 
 class ParkingFloatingButton extends StatelessWidget {
   const ParkingFloatingButton({
@@ -12,12 +13,12 @@ class ParkingFloatingButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () => onTap.call(context),
-      borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+      borderRadius: const BorderRadius.all(Radius.circular(10)),
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.blueAccent,
-          border: Border.all(color: Colors.blueAccent, width: 2.0),
-          borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+          color: ColorConstants.shieldBlue,
+          border: Border.all(color: ColorConstants.shieldBlue, width: 2),
+          borderRadius: const BorderRadius.all(Radius.circular(10)),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.5),
@@ -29,7 +30,7 @@ class ParkingFloatingButton extends StatelessWidget {
         ),
         child: Container(
           decoration: BoxDecoration(
-              color: Colors.blueAccent,
+              color: ColorConstants.shieldBlue,
               border: Border.all(color: Colors.white, width: 5.0),
               borderRadius: const BorderRadius.all(Radius.circular(8.0))),
           child: const Padding(

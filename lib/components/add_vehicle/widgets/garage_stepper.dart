@@ -114,7 +114,7 @@ class _GarageStepper extends State<GarageStepper> {
   ) {
     return Padding(
       padding: const EdgeInsets.symmetric(
-        vertical: 12,
+        vertical: 6,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -127,12 +127,20 @@ class _GarageStepper extends State<GarageStepper> {
                 backgroundColor: MaterialStateProperty.all<Color>(
                   ColorConstants.myGarageDangerRed,
                 ),
+                padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                  const EdgeInsets.symmetric(
+                    horizontal: 0,
+                    vertical: 20,
+                  ),
+                ),
+                minimumSize: MaterialStateProperty.all<Size>(
+                  const Size(50, 50),
+                ),
                 shadowColor: MaterialStateProperty.all<Color>(Colors.black),
                 elevation: MaterialStateProperty.all<double>(4),
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                  const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(15)),
-                    side: BorderSide(width: 2),
+                shape: MaterialStateProperty.all<CircleBorder>(
+                  const CircleBorder(
+                    side: BorderSide(width: 1),
                   ),
                 ),
               ),
@@ -150,12 +158,20 @@ class _GarageStepper extends State<GarageStepper> {
               backgroundColor: MaterialStateProperty.all<Color>(
                 ColorConstants.myGarageSuccessGreen,
               ),
+              padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                const EdgeInsets.symmetric(
+                  horizontal: 0,
+                  vertical: 20,
+                ),
+              ),
+              minimumSize: MaterialStateProperty.all<Size>(
+                const Size(50, 50),
+              ),
               shadowColor: MaterialStateProperty.all<Color>(Colors.black),
               elevation: MaterialStateProperty.all<double>(4),
-              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(15)),
-                  side: BorderSide(width: 2),
+              shape: MaterialStateProperty.all<CircleBorder>(
+                const CircleBorder(
+                  side: BorderSide(width: 1),
                 ),
               ),
             ),
@@ -184,9 +200,12 @@ class _GarageStepper extends State<GarageStepper> {
                 }
               });
             },
-            child: controlsBuilder.currentStep < 2
-                ? Text(CommonText.next())
-                : Text(CommonText.save()),
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: controlsBuilder.currentStep < 2
+                  ? Text(CommonText.next())
+                  : Text(CommonText.save()),
+            ),
           ),
         ],
       ),
@@ -528,99 +547,100 @@ class _GarageStepper extends State<GarageStepper> {
     return Step(
       title: Text(AddVehicleText.carImages()),
       isActive: _index == 2,
-      content: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          if (images.isNotEmpty)
-            ImageSlider(
-              withIndicator: true,
-              activeIndex: imageIndex,
-              carouselController: carouselController,
-              urlList: images.map((File e) => e.path).toList(),
-              onDotClicked: (int? index) {
-                if (index != null) {
-                  setState(() {
-                    imageIndex = index;
-                  });
-                  carouselController.animateToPage(index);
-                }
-              },
-              carouselOptions: CarouselOptions(
-                aspectRatio: 2.0,
-                initialPage: imageIndex,
-                enlargeCenterPage: true,
-                enableInfiniteScroll: true,
-                onPageChanged: (int index, _) {
-                  setState(() {
-                    imageIndex = index;
-                  });
+      content: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            if (images.isNotEmpty)
+              ImageSlider(
+                withIndicator: true,
+                activeIndex: imageIndex,
+                carouselController: carouselController,
+                urlList: images.map((File e) => e.path).toList(),
+                onDotClicked: (int? index) {
+                  if (index != null) {
+                    setState(() {
+                      imageIndex = index;
+                    });
+                    carouselController.animateToPage(index);
+                  }
                 },
-              ),
-            )
-          else
-            const SizedBox(),
-          kVerticalSpacer,
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              if (images.isNotEmpty)
-                ElevatedButton(
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(
-                      Colors.redAccent.shade700,
-                    ),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(7)),
-                        side: BorderSide(
-                          width: 2,
-                          color: Colors.black,
+                carouselOptions: CarouselOptions(
+                  aspectRatio: 2.0,
+                  initialPage: imageIndex,
+                  enlargeCenterPage: true,
+                  enableInfiniteScroll: true,
+                  onPageChanged: (int index, _) {
+                    setState(() {
+                      imageIndex = index;
+                    });
+                  },
+                ),
+              )
+            else
+              const SizedBox(),
+            kVerticalSpacer,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                if (images.isNotEmpty)
+                  ElevatedButton(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all<Color>(
+                        Colors.redAccent.shade700,
+                      ),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(7)),
+                          side: BorderSide(
+                            width: 2,
+                            color: Colors.black,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  onPressed: () {
-                    // TODO: remove image from list method
-                    log('remove image..');
-                  },
-                  child: const Icon(
-                    Icons.delete,
-                    size: 24,
-                  ),
-                )
-              else
-                const SizedBox(),
-              kHorizontalSpacer,
-              if (images.isEmpty)
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: _pickImage,
-                    child: Row(
-                      children: <Widget>[
-                        GarageIcons.fileIcon,
-                        Expanded(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Text(
-                                CommonText.selectImage(),
-                                style: const TextStyle(fontSize: 20),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
+                    onPressed: () {
+                      // TODO: remove image from list method
+                      log('remove image..');
+                    },
+                    child: const Icon(
+                      Icons.delete,
+                      size: 24,
                     ),
+                  )
+                else
+                  const SizedBox(),
+                if (images.isEmpty)
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: _pickImage,
+                      child: Row(
+                        children: <Widget>[
+                          GarageIcons.fileIcon,
+                          Expanded(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Text(
+                                  CommonText.selectImage(),
+                                  style: const TextStyle(fontSize: 20),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
+                else
+                  ElevatedButton(
+                    onPressed: _pickImage,
+                    child: GarageIcons.fileIcon,
                   ),
-                )
-              else
-                ElevatedButton(
-                  onPressed: _pickImage,
-                  child: GarageIcons.fileIcon,
-                ),
-            ],
-          ),
-        ],
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

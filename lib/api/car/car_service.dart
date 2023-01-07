@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:flutter/foundation.dart';
 import 'package:garage_app/api/api.dart';
 import 'package:garage_app/misc/logger.dart';
 import 'package:path_provider/path_provider.dart';
@@ -79,9 +78,8 @@ class LocalCarService with LoggerMixin implements CarService {
       log.info('Updated car with id ${car.id}');
     }
     await saveCarList(carList);
-    if (!listEquals(carList![car.id!].imageUrls, car.imageUrls)) {
-      await saveImagePermanently(car);
-    }
+
+    await saveImagePermanently(car);
   }
 
   @override
