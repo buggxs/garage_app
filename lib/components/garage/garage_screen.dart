@@ -10,7 +10,6 @@ import 'package:garage_app/components/garage/widgets/garage_slot_bottom_divider.
 import 'package:garage_app/components/garage/widgets/garage_slot_middle_divider.dart';
 import 'package:garage_app/components/garage/widgets/garage_slot_top_divider.dart';
 import 'package:garage_app/components/garage/widgets/parking_floating_button.dart';
-import 'package:garage_app/misc/constants.dart';
 
 class GarageScreen extends StatelessWidget {
   const GarageScreen({Key? key}) : super(key: key);
@@ -134,12 +133,15 @@ class GarageScreenContent extends StatelessWidget {
           );
         }
       }
+      // Const car for debugging
+      /*
       children.add(
         CarListItem(
           car: constCar,
           onUpdate: cubit.updateCarData,
         ),
       );
+       */
     }
 
     return ListView.separated(

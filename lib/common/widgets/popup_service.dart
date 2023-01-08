@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:month_year_picker/month_year_picker.dart';
 
 class PopupService {
   Future<String> selectDate({
@@ -17,6 +18,35 @@ class PopupService {
     if (picked != null && picked != selectedDate) {
       final String date =
           '''${picked.day}.${picked.month.toString().length == 1 ? '0${picked.month}' : picked.month}.${picked.year}''';
+
+      if (controller != null) {
+        controller.text = date;
+        return date;
+      }
+      return date;
+    }
+    return '''${selectedDate.day}
+    .${selectedDate.month.toString().length == 1 ? '0${selectedDate.month}' : selectedDate.month}
+    .${selectedDate.year}''';
+  }
+
+  Future<String> selectMonthAndYear({
+    required BuildContext context,
+    TextEditingController? controller,
+  }) async {
+    final DateTime selectedDate = DateTime.now();
+
+    final DateTime? picked = await showMonthYearPicker(
+      context: context,
+      initialDate: selectedDate,
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2025),
+      locale: Localizations.localeOf(context),
+    );
+
+    if (picked != null && picked != selectedDate) {
+      final String date =
+          '''${picked.month.toString().length == 1 ? '0${picked.month}' : picked.month}.${picked.year}''';
 
       if (controller != null) {
         controller.text = date;

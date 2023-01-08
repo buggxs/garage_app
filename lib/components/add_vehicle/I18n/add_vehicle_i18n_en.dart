@@ -12,6 +12,7 @@ Map<AddVehicleText, String> _enValues = <AddVehicleText, String>{
   AddVehicleText.nameMissingError: 'A name must be assigned',
   AddVehicleText.tuevMissingError: 'A tuev date must be assigned',
   AddVehicleText.tuev: 'TÜV',
+  AddVehicleText.tuevUntil: 'TÜV until',
   AddVehicleText.vehicleTax: 'Vehicle tax',
   AddVehicleText.purchasePrice: 'Purchase price',
 };

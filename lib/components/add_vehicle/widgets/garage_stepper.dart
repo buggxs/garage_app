@@ -262,7 +262,6 @@ class _GarageStepper extends State<GarageStepper> {
                     labelText: AddVehicleText.tuev(),
                   ),
                   textStyle: _carInputTextStyle(),
-                  readOnly: true,
                   onChanged: (String? value) {
                     if (value == null) {
                       return;

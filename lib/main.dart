@@ -8,6 +8,7 @@ import 'package:garage_app/core/app_navigator/app_navigator.dart';
 import 'package:garage_app/core/i18n/delegates/global_locale_delegate.dart';
 import 'package:garage_app/core/i18n/delegates/mygarage_i18n_delegate.dart';
 import 'package:logging/logging.dart';
+import 'package:month_year_picker/month_year_picker.dart';
 
 import 'core/app_service_locator.dart';
 
@@ -54,6 +55,7 @@ class MyGarage extends StatelessWidget {
         // datetime picker)
         ...GlobalMaterialLocalizations.delegates,
         GlobalLocaleDelegate(),
+        MonthYearPickerLocalizations.delegate,
       ],
       supportedLocales: const <Locale>[
         Locale('en', 'US'),

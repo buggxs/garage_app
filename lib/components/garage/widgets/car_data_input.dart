@@ -9,7 +9,7 @@ class CarDataInput extends StatefulWidget {
     Key? key,
     this.inputDecoration,
     this.textInputType = TextInputType.text,
-    this.readOnly = false,
+    this.readOnly,
     this.onSave,
     this.validate,
     this.maxLines,
@@ -53,8 +53,10 @@ class _CarDataInputState extends State<CarDataInput> {
                 fontSize: 17,
               ),
           onTap: widget.textInputType == TextInputType.datetime
-              ? () => app.get<PopupService>().selectDate(
-                  context: context, controller: _textEditingController)
+              ? () => app.get<PopupService>().selectMonthAndYear(
+                    context: context,
+                    controller: _textEditingController,
+                  )
               : null,
           validator: widget.validate,
           onSaved: (String? value) =>

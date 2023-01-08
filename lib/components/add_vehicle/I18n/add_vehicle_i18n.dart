@@ -15,6 +15,7 @@ enum AddVehicleText {
   tuevMissingError,
   vehicleName,
   tuev,
+  tuevUntil,
   vehicleTax,
   purchasePrice,
 }
