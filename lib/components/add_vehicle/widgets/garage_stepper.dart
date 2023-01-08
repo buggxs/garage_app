@@ -150,6 +150,7 @@ class _GarageStepper extends State<GarageStepper> {
                     _index -= 1;
                   });
                 }
+                FocusManager.instance.primaryFocus?.unfocus();
               },
               child: Text(CommonText.back()),
             ),
@@ -198,6 +199,7 @@ class _GarageStepper extends State<GarageStepper> {
                     });
                     break;
                 }
+                FocusManager.instance.primaryFocus?.unfocus();
               });
             },
             child: Padding(
@@ -260,7 +262,11 @@ class _GarageStepper extends State<GarageStepper> {
                     labelText: AddVehicleText.tuev(),
                   ),
                   textStyle: _carInputTextStyle(),
-                  onSave: (String value) {
+                  readOnly: true,
+                  onChanged: (String? value) {
+                    if (value == null) {
+                      return;
+                    }
                     final List<String> dateValues = value.split('.');
                     final String parsableDate =
                         '${dateValues[2]}-${dateValues[1]}-${dateValues[0]}';
