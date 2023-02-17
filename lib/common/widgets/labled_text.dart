@@ -22,52 +22,54 @@ class LabeledText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: padding ?? const EdgeInsets.all(8.0),
+      padding: padding ?? const EdgeInsets.all(8),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          caption != null
-              ? Text(
-                  caption!,
-                  style: captionStyle ?? Theme.of(context).textTheme.caption,
-                )
-              : const SizedBox(),
-          multiLineText
-              ? AutoSizeText(
-                  text,
-                  textAlign: TextAlign.start,
-                  style: textStyle ??
-                      const TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                  maxLines: 20,
-                )
-              : AutoSizeText(
-                  text,
-                  textAlign: TextAlign.start,
-                  style: textStyle ??
-                      const TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                  maxLines: 1,
-                  overflowReplacement: AutoSizeText(
-                    text,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 10,
-                    ),
-                    maxLines: 1,
-                    overflowReplacement: AutoSizeText(
-                      text,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 10,
-                      ),
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
-                    ),
+        children: <Widget>[
+          if (caption != null)
+            Text(
+              caption!,
+              style: captionStyle ?? Theme.of(context).textTheme.caption,
+            )
+          else
+            const SizedBox(),
+          if (multiLineText)
+            AutoSizeText(
+              text,
+              textAlign: TextAlign.start,
+              style: textStyle ??
+                  const TextStyle(
+                    fontWeight: FontWeight.bold,
                   ),
+              maxLines: 20,
+            )
+          else
+            AutoSizeText(
+              text,
+              textAlign: TextAlign.start,
+              style: textStyle ??
+                  const TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+              maxLines: 1,
+              overflowReplacement: AutoSizeText(
+                text,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 10,
                 ),
+                maxLines: 1,
+                overflowReplacement: AutoSizeText(
+                  text,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 10,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                ),
+              ),
+            ),
         ],
       ),
     );

@@ -18,8 +18,8 @@ class TechnicalCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(
-        vertical: 5.0,
-        horizontal: 16.0,
+        vertical: 5,
+        horizontal: 16,
       ),
       child: Card(
         shape: RoundedRectangleBorder(
@@ -31,15 +31,15 @@ class TechnicalCard extends StatelessWidget {
           width: double.infinity,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
+            children: <Widget>[
               Wrap(
                 crossAxisAlignment: WrapCrossAlignment.center,
-                children: [
+                children: <Widget>[
                   const Padding(
-                    padding: EdgeInsets.only(right: 8.0),
+                    padding: EdgeInsets.only(right: 8),
                     child: ImageIcon(
-                      AssetImage("assets/icons/settings-gears.png"),
-                      size: 22.0,
+                      AssetImage('assets/icons/settings-gears.png'),
+                      size: 22,
                     ),
                   ),
                   Text(
@@ -49,15 +49,15 @@ class TechnicalCard extends StatelessWidget {
                 ],
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 8.0),
+                padding: const EdgeInsets.only(top: 8),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
+                  children: <Widget>[
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
+                        children: <LabeledText>[
                           LabeledText(
                             caption: CarText.type(),
                             text: '${technicalData?.type}',
@@ -80,7 +80,7 @@ class TechnicalCard extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
+                        children: <LabeledText>[
                           LabeledText(
                             caption: CarText.hsn(),
                             text: '${technicalData?.hsn}',
@@ -101,12 +101,12 @@ class TechnicalCard extends StatelessWidget {
                 padding: EdgeInsets.zero,
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
+                  children: <Widget>[
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
+                        children: <Widget>[
                           LabeledText(
                             caption: CarText.fuelType(),
                             text: '${technicalData?.fuelType.toString()}',

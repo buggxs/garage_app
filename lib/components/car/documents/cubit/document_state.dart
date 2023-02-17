@@ -5,7 +5,7 @@ abstract class DocumentState extends Equatable {}
 
 class DocumentLoadingState extends DocumentState {
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => <Object?>[];
 }
 
 class DocumentLoadedState extends DocumentState {
@@ -16,7 +16,7 @@ class DocumentLoadedState extends DocumentState {
   final List<List<Document>>? documentList;
 
   @override
-  List<Object?> get props => [documentList];
+  List<Object?> get props => <Object?>[documentList];
 }
 
 class DocumentErrorState extends DocumentState {
@@ -25,5 +25,5 @@ class DocumentErrorState extends DocumentState {
   final String? message;
 
   @override
-  List<Object?> get props => [message];
+  List<Object?> get props => <Object?>[message];
 }

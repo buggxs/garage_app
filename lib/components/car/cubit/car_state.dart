@@ -2,25 +2,25 @@ part of 'car_cubit.dart';
 
 @immutable
 abstract class CarState extends Equatable {
-  final Car? car;
-  final int? tabIndex;
-
   const CarState({
     this.car,
     this.tabIndex = 0,
   });
+
+  final Car? car;
+  final int? tabIndex;
 }
 
 class CarInitial extends CarState {
   const CarInitial() : super();
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => <Object?>[];
 }
 
 class CarLoadingState extends CarState {
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => <Object?>[];
 }
 
 class CarPropertyLoadedState extends CarState {
@@ -32,7 +32,7 @@ class CarPropertyLoadedState extends CarState {
         );
 
   @override
-  List<Object?> get props => [
+  List<Object?> get props => <Object?>[
         car,
         tabIndex,
       ];
@@ -47,7 +47,7 @@ class CarDocumentLoadedState extends CarState {
         );
 
   @override
-  List<Object?> get props => [
+  List<Object?> get props => <Object?>[
         car,
         tabIndex,
       ];
@@ -70,7 +70,7 @@ class CarNoteLoadedState extends CarState {
         );
 
   @override
-  List<Object?> get props => [
+  List<Object?> get props => <Object?>[
         car,
         tabIndex,
       ];
@@ -85,12 +85,12 @@ class CarNoteLoadedState extends CarState {
 }
 
 class CarErrorState extends CarState {
-  final String? error;
-
   const CarErrorState({
     this.error,
   });
 
+  final String? error;
+
   @override
-  List<Object?> get props => [error];
+  List<Object?> get props => <Object?>[error];
 }

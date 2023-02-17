@@ -14,28 +14,28 @@ class CarItemSlidable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(8.0),
+      borderRadius: BorderRadius.circular(8),
       child: Slidable(
-        child: child,
         endActionPane: ActionPane(
           motion: const ScrollMotion(),
-          children: [
+          children: <SlidableAction>[
             SlidableAction(
-              onPressed: (context) => onDelete?.call(),
-              backgroundColor: Color(0xFFFE4A49),
+              onPressed: (BuildContext context) => onDelete?.call(),
+              backgroundColor: const Color(0xFFFE4A49),
               foregroundColor: Colors.white,
               icon: Icons.delete,
               label: 'Delete',
             ),
             SlidableAction(
               onPressed: (_) {},
-              backgroundColor: Color(0xFF21B7CA),
+              backgroundColor: const Color(0xFF21B7CA),
               foregroundColor: Colors.white,
               icon: Icons.share,
               label: 'Share',
             ),
           ],
         ),
+        child: child,
       ),
     );
   }

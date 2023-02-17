@@ -9,9 +9,10 @@ class AddNoteDialog extends StatelessWidget {
 
   final void Function(String?)? onSubmit;
 
+  // TODO: put noteText into cubit state
   String? noteText;
 
-  final _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -19,9 +20,9 @@ class AddNoteDialog extends StatelessWidget {
       child: Form(
         key: _formKey,
         child: Column(
-          children: [
+          children: <Widget>[
             Row(
-              children: [
+              children: <Widget>[
                 CarDataInput(
                   onSave: (String value) {
                     noteText = value;
@@ -39,7 +40,7 @@ class AddNoteDialog extends StatelessWidget {
             ),
             const Divider(),
             Row(
-              children: [
+              children: <Widget>[
                 Expanded(
                   child: ElevatedButton(
                     onPressed: () {
@@ -48,11 +49,11 @@ class AddNoteDialog extends StatelessWidget {
                         Navigator.pop(context, noteText);
                       }
                     },
-                    child: const Text("Hinzufügen"),
+                    child: const Text('Hinzufügen'),
                   ),
                 ),
               ],
-            )
+            ),
           ],
         ),
       ),

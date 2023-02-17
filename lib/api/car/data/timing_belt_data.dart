@@ -14,6 +14,9 @@ class TimingBeltData extends Equatable implements PropertyData {
     this.nextChangeDate,
   });
 
+  factory TimingBeltData.fromJson(Map<String, dynamic> json) =>
+      _$TimingBeltDataFromJson(json);
+
   final int? id;
 
   @override
@@ -27,9 +30,6 @@ class TimingBeltData extends Equatable implements PropertyData {
 
   @override
   final double? nextChangeMileage;
-
-  factory TimingBeltData.fromJson(Map<String, dynamic> json) =>
-      _$TimingBeltDataFromJson(json);
 
   Map<String, dynamic> toJson() => _$TimingBeltDataToJson(this);
 
@@ -49,7 +49,7 @@ class TimingBeltData extends Equatable implements PropertyData {
       );
 
   @override
-  List<Object?> get props => [
+  List<Object?> get props => <Object?>[
         id,
         lastChangeMileage,
         lastChangeDate,

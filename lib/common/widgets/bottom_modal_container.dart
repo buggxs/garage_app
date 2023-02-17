@@ -23,16 +23,16 @@ class BottomModalContainer extends StatelessWidget {
       child: Container(
         decoration: decoration,
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(8),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
+                children: <Widget>[
                   Padding(
-                    padding: const EdgeInsets.only(right: 5.0, left: 5.0),
+                    padding: const EdgeInsets.only(right: 5, left: 5),
                     child: icon,
                   ),
                   Text(
@@ -42,10 +42,10 @@ class BottomModalContainer extends StatelessWidget {
                   InkWell(
                     onTap: () => Navigator.pop(context),
                     child: const Padding(
-                      padding: EdgeInsets.only(left: 5.0, right: 5.0),
+                      padding: EdgeInsets.only(left: 5, right: 5),
                       child: Icon(
                         Icons.close,
-                        size: 28.0,
+                        size: 28,
                       ),
                     ),
                   ),

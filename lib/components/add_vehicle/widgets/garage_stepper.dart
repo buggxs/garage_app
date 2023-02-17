@@ -571,7 +571,7 @@ class _GarageStepper extends State<GarageStepper> {
                   }
                 },
                 carouselOptions: CarouselOptions(
-                  aspectRatio: 2.0,
+                  aspectRatio: 2,
                   initialPage: imageIndex,
                   enlargeCenterPage: true,
                   enableInfiniteScroll: true,

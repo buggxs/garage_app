@@ -1,3 +1,4 @@
+// ignore: avoid_classes_with_only_static_members
 abstract class TextFormatter {
   static String formatDateToMonthAndYear(DateTime? dateTime) {
     return dateTime == null

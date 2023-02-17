@@ -15,6 +15,7 @@ import 'core/app_service_locator.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  // Directions where the app can rotate
   SystemChrome.setPreferredOrientations(
     <DeviceOrientation>[
       DeviceOrientation.portraitUp,
@@ -22,6 +23,7 @@ Future<void> main() async {
     ],
   );
 
+  // Configure logging
   Logger.root.level = Level.ALL;
   Logger.root.onRecord.listen((LogRecord record) {
     // ignore: avoid_print
@@ -31,7 +33,10 @@ Future<void> main() async {
     );
   });
 
+  // Register services
   setup();
+
+  // Start the actual app
   runApp(MyGarage());
 }
 
@@ -49,10 +54,10 @@ class MyGarage extends StatelessWidget {
       initialRoute: GarageScreen.route,
       onGenerateRoute: _appNavigator.generateRoute,
       localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
+        // Own localizations implementation
         MyGarageI18nDelegate(),
 
-        // localization for material widgets (e.g. tooltips,
-        // datetime picker)
+        // localization for material widgets (e.g. tooltips, datetime picker)
         ...GlobalMaterialLocalizations.delegates,
         GlobalLocaleDelegate(),
         MonthYearPickerLocalizations.delegate,

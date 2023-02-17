@@ -14,6 +14,9 @@ class AirConditionerData extends Equatable implements PropertyData {
     this.nextChangeDate,
   });
 
+  factory AirConditionerData.fromJson(Map<String, dynamic> json) =>
+      _$AirConditionerDataFromJson(json);
+
   final int? id;
 
   @override
@@ -27,9 +30,6 @@ class AirConditionerData extends Equatable implements PropertyData {
 
   @override
   final double? nextChangeMileage;
-
-  factory AirConditionerData.fromJson(Map<String, dynamic> json) =>
-      _$AirConditionerDataFromJson(json);
 
   Map<String, dynamic> toJson() => _$AirConditionerDataToJson(this);
 
@@ -49,7 +49,7 @@ class AirConditionerData extends Equatable implements PropertyData {
       );
 
   @override
-  List<Object?> get props => [
+  List<Object?> get props => <Object?>[
         id,
         lastChangeMileage,
         lastChangeDate,

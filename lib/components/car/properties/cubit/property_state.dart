@@ -8,7 +8,7 @@ class CarPropertiesState extends Equatable {
   final Car car;
 
   @override
-  List<Object> get props => [
+  List<Object?> get props => <Object?>[
         car,
       ];
 

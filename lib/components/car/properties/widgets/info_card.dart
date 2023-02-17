@@ -18,7 +18,7 @@ class InfoCard extends StatelessWidget {
         side: const BorderSide(
           color: Colors.white,
         ),
-        borderRadius: BorderRadius.circular(4.0),
+        borderRadius: BorderRadius.circular(4),
       ),
       color: ColorConstants.shieldBlue,
       child: LabeledText(

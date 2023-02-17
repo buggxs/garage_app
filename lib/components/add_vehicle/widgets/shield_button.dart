@@ -30,25 +30,26 @@ class ShieldButton extends StatelessWidget {
           maxHeight: maxHeight,
         ),
         decoration: BoxDecoration(
-            color: ColorConstants.shieldBlue,
-            border: Border.all(color: Colors.white, width: 4.0),
-            borderRadius: const BorderRadius.all(
-              Radius.circular(7.0),
-            ),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.5),
-                spreadRadius: 2,
-                blurRadius: 7,
-                offset: const Offset(0, 4),
-              )
-            ]),
+          color: ColorConstants.shieldBlue,
+          border: Border.all(color: Colors.white, width: 4),
+          borderRadius: const BorderRadius.all(
+            Radius.circular(7),
+          ),
+          boxShadow: <BoxShadow>[
+            BoxShadow(
+              color: Colors.black.withOpacity(0.5),
+              spreadRadius: 2,
+              blurRadius: 7,
+              offset: const Offset(0, 4),
+            )
+          ],
+        ),
         child: Center(
           child: Text(
             text,
             style: const TextStyle(
               color: Colors.white,
-              fontSize: 18.0,
+              fontSize: 18,
               fontWeight: FontWeight.bold,
             ),
             textAlign: TextAlign.center,

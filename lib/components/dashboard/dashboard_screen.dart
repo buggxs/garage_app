@@ -15,10 +15,10 @@ class DashboardScreen extends StatelessWidget {
       title: 'Dashboard',
       child: SingleChildScrollView(
         child: Container(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
+            children: <Widget>[
               HeadingText(),
               InfoCard(),
               InfoCard(),
@@ -26,11 +26,11 @@ class DashboardScreen extends StatelessWidget {
               HeadingText(
                 text: 'Ratgeber',
               ),
-              CounselorCard(),
+              const CounselorCard(),
               HeadingText(
                 text: 'Sammle Garagenpoints',
               ),
-              PointCard(),
+              const PointCard(),
             ],
           ),
         ),

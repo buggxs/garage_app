@@ -6,5 +6,5 @@ abstract class AddVehicleState extends Equatable {
 
 class AddVehicleInitial extends AddVehicleState {
   @override
-  List<Object> get props => [];
+  List<Object?> get props => <Object?>[];
 }

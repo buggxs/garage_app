@@ -28,17 +28,17 @@ class AddVehicleMetaPanel extends StatelessWidget {
         shape: const RoundedRectangleBorder(
           side: BorderSide(
             color: Colors.white,
-            width: 4.0,
+            width: 4,
           ),
         ),
         color: ColorConstants.shieldBlue,
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(8),
           child: Column(
-            children: [
+            children: <Widget>[
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
+                children: <LabeledText>[
                   LabeledText(
                     caption: 'Fahrzeuge / Parkplätze',
                     text: '$parkedCars / 2',

@@ -13,8 +13,9 @@ class DocumentListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      onTap: onTap,
       child: Row(
-        children: [
+        children: <Widget>[
           Text(
             text ?? 'Unknown',
             style: const TextStyle(
@@ -24,7 +25,6 @@ class DocumentListItem extends StatelessWidget {
           ),
         ],
       ),
-      onTap: onTap,
     );
   }
 }

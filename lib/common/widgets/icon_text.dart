@@ -1,29 +1,30 @@
 import 'package:flutter/material.dart';
 
 class IconText extends StatelessWidget {
-  IconText({
+  const IconText({
+    Key? key,
     required this.text,
     this.textStyle,
     this.assetImage,
     this.iconData,
     this.size,
     this.iconColor,
-  });
+  }) : super(key: key);
 
-  String text;
-  TextStyle? textStyle;
-  AssetImage? assetImage;
-  IconData? iconData;
-  double? size;
-  Color? iconColor;
+  final String text;
+  final TextStyle? textStyle;
+  final AssetImage? assetImage;
+  final IconData? iconData;
+  final double? size;
+  final Color? iconColor;
 
   @override
   Widget build(BuildContext context) {
     return Wrap(
       crossAxisAlignment: WrapCrossAlignment.center,
-      children: [
+      children: <Widget>[
         Padding(
-          padding: const EdgeInsets.only(right: 5.0),
+          padding: const EdgeInsets.only(right: 5),
           child: iconData != null
               ? Icon(
                   iconData,
@@ -36,12 +37,13 @@ class IconText extends StatelessWidget {
                   size: size,
                 ),
         ),
-        textStyle != null
-            ? Text(text)
-            : Text(
-                text,
-                style: textStyle,
-              )
+        if (textStyle != null)
+          Text(text)
+        else
+          Text(
+            text,
+            style: textStyle,
+          )
       ],
     );
   }

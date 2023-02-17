@@ -33,24 +33,24 @@ class GarageCubit extends Cubit<GarageState> with LoggerMixin {
   Future<void> deleteCar(Car car) async {
     if (state is GarageLoadedState) {
       final List<Car> carList = (state as GarageLoadedState).cars;
-      final int carIndex = carList.indexWhere((tmpCar) => tmpCar == car);
+      final int carIndex = carList.indexWhere((Car tmpCar) => tmpCar == car);
       carList.removeAt(carIndex);
       _carService.deleteCar(car: car);
       emit(GarageLoadedState(cars: carList));
     }
   }
 
-  void updateCarData({
+  Future<void> updateCarData({
     required Car car,
     String? lastChangeMileageString,
     String? lastChangeDateString,
   }) async {
     if (state is GarageLoadedState) {
-      DateTime? lastChangeDate =
+      final DateTime? lastChangeDate =
           lastChangeDateString != null && lastChangeDateString.isNotEmpty
               ? DateFormat('dd.MM.y').parse(lastChangeDateString)
               : null;
-      double? lastChangeMileage =
+      final double? lastChangeMileage =
           lastChangeMileageString != null && lastChangeMileageString.isNotEmpty
               ? double.tryParse(lastChangeMileageString)
               : null;

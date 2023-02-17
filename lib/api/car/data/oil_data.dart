@@ -16,6 +16,9 @@ class OilData extends Equatable implements PropertyData {
     this.oilType,
   });
 
+  factory OilData.fromJson(Map<String, dynamic> json) =>
+      _$OilDataFromJson(json);
+
   final int? id;
   final String? oilBrand;
   final String? oilType;
@@ -31,9 +34,6 @@ class OilData extends Equatable implements PropertyData {
 
   @override
   final double? nextChangeMileage;
-
-  factory OilData.fromJson(Map<String, dynamic> json) =>
-      _$OilDataFromJson(json);
 
   Map<String, dynamic> toJson() => _$OilDataToJson(this);
 
@@ -57,7 +57,7 @@ class OilData extends Equatable implements PropertyData {
       );
 
   @override
-  List<Object?> get props => [
+  List<Object?> get props => <Object?>[
         id,
         lastChangeMileage,
         lastChangeDate,

@@ -8,16 +8,18 @@ import 'package:garage_app/components/car/i18n/car_text.dart';
 class DocumentScreen extends StatelessWidget {
   const DocumentScreen({
     Key? key,
-    Document? document,
+    this.document,
   }) : super(key: key);
+
+  final Document? document;
 
   @override
   Widget build(BuildContext context) {
     return GarageScaffold(
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(8),
         child: Column(
-          children: [
+          children: <Widget>[
             Expanded(
               child: Center(
                 child: Text(
@@ -30,22 +32,21 @@ class DocumentScreen extends StatelessWidget {
               ),
             ),
             Row(
-              children: [
+              children: <Widget>[
                 Expanded(
                   child: ElevatedButton(
-                    style: Theme.of(context)
-                        .elevatedButtonTheme
-                        .style!
-                        .copyWith(
-                            backgroundColor: MaterialStateProperty.all<Color>(
-                          CustomLightTheme.myGarageBlue,
-                        )),
+                    style:
+                        Theme.of(context).elevatedButtonTheme.style!.copyWith(
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                CustomLightTheme.myGarageBlue,
+                              ),
+                            ),
                     onPressed: () async {},
                     child: Text(
                       CarText.upload(),
                       style: const TextStyle(
                         color: Colors.white,
-                        fontSize: 18.0,
+                        fontSize: 18,
                       ),
                     ),
                   ),

@@ -20,19 +20,21 @@ abstract class NoteService {
 class LocalNoteService implements NoteService {
   @override
   Future<List<Note>?> getCarNotes(int carId) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String carString = prefs.get('car_$carId');
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String carString = prefs.get('car_$carId');
     return Car.fromJson(jsonDecode(carString)).noteList;
   }
 
   @override
-  void saveNote({
+  Future<void> saveNote({
     int? carId,
     Car? car,
     required Note note,
   }) async {
     if (car == null) {
-      if (carId == null) return;
+      if (carId == null) {
+        return;
+      }
       car = await app<CarService>().getCarById(carId: carId);
     }
     car?.noteList?.add(note);

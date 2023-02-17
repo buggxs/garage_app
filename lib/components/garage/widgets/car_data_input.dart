@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:garage_app/common/widgets/popup_service.dart';
 import 'package:garage_app/core/app_service_locator.dart';
+import 'package:garage_app/misc/logger.dart';
 
 typedef Validate = String? Function(String? value);
 
@@ -30,7 +31,7 @@ class CarDataInput extends StatefulWidget {
   _CarDataInputState createState() => _CarDataInputState();
 }
 
-class _CarDataInputState extends State<CarDataInput> {
+class _CarDataInputState extends State<CarDataInput> with LoggerMixin {
   final TextEditingController _textEditingController = TextEditingController();
 
   DateTime selectedDate = DateTime.now();
@@ -60,7 +61,7 @@ class _CarDataInputState extends State<CarDataInput> {
               : null,
           validator: widget.validate,
           onSaved: (String? value) =>
-              widget.onSave != null ? widget.onSave!(value!) : print(value!),
+              widget.onSave != null ? widget.onSave!(value!) : log.info(value!),
           maxLines: widget.maxLines,
         ),
       ),

@@ -28,17 +28,17 @@ class GarageMetaPanel extends StatelessWidget {
         shape: const RoundedRectangleBorder(
           side: BorderSide(
             color: Colors.white,
-            width: 4.0,
+            width: 4,
           ),
         ),
         color: ColorConstants.shieldBlue,
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(8),
           child: Column(
-            children: [
+            children: <Widget>[
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
+                children: <Widget>[
                   LabeledText(
                     caption: 'Fahrzeuge / Parkplätze',
                     text: '$parkedCars / 2',
@@ -65,7 +65,7 @@ class GarageMetaPanel extends StatelessWidget {
                 ],
               ),
               Row(
-                children: [
+                children: <Widget>[
                   LabeledText(
                     caption: 'Autos mit Warnungen',
                     text: _buildWarningsText() ?? '-',
@@ -89,8 +89,11 @@ class GarageMetaPanel extends StatelessWidget {
 
   String? _buildWarningsText() {
     return carsWithWarnings
-        ?.map((Car tmpCar) =>
-            '${tmpCar.name} ${((tmpCar.brand?.isNotEmpty ?? false) || (tmpCar.model?.isNotEmpty ?? false)) ? '-' : ''} ${tmpCar.brand ?? ''} ${tmpCar.model ?? ''}')
+        ?.map(
+          (Car tmpCar) =>
+              '${tmpCar.name} ${((tmpCar.brand?.isNotEmpty ?? false) || (tmpCar.model?.isNotEmpty ?? false)) ? '-' : ''} '
+              '${tmpCar.brand ?? ''} ${tmpCar.model ?? ''}',
+        )
         .join('\n');
   }
 }

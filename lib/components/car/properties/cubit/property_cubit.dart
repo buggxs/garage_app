@@ -28,11 +28,11 @@ class PropertyCubit extends Cubit<CarPropertiesState> with LoggerMixin {
     String? lastChangeMileageString,
     String? lastChangeDateString,
   }) async {
-    var lastChangeDate =
+    final DateTime lastChangeDate =
         lastChangeDateString != null && lastChangeDateString.isNotEmpty
             ? DateFormat('dd.MM.y').parse(lastChangeDateString)
             : DateTime.now();
-    var lastChangeMileage =
+    final double? lastChangeMileage =
         lastChangeMileageString != null && lastChangeMileageString.isNotEmpty
             ? double.tryParse(lastChangeMileageString)
             : null;
@@ -107,10 +107,10 @@ class PropertyCubit extends Cubit<CarPropertiesState> with LoggerMixin {
     double? lastChangeMileage,
     DateTime? lastChangeDate,
   }) {
-    double? nextChangeMileage =
+    final double? nextChangeMileage =
         lastChangeMileage != null ? lastChangeMileage + 15000.00 : null;
-    DateTime? nextChangeDate =
-        lastChangeDate?.add(const Duration(days: (365 * 2)));
+    final DateTime? nextChangeDate =
+        lastChangeDate?.add(const Duration(days: 365 * 2));
     return oilData?.copyWith(
       lastChangeMileage: lastChangeMileage,
       lastChangeDate: lastChangeDate,
@@ -124,10 +124,10 @@ class PropertyCubit extends Cubit<CarPropertiesState> with LoggerMixin {
     double? lastChangeMileage,
     DateTime? lastChangeDate,
   }) {
-    double? nextChangeMileage =
+    final double? nextChangeMileage =
         lastChangeMileage != null ? lastChangeMileage + 50000.00 : null;
-    DateTime? nextChangeDate =
-        lastChangeDate?.add(const Duration(days: (365 * 2)));
+    final DateTime? nextChangeDate =
+        lastChangeDate?.add(const Duration(days: 365 * 2));
     return airConditionerData?.copyWith(
       lastChangeMileage: lastChangeMileage,
       lastChangeDate: lastChangeDate,
@@ -141,10 +141,10 @@ class PropertyCubit extends Cubit<CarPropertiesState> with LoggerMixin {
     double? lastChangeMileage,
     DateTime? lastChangeDate,
   }) {
-    double? nextChangeMileage =
+    final double? nextChangeMileage =
         lastChangeMileage != null ? lastChangeMileage + 100000.00 : null;
-    DateTime? nextChangeDate =
-        lastChangeDate?.add(const Duration(days: (365 * 5)));
+    final DateTime? nextChangeDate =
+        lastChangeDate?.add(const Duration(days: 365 * 5));
     return brakeData?.copyWith(
       lastChangeMileage: lastChangeMileage,
       lastChangeDate: lastChangeDate,
@@ -158,10 +158,10 @@ class PropertyCubit extends Cubit<CarPropertiesState> with LoggerMixin {
     double? lastChangeMileage,
     DateTime? lastChangeDate,
   }) {
-    double? nextChangeMileage =
+    final double? nextChangeMileage =
         lastChangeMileage != null ? lastChangeMileage + 80000.00 : null;
-    DateTime? nextChangeDate =
-        lastChangeDate?.add(const Duration(days: (365 * 5)));
+    final DateTime? nextChangeDate =
+        lastChangeDate?.add(const Duration(days: 365 * 5));
     return timingBeltData?.copyWith(
       lastChangeMileage: lastChangeMileage,
       lastChangeDate: lastChangeDate,

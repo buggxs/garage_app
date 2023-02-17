@@ -128,7 +128,7 @@ class DocumentTabContent extends StatelessWidget {
         text: documents[index].name,
         onTap: () => Navigator.push<Route<MaterialPageRoute<dynamic>>>(
           context,
-          MaterialPageRoute(
+          MaterialPageRoute<Route<MaterialPageRoute<dynamic>>>(
             builder: (BuildContext context) => DocumentScreen(
               document: documents[index],
             ),

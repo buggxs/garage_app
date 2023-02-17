@@ -9,7 +9,7 @@ class GarageParkingPWidget extends StatelessWidget {
       child: RotatedBox(
         quarterTurns: 3,
         child: Text(
-          "P",
+          'P',
           style: TextStyle(
             color: Colors.white,
             fontSize: 98,

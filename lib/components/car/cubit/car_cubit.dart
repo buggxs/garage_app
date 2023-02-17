@@ -38,7 +38,7 @@ class CarCubit extends Cubit<CarState> with LoggerMixin {
     log.info('Showing tab with index: $index');
   }
 
-  void addNoteToCar(String? noteText) async {
+  Future<void> addNoteToCar(String? noteText) async {
     if (state is CarNoteLoadedState) {
       Car? car = state.car;
       if (car == null) {
@@ -56,30 +56,34 @@ class CarCubit extends Cubit<CarState> with LoggerMixin {
             ],
           );
         } else {
-          car.noteList?.add(Note(
-            id: car.noteList?.length ?? 0 + 1,
-            note: noteText!,
-          ));
+          car.noteList?.add(
+            Note(
+              id: car.noteList?.length ?? 0 + 1,
+              note: noteText!,
+            ),
+          );
         }
         log.info('Added note "$noteText" to car ${car.name}');
         await app<CarService>().saveCar(car: car);
-        emit((state as CarNoteLoadedState).copyWith(
-          car: car,
-        ));
+        emit(
+          (state as CarNoteLoadedState).copyWith(
+            car: car,
+          ),
+        );
       }
     }
   }
 
-  void addDocumentToCar(Map<String, dynamic>? documentData) async {
+  Future<void> addDocumentToCar(Map<String, dynamic>? documentData) async {
     if (state is CarDocumentLoadedState) {
-      Car? car = state.car;
+      final Car? car = state.car;
       if (car == null) {
         emit(const CarErrorState());
         return;
       }
       if (documentData?.isNotEmpty ?? false) {
-        String documentName = documentData?['name'];
-        String documentType = documentData?['type'];
+        final String documentName = documentData?['name'];
+        final String documentType = documentData?['type'];
         if (car.documentList?.isEmpty ?? true) {
           switch (documentType) {
             case 'General documents':
@@ -118,33 +122,43 @@ class CarCubit extends Cubit<CarState> with LoggerMixin {
         } else {
           switch (documentType) {
             case 'General documents':
-              car.documentList?[0].add(Document(
-                id: 1,
-                name: documentName,
-              ));
+              car.documentList?[0].add(
+                Document(
+                  id: 1,
+                  name: documentName,
+                ),
+              );
               break;
             case 'Invoices':
-              car.documentList?[1].add(Document(
-                id: 1,
-                name: documentName,
-              ));
+              car.documentList?[1].add(
+                Document(
+                  id: 1,
+                  name: documentName,
+                ),
+              );
               break;
             case 'Other documents':
-              car.documentList?[2].add(Document(
-                id: 1,
-                name: documentName,
-              ));
+              car.documentList?[2].add(
+                Document(
+                  id: 1,
+                  name: documentName,
+                ),
+              );
               break;
             default:
-              car.documentList?[0].add(Document(
-                id: 1,
-                name: documentName,
-              ));
+              car.documentList?[0].add(
+                Document(
+                  id: 1,
+                  name: documentName,
+                ),
+              );
               break;
           }
         }
-        log.info('''Saving document $documentName of type 
-            $documentType to car ${car.name}''');
+        log.info(
+          '''Saving document $documentName of type 
+            $documentType to car ${car.name}''',
+        );
         await app<CarService>().saveCar(car: car);
         emit((state as CarDocumentLoadedState).copyWith(car: car));
       }

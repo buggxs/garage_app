@@ -110,7 +110,7 @@ class CarListItem extends StatelessWidget {
         return Container(
           padding: const EdgeInsets.all(8),
           child: Text(
-            '${car.name} ${(car.brand != null) || (car.model != null) ? '-' : ''} '
+            '${car.name} ${(car.brand != null) || (car.model != null) ? '-' : ''}'
             '${car.brand ?? ''} ${car.model ?? ''}',
             style: Theme.of(context).textTheme.headline2,
           ),

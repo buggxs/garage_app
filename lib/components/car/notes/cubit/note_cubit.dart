@@ -16,10 +16,10 @@ class NoteCubit extends Cubit<NoteState> with LoggerMixin {
   Car car;
   CarCubit carCubit;
 
-  void loadNotes() async {
+  Future<void> loadNotes() async {
     emit(NoteLoading());
 
-    List<Note> carNoteList = car.noteList ?? <Note>[];
+    final List<Note> carNoteList = car.noteList ?? <Note>[];
 
     log.info('Loaded ${carNoteList.length} notes');
 

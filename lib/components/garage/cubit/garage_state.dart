@@ -12,24 +12,24 @@ class GarageErrorState extends GarageState {
   final String? message;
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => <Object?>[];
 }
 
 class GarageLoadingState extends GarageState {
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => <Object?>[];
 }
 
 class GarageLoadedState extends GarageState {
-  final List<Car> cars;
-  final int carSize;
-
   const GarageLoadedState({
     this.cars = const <Car>[],
   }) : carSize = cars.length;
 
+  final List<Car> cars;
+  final int carSize;
+
   @override
-  List<Object?> get props => [
+  List<Object?> get props => <Object?>[
         cars,
         carSize,
       ];
@@ -61,5 +61,5 @@ class GarageEmptyState extends GarageState {
   const GarageEmptyState();
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => <Object?>[];
 }

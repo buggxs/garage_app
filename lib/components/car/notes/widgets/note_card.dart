@@ -17,7 +17,7 @@ class NoteCard extends StatelessWidget {
         ? Card(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
+              children: <Widget>[
                 LabeledText(
                   caption: note?.dateTime != null
                       ? TextFormatter.formatGermanDate(note?.dateTime)

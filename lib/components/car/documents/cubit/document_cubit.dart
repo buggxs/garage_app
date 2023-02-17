@@ -18,11 +18,15 @@ class DocumentCubit extends Cubit<DocumentState> with LoggerMixin {
   Car car;
   CarCubit carCubit;
 
-  void loadDocuments() async {
+  Future<void> loadDocuments() async {
     emit(DocumentLoadingState());
 
-    List<List<Document>> documents =
-        car.documentList ?? <List<Document>>[[], [], []];
+    final List<List<Document>> documents = car.documentList ??
+        <List<Document>>[
+          <Document>[],
+          <Document>[],
+          <Document>[],
+        ];
 
     log.info('Loaded documents of car: ${car.name} (ID: ${car.id})');
 

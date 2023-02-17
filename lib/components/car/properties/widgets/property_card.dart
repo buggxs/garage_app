@@ -26,14 +26,14 @@ class PropertyCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(
-        vertical: 5.0,
-        horizontal: 16.0,
+        vertical: 5,
+        horizontal: 16,
       ),
       child: InkWell(
         onTap: () => onTap!(),
         onLongPress: () => onLongPress!(),
         borderRadius: const BorderRadius.all(
-          Radius.circular(8.0),
+          Radius.circular(8),
         ),
         child: Card(
           child: Column(
@@ -53,19 +53,19 @@ class PropertyCard extends StatelessWidget {
     BuildContext context,
   ) {
     return Container(
-      padding: const EdgeInsets.all(5.0),
+      padding: const EdgeInsets.all(5),
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.only(
-          topRight: Radius.circular(4.0),
-          topLeft: Radius.circular(4.0),
+          topRight: Radius.circular(4),
+          topLeft: Radius.circular(4),
         ),
         color: getCardColor(type!)!['heading'],
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+        children: <Widget>[
           Padding(
-            padding: const EdgeInsets.only(right: 5.0),
+            padding: const EdgeInsets.only(right: 5),
             child: getCardContent(context, property!)!['card_icon'],
           ),
           Text(
@@ -94,17 +94,17 @@ class PropertyCard extends StatelessWidget {
       decoration: BoxDecoration(
         gradient: getCardColor(type!)!['body'],
         borderRadius: const BorderRadius.only(
-          bottomLeft: Radius.circular(4.0),
-          bottomRight: Radius.circular(4.0),
+          bottomLeft: Radius.circular(4),
+          bottomRight: Radius.circular(4),
         ),
       ),
       padding: const EdgeInsets.only(
-        top: 8.0,
-        bottom: 8.0,
+        top: 8,
+        bottom: 8,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
+        children: <Widget>[
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -113,9 +113,7 @@ class PropertyCard extends StatelessWidget {
                   caption:
                       getCardContent(context, property!)!['last_change_text'],
                   text:
-                      NumberFormatter.mileageFormatter(data.lastChangeMileage) +
-                          " km / " +
-                          TextFormatter.formatGermanDate(data.lastChangeDate),
+                      '${NumberFormatter.mileageFormatter(data.lastChangeMileage)} km / ${TextFormatter.formatGermanDate(data.lastChangeDate)}',
                   multiLineText: true,
                 ),
               ],
@@ -127,14 +125,12 @@ class PropertyCard extends StatelessWidget {
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
+              children: <Widget>[
                 LabeledText(
                   caption:
                       getCardContent(context, property!)!['next_change_text'],
                   text:
-                      NumberFormatter.mileageFormatter(data.nextChangeMileage) +
-                          " km oder " +
-                          TextFormatter.formatGermanDate(data.nextChangeDate),
+                      '${NumberFormatter.mileageFormatter(data.nextChangeMileage)} km oder ${TextFormatter.formatGermanDate(data.nextChangeDate)}',
                   multiLineText: true,
                 ),
               ],

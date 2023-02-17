@@ -30,17 +30,19 @@ class ParkingFloatingButton extends StatelessWidget {
         ),
         child: Container(
           decoration: BoxDecoration(
-              color: ColorConstants.shieldBlue,
-              border: Border.all(color: Colors.white, width: 5.0),
-              borderRadius: const BorderRadius.all(Radius.circular(8.0))),
+            color: ColorConstants.shieldBlue,
+            border: Border.all(color: Colors.white, width: 5),
+            borderRadius: const BorderRadius.all(Radius.circular(8)),
+          ),
           child: const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 3.0),
+            padding: EdgeInsets.symmetric(horizontal: 12, vertical: 3),
             child: Text(
-              "P",
+              'P',
               style: TextStyle(
-                  fontSize: 32,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white),
+                fontSize: 32,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
             ),
           ),
         ),

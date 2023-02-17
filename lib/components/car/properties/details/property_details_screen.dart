@@ -6,7 +6,7 @@ class PropertyDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GarageScaffold(
+    return const GarageScaffold(
       child: Text('Test'),
     );
   }

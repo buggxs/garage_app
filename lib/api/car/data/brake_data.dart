@@ -14,6 +14,9 @@ class BrakeData extends Equatable implements PropertyData {
     this.nextChangeDate,
   });
 
+  factory BrakeData.fromJson(Map<String, dynamic> json) =>
+      _$BrakeDataFromJson(json);
+
   final int? id;
 
   @override
@@ -27,9 +30,6 @@ class BrakeData extends Equatable implements PropertyData {
 
   @override
   final double? nextChangeMileage;
-
-  factory BrakeData.fromJson(Map<String, dynamic> json) =>
-      _$BrakeDataFromJson(json);
 
   Map<String, dynamic> toJson() => _$BrakeDataToJson(this);
 
@@ -49,7 +49,7 @@ class BrakeData extends Equatable implements PropertyData {
       );
 
   @override
-  List<Object?> get props => [
+  List<Object?> get props => <Object?>[
         id,
         lastChangeDate,
         lastChangeMileage,

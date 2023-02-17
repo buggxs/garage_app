@@ -16,10 +16,10 @@ class NotesTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    CarCubit carCubit = context.watch<CarCubit>();
+    final CarCubit carCubit = context.watch<CarCubit>();
 
-    return BlocProvider(
-      create: (context) => NoteCubit(
+    return BlocProvider<NoteCubit>(
+      create: (BuildContext context) => NoteCubit(
         car: carCubit.car,
         carCubit: carCubit,
       )..loadNotes(),
@@ -33,8 +33,8 @@ class NoteTabContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    NoteCubit cubit = context.watch<NoteCubit>();
-    NoteState state = cubit.state;
+    final NoteCubit cubit = context.watch<NoteCubit>();
+    final NoteState state = cubit.state;
 
     Widget? child;
 
@@ -51,19 +51,20 @@ class NoteTabContent extends StatelessWidget {
     }
 
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(8),
       child: child,
     );
   }
 
   Widget _buildList(List<Note> noteList) {
     return ListView.separated(
-      itemBuilder: (context, index) {
+      itemBuilder: (BuildContext context, int index) {
         return NoteCard(
           note: noteList[index],
         );
       },
-      separatorBuilder: (context, index) => const SizedBox(height: 8),
+      separatorBuilder: (BuildContext context, int index) =>
+          const SizedBox(height: 8),
       itemCount: noteList.length,
     );
   }

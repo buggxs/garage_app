@@ -9,17 +9,17 @@ InputDecoration defaultInputDecorationBlack({Widget? label}) {
       color: Colors.black,
     ),
     errorBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(5.0),
+      borderRadius: BorderRadius.circular(5),
       borderSide: const BorderSide(
         color: Colors.red,
-        width: 1.0,
+        width: 1,
       ),
     ),
     enabledBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(5.0),
+      borderRadius: BorderRadius.circular(5),
       borderSide: const BorderSide(
         color: Colors.black,
-        width: 1.0,
+        width: 1,
       ),
     ),
   );

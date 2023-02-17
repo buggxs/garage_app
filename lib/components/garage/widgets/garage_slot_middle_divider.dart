@@ -7,7 +7,7 @@ class GarageSlotMiddleDivider extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
-      children: [
+      children: <Widget>[
         Expanded(
           child: Container(
             height: 10,

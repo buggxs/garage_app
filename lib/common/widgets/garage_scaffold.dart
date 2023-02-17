@@ -2,13 +2,13 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 class GarageScaffold extends StatelessWidget {
-  const GarageScaffold(
-      {Key? key,
-      required this.child,
-      this.floatingActionButton,
-      this.title,
-      this.elevation})
-      : super(key: key);
+  const GarageScaffold({
+    Key? key,
+    required this.child,
+    this.floatingActionButton,
+    this.title,
+    this.elevation,
+  }) : super(key: key);
 
   final Widget child;
   final String? title;

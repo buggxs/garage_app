@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:garage_app/api/car/data/car.dart';
@@ -13,6 +12,7 @@ import 'package:garage_app/components/car/notes/widgets/add_note_dialog.dart';
 import 'package:garage_app/components/car/properties/property_tab.dart';
 import 'package:garage_app/core/app_service_locator.dart';
 import 'package:garage_app/misc/constants.dart';
+import 'package:garage_app/misc/logger.dart';
 
 import 'cubit/car_cubit.dart';
 
@@ -30,7 +30,7 @@ class CarScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return car != null
         ? BlocProvider<CarCubit>(
-            create: (context) => CarCubit(car: car!),
+            create: (BuildContext context) => CarCubit(car: car!),
             child: const CarScreenTabs(),
           )
         : const GarageScaffold(
@@ -49,7 +49,7 @@ class CarScreenTabs extends StatefulWidget {
 }
 
 class _CarScreenTabsState extends State<CarScreenTabs>
-    with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin, LoggerMixin {
   late TabController _controller;
 
   int tabIndex = 0;
@@ -73,8 +73,8 @@ class _CarScreenTabsState extends State<CarScreenTabs>
 
   @override
   Widget build(BuildContext context) {
-    CarCubit cubit = context.watch<CarCubit>();
-    CarState state = cubit.state;
+    final CarCubit cubit = context.watch<CarCubit>();
+    final CarState state = cubit.state;
 
     Widget child = Scaffold(
       backgroundColor: Colors.blueGrey[900],
@@ -118,8 +118,8 @@ class _CarScreenTabsState extends State<CarScreenTabs>
   }) {
     return TabBar(
       controller: _controller,
-      padding: const EdgeInsets.all(0.0),
-      indicatorPadding: const EdgeInsets.all(0.0),
+      padding: const EdgeInsets.all(0),
+      indicatorPadding: const EdgeInsets.all(0),
       indicatorColor: Colors.blueGrey[900],
       labelPadding: EdgeInsets.zero,
       onTap: onTap,
@@ -147,8 +147,8 @@ class _CarScreenTabsState extends State<CarScreenTabs>
   }
 
   Widget? _showActionButton({required BuildContext context, int? index = 0}) {
-    CarCubit cubit = context.watch<CarCubit>();
-    print('from _showActionButton $index');
+    final CarCubit cubit = context.watch<CarCubit>();
+    log.info('from _showActionButton $index');
     switch (index) {
       case 0:
         return null;
@@ -168,7 +168,7 @@ class _CarScreenTabsState extends State<CarScreenTabs>
       case 2:
         return FloatingActionButton(
           onPressed: () async {
-            String? noteText = await app<PopupService>().showPopUp(
+            final String? noteText = await app<PopupService>().showPopUp(
               context,
               const Text('Notiz hinzufügen'),
               AddNoteDialog(),
@@ -196,7 +196,7 @@ class MyFloatingActionButtons extends StatefulWidget {
 class _MyFloatingActionButtonsState extends State<MyFloatingActionButtons> {
   @override
   Widget build(BuildContext context) {
-    CarCubit cubit = context.watch<CarCubit>();
+    final CarCubit cubit = context.watch<CarCubit>();
     switch (widget.index) {
       case 0:
         return const SizedBox();
@@ -216,7 +216,7 @@ class _MyFloatingActionButtonsState extends State<MyFloatingActionButtons> {
       case 2:
         return FloatingActionButton(
           onPressed: () async {
-            String? noteText = await app<PopupService>().showPopUp(
+            final String? noteText = await app<PopupService>().showPopUp(
               context,
               const Text('Notiz hinzufügen'),
               AddNoteDialog(),
