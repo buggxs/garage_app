@@ -7,6 +7,7 @@ import 'package:garage_app/api/car/data/timing_belt_data.dart';
 import 'package:garage_app/api/document/data/document.dart';
 import 'package:garage_app/api/note/data/note.dart';
 import 'package:garage_app/components/car/properties/property_tab.dart';
+import 'package:garage_app/core/local_service/jsonable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import 'air_conditioner_data.dart';
@@ -16,7 +17,7 @@ import 'oil_data.dart';
 part 'car.g.dart';
 
 @JsonSerializable()
-class Car extends Equatable {
+class Car extends Equatable implements Jsonable<Car> {
   const Car({
     this.id,
     this.name,
@@ -37,6 +38,9 @@ class Car extends Equatable {
   });
 
   factory Car.fromJson(Map<String, dynamic> json) => _$CarFromJson(json);
+
+  @override
+  Car fromJson(Map<String, dynamic> json) => _$CarFromJson(json);
 
   final int? id;
   final String? name;

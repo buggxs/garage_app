@@ -60,6 +60,8 @@ class MyGarage extends StatelessWidget {
         // localization for material widgets (e.g. tooltips, datetime picker)
         ...GlobalMaterialLocalizations.delegates,
         GlobalLocaleDelegate(),
+
+        // package localizations
         MonthYearPickerLocalizations.delegate,
       ],
       supportedLocales: const <Locale>[

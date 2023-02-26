@@ -1,3 +1,4 @@
+import 'package:garage_app/api/car/car_local_service.dart';
 import 'package:garage_app/api/car/car_service.dart';
 import 'package:garage_app/api/document/document_service.dart';
 import 'package:garage_app/common/widgets/modal_service.dart';
@@ -15,5 +16,6 @@ void setup() {
     ..registerLazySingleton<ModalService>(() => ModalService())
     ..registerLazySingleton<CarService>(() => LocalCarService())
     ..registerFactory<DocumentService>(() => LocalDocumentService())
-    ..registerSingleton<LocaleInformation>(LocaleInformation());
+    ..registerSingleton<LocaleInformation>(LocaleInformation())
+    ..registerSingleton<LocalCarRepository>(LocalCarRepository());
 }
