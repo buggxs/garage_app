@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:garage_app/api/api.dart';
-import 'package:garage_app/api/car/car_local_service.dart';
+import 'package:garage_app/api/car/local_car_repository.dart';
 import 'package:garage_app/core/app_service_locator.dart';
 import 'package:garage_app/misc/logger.dart';
 import 'package:path_provider/path_provider.dart';

@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
-abstract class LocalStorageService<T> {
-  LocalStorageService();
+abstract class LocalStorageRepository<T> {
+  LocalStorageRepository();
 
   /// storage key to find the stored value
   String get storageKey;

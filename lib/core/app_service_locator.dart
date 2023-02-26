@@ -1,5 +1,5 @@
-import 'package:garage_app/api/car/car_local_service.dart';
 import 'package:garage_app/api/car/car_service.dart';
+import 'package:garage_app/api/car/local_car_repository.dart';
 import 'package:garage_app/api/document/document_service.dart';
 import 'package:garage_app/common/widgets/modal_service.dart';
 import 'package:garage_app/common/widgets/popup_service.dart';
