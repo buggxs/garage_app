@@ -30,7 +30,7 @@ class PropertyCubit extends Cubit<CarPropertiesState> with LoggerMixin {
   }) async {
     final DateTime lastChangeDate =
         lastChangeDateString != null && lastChangeDateString.isNotEmpty
-            ? DateFormat('dd.MM.y').parse(lastChangeDateString)
+            ? DateFormat('MM.yyyy').parse(lastChangeDateString)
             : DateTime.now();
     final double? lastChangeMileage =
         lastChangeMileageString != null && lastChangeMileageString.isNotEmpty

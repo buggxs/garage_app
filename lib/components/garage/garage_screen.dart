@@ -119,6 +119,10 @@ class GarageScreenContent extends StatelessWidget {
               car: car,
               onUpdate: cubit.updateCarData,
               onDelete: cubit.deleteCar,
+              onWillPop: () async {
+                cubit.loadGarageCars();
+                return true;
+              },
             ),
           )
           .cast<Widget>()

@@ -24,6 +24,7 @@ class CarListItem extends StatelessWidget {
     this.index,
     this.onLongPress,
     this.onDelete,
+    this.onWillPop,
   }) : super(key: key);
 
   final Car car;
@@ -31,6 +32,7 @@ class CarListItem extends StatelessWidget {
   final int? index;
   final Function? onLongPress;
   final void Function(Car car)? onDelete;
+  final Future<bool> Function()? onWillPop;
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +49,10 @@ class CarListItem extends StatelessWidget {
               splashColor: Colors.blue.withAlpha(30),
               onTap: () => Navigator.of(context).pushNamed(
                 CarScreen.route,
-                arguments: car,
+                arguments: <String, dynamic>{
+                  'car': car,
+                  'onWillPop': onWillPop,
+                },
               ),
               onLongPress: () => app<ModalService>().showUpdateModal(
                 context: context,
