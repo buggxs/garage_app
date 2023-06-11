@@ -136,7 +136,8 @@ class Car extends Equatable implements Jsonable<Car> {
   String _calculateOilData() {
     // Define necessary mileage and/or date
     CarPropertyStatus oilStatus = CarPropertyStatus.danger;
-    final double lastChangeMileage = mileage ?? 0.0;
+    final double lastChangeMileage =
+        oilData?.lastChangeMileage ?? mileage ?? 0.0;
     final double nextChangeMileage = oilData?.nextChangeMileage ?? 0.0;
 
     final DateTime? lastChangeDate = oilData?.lastChangeDate ?? date;
@@ -172,72 +173,120 @@ class Car extends Equatable implements Jsonable<Car> {
   }
 
   String _calculateAirConditionerData() {
-    final double carMileage = mileage ?? 0.0;
-    // double lastChange = airConditioner?.lastChangeMileage ?? 0.0;
-    final double nextChange = airConditioner?.nextChangeMileage ?? 0.0;
+    // Define necessary local variables
+    CarPropertyStatus airConditionerStatus = CarPropertyStatus.danger;
 
-    if (carMileage == 0.0) {
-      return 'success';
+    final double lastChangeMileage =
+        airConditioner?.lastChangeMileage ?? mileage ?? 0.0;
+    final double nextChangeMileage = airConditioner?.nextChangeMileage ?? 0.0;
+
+    final DateTime? lastChangeDate = airConditioner?.lastChangeDate;
+    final DateTime? nextChangeDate = airConditioner?.nextChangeDate;
+
+    // If no mileage and date is defined than return CarPropertyStatus.danger
+    if (lastChangeMileage == 0.0 && lastChangeDate == null) {
+      return airConditionerStatus.status;
     }
 
-    // TODO: think about how to implement date into this. What should
-    // be the fallback?
-
-    if (carMileage <= nextChange) {
-      if ((carMileage + 2000) < nextChange) {
-        return 'success';
+    // Check for mileage when monitored
+    if (lastChangeMileage != 0.0 && lastChangeMileage <= nextChangeMileage) {
+      if ((lastChangeMileage + 2000) < nextChangeMileage) {
+        airConditionerStatus = CarPropertyStatus.success;
       } else {
-        return 'warning';
+        airConditionerStatus = CarPropertyStatus.warning;
       }
     }
 
-    return 'danger';
+    // Check for date when monitored
+    if (lastChangeDate != null && nextChangeDate != null) {
+      if (nextChangeDate.isAfter(lastChangeDate)) {
+        airConditionerStatus = CarPropertyStatus.success;
+        // If the last changed date is 30 days away from nextChangeDate
+        if (lastChangeDate.isOneMonthApart(nextChangeDate)) {
+          airConditionerStatus = CarPropertyStatus.warning;
+        }
+      }
+    }
+
+    return airConditionerStatus.status;
   }
 
   String _calculateBrakeData() {
-    final double carMileage = mileage ?? 0.0;
-    // double lastChange = brakeData?.lastChangeMileage ?? 0.0;
-    final double nextChange = brakeData?.nextChangeMileage ?? 0.0;
+    // Define necessary local variables
+    CarPropertyStatus brakeStatus = CarPropertyStatus.danger;
 
-    if (carMileage == 0.0) {
-      return 'success';
+    final double lastChangeMileage =
+        brakeData?.lastChangeMileage ?? mileage ?? 0.0;
+    final double nextChangeMileage = brakeData?.nextChangeMileage ?? 0.0;
+
+    final DateTime? lastChangeDate = brakeData?.lastChangeDate;
+    final DateTime? nextChangeDate = brakeData?.nextChangeDate;
+
+    // If no mileage and date is defined than return CarPropertyStatus.danger
+    if (lastChangeMileage == 0.0 && lastChangeDate == null) {
+      return brakeStatus.status;
     }
 
-    // TODO: think about how to implement date into this. What should
-    // be the fallback?
-
-    if (carMileage <= nextChange) {
-      if ((carMileage + 2000) < nextChange) {
-        return 'success';
+    // Check for mileage when monitored
+    if (lastChangeMileage != 0.0 && lastChangeMileage <= nextChangeMileage) {
+      if ((lastChangeMileage + 2000) < nextChangeMileage) {
+        brakeStatus = CarPropertyStatus.success;
       } else {
-        return 'warning';
+        brakeStatus = CarPropertyStatus.warning;
       }
     }
 
-    return 'danger';
+    // Check for date when monitored
+    if (lastChangeDate != null && nextChangeDate != null) {
+      if (nextChangeDate.isAfter(lastChangeDate)) {
+        brakeStatus = CarPropertyStatus.success;
+        // If the last changed date is 30 days away from nextChangeDate
+        if (lastChangeDate.isOneMonthApart(nextChangeDate)) {
+          brakeStatus = CarPropertyStatus.warning;
+        }
+      }
+    }
+
+    return brakeStatus.status;
   }
 
   String _calculateTimingBeltData() {
-    final double carMileage = mileage ?? 0.0;
-    // double lastChange = timingBeltData?.lastChangeMileage ?? 0.0;
-    final double nextChange = timingBeltData?.nextChangeMileage ?? 0.0;
+    // Define necessary local variables
+    CarPropertyStatus timingBeltStatus = CarPropertyStatus.danger;
 
-    if (carMileage == 0.0) {
-      return 'success';
+    final double lastChangeMileage =
+        timingBeltData?.lastChangeMileage ?? mileage ?? 0.0;
+    final double nextChangeMileage = timingBeltData?.nextChangeMileage ?? 0.0;
+
+    final DateTime? lastChangeDate = timingBeltData?.lastChangeDate;
+    final DateTime? nextChangeDate = timingBeltData?.nextChangeDate;
+
+    // If no mileage and date is defined than return CarPropertyStatus.danger
+    if (lastChangeMileage == 0.0 && lastChangeDate == null) {
+      return timingBeltStatus.status;
     }
 
-    // TODO: think about how to implement date into this. What should
-    // be the fallback?
-
-    if (carMileage <= nextChange) {
-      if ((carMileage + 2000) < nextChange) {
-        return 'success';
+    // Check for mileage when monitored
+    if (lastChangeMileage != 0.0 && lastChangeMileage <= nextChangeMileage) {
+      if ((lastChangeMileage + 2000) < nextChangeMileage) {
+        timingBeltStatus = CarPropertyStatus.success;
       } else {
-        return 'warning';
+        timingBeltStatus = CarPropertyStatus.warning;
       }
     }
 
-    return 'danger';
+    // Check for date when monitored
+    if (lastChangeDate != null && nextChangeDate != null) {
+      if (nextChangeDate.isAfter(lastChangeDate)) {
+        timingBeltStatus = CarPropertyStatus.success;
+        // If the last changed date is 30 days away from nextChangeDate
+        if (lastChangeDate.isOneMonthApart(nextChangeDate)) {
+          timingBeltStatus = CarPropertyStatus.warning;
+        }
+      }
+    }
+
+    return timingBeltStatus.status;
   }
 
   bool hasAnyWarnings() {
