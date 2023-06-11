@@ -127,6 +127,7 @@ class LocalCarService with LoggerMixin implements CarService {
 
   Future<Car> loadCarImages(Car car) async {
     final Directory directory = await getApplicationDocumentsDirectory();
+
     return Directory('${directory.path}/car_${car.id}')
         .create(recursive: true)
         .then((Directory dir) async {

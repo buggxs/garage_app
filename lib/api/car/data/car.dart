@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:equatable/equatable.dart';
+import 'package:garage_app/api/car/data/CarPropertyStatus.dart';
 import 'package:garage_app/api/car/data/property_data.dart';
 import 'package:garage_app/api/car/data/technical_data.dart';
 import 'package:garage_app/api/car/data/timing_belt_data.dart';
@@ -8,6 +9,7 @@ import 'package:garage_app/api/document/data/document.dart';
 import 'package:garage_app/api/note/data/note.dart';
 import 'package:garage_app/components/car/properties/property_tab.dart';
 import 'package:garage_app/core/local_service/jsonable.dart';
+import 'package:garage_app/misc/date_extension.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import 'air_conditioner_data.dart';
@@ -130,27 +132,43 @@ class Car extends Equatable implements Jsonable<Car> {
     return 'success';
   }
 
+  /// Return a string from [CarPropertyStatus]
   String _calculateOilData() {
-    final double carMileage = mileage ?? 0.0;
-    // double lastChange = oilData?.lastChangeMileage ?? 0.0;
-    final double nextChange = oilData?.nextChangeMileage ?? 0.0;
+    // Define necessary mileage and/or date
+    CarPropertyStatus oilStatus = CarPropertyStatus.danger;
+    final double lastChangeMileage = mileage ?? 0.0;
+    final double nextChangeMileage = oilData?.nextChangeMileage ?? 0.0;
 
-    if (carMileage == 0.0) {
-      return 'success';
+    final DateTime? lastChangeDate = oilData?.lastChangeDate ?? date;
+    final DateTime? nextChangeDate = oilData?.nextChangeDate;
+
+    // If no mileage and date is defined than return CarPropertyStatus.danger
+    if (lastChangeMileage == 0.0 && lastChangeDate == null) {
+      return oilStatus.status;
     }
 
-    // TODO: think about how to implement date into this. What should
-    // be the fallback?
-
-    if (carMileage <= nextChange) {
-      if ((carMileage + 2000) < nextChange) {
-        return 'success';
+    // Check for mileage when monitored
+    if (lastChangeMileage != 0.0 && lastChangeMileage <= nextChangeMileage) {
+      if ((lastChangeMileage + 2000) < nextChangeMileage) {
+        oilStatus = CarPropertyStatus.success;
       } else {
-        return 'warning';
+        oilStatus = CarPropertyStatus.warning;
       }
     }
 
-    return 'danger';
+    // Check for date when monitored
+    if (lastChangeDate != null && nextChangeDate != null) {
+      // If nextChangeDate later than lastChangeDate
+      if (nextChangeDate.isAfter(lastChangeDate)) {
+        oilStatus = CarPropertyStatus.success;
+        // If the last changed date is 30 days away from nextChangeDate
+        if (lastChangeDate.isOneMonthApart(nextChangeDate)) {
+          oilStatus = CarPropertyStatus.warning;
+        }
+      }
+    }
+
+    return oilStatus.status;
   }
 
   String _calculateAirConditionerData() {
