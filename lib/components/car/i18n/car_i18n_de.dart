@@ -27,5 +27,8 @@ Map<CarText, String> _deValues = <CarText, String>{
   CarText.vintage: 'Baujahr',
   CarText.changedOn: 'Ausgetauscht am',
   CarText.update: 'Aktualisieren',
-  CarText.fuelType: 'Treibstoff'
+  CarText.fuelType: 'Treibstoff',
+  CarText.patrol: 'Benzin',
+  CarText.diesel: 'Diesel',
+  CarText.electric: 'Elektrisch'
 };

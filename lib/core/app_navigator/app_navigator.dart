@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:garage_app/api/car/data/car.dart';
 import 'package:garage_app/components/add_vehicle/add_screen.dart';
 import 'package:garage_app/components/add_vehicle/create_car_automated_screen.dart';
 import 'package:garage_app/components/add_vehicle/create_car_manual_screen.dart';
@@ -16,10 +15,11 @@ class AppNavigator {
           builder: (_) => const GarageScreen(),
         );
       case CarScreen.route:
-        if (args is Car) {
+        if (args is Map<String, dynamic>) {
           return MaterialPageRoute<dynamic>(
             builder: (_) => CarScreen(
-              car: args,
+              car: args['car'],
+              onWillPop: args['onWillPop'],
             ),
           );
         }

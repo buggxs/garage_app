@@ -44,7 +44,7 @@ class AirConditionerData extends Equatable implements PropertyData {
         id: id ?? this.id,
         lastChangeMileage: lastChangeMileage ?? this.lastChangeMileage,
         lastChangeDate: lastChangeDate ?? this.lastChangeDate,
-        nextChangeMileage: lastChangeMileage ?? this.lastChangeMileage,
+        nextChangeMileage: nextChangeMileage ?? this.nextChangeMileage,
         nextChangeDate: nextChangeDate ?? this.nextChangeDate,
       );
 

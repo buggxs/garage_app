@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:garage_app/api/api.dart';
+import 'package:garage_app/api/car/local_car_repository.dart';
+import 'package:garage_app/core/app_service_locator.dart';
 import 'package:garage_app/misc/logger.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -84,24 +86,11 @@ class LocalCarService with LoggerMixin implements CarService {
 
   @override
   Future<List<Car>> getAllCars() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final String? carListString = prefs.get('car_list');
-    if (carListString?.isEmpty ?? true) {
-      return <Car>[];
-    }
-    final dynamic carList = jsonDecode(carListString!);
-    if (carList is List) {
-      final List<Car> localCarList = carList
-          .map(
-            (dynamic e) => Car.fromJson(e as Map<String, dynamic>),
-          )
-          .toList();
-      return Future.wait(
-        localCarList.map(loadCarImages).toList(),
-      );
-    } else {
-      return <Car>[];
-    }
+    final List<Car> localCarList =
+        await app<LocalCarRepository>().getAll() ?? const <Car>[];
+    return Future.wait(
+      localCarList.map(loadCarImages).toList(),
+    );
   }
 
   @override
@@ -138,6 +127,7 @@ class LocalCarService with LoggerMixin implements CarService {
 
   Future<Car> loadCarImages(Car car) async {
     final Directory directory = await getApplicationDocumentsDirectory();
+
     return Directory('${directory.path}/car_${car.id}')
         .create(recursive: true)
         .then((Directory dir) async {

@@ -20,18 +20,23 @@ class CarScreen extends StatelessWidget {
   const CarScreen({
     Key? key,
     this.car,
+    this.onWillPop,
   }) : super(key: key);
 
   static const String route = '/car';
 
   final Car? car;
 
+  final Future<bool> Function()? onWillPop;
+
   @override
   Widget build(BuildContext context) {
     return car != null
         ? BlocProvider<CarCubit>(
             create: (BuildContext context) => CarCubit(car: car!),
-            child: const CarScreenTabs(),
+            child: CarScreenTabs(
+              onWillPop: onWillPop,
+            ),
           )
         : const GarageScaffold(
             child: Center(
@@ -42,7 +47,12 @@ class CarScreen extends StatelessWidget {
 }
 
 class CarScreenTabs extends StatefulWidget {
-  const CarScreenTabs({Key? key}) : super(key: key);
+  const CarScreenTabs({
+    Key? key,
+    required this.onWillPop,
+  }) : super(key: key);
+
+  final Future<bool> Function()? onWillPop;
 
   @override
   State<CarScreenTabs> createState() => _CarScreenTabsState();
@@ -76,28 +86,31 @@ class _CarScreenTabsState extends State<CarScreenTabs>
     final CarCubit cubit = context.watch<CarCubit>();
     final CarState state = cubit.state;
 
-    Widget child = Scaffold(
-      backgroundColor: Colors.blueGrey[900],
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
-        title: Text('${state.car?.name}'),
-        bottom: _tabBar(
-          context: context,
-          onTap: cubit.updateTab,
+    Widget child = WillPopScope(
+      onWillPop: widget.onWillPop,
+      child: Scaffold(
+        backgroundColor: Colors.blueGrey[900],
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          foregroundColor: Colors.black,
+          title: Text('${state.car?.name}'),
+          bottom: _tabBar(
+            context: context,
+            onTap: cubit.updateTab,
+          ),
         ),
-      ),
-      body: TabBarView(
-        controller: _controller,
-        children: <Widget>[
-          const PropertyTab(),
-          DocumentTab(car: state.car),
-          NotesTab(car: state.car),
-        ],
-      ),
-      floatingActionButton: _showActionButton(
-        context: context,
-        index: state.tabIndex,
+        body: TabBarView(
+          controller: _controller,
+          children: <Widget>[
+            const PropertyTab(),
+            DocumentTab(car: state.car),
+            NotesTab(car: state.car),
+          ],
+        ),
+        floatingActionButton: _showActionButton(
+          context: context,
+          index: state.tabIndex,
+        ),
       ),
     );
 

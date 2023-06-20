@@ -31,6 +31,9 @@ enum CarText {
   changedOn,
   update,
   fuelType,
+  patrol,
+  diesel,
+  electric
 }
 
 class CarI18n extends I18n<CarText> {
