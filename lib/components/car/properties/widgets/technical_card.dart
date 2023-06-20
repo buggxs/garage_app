@@ -109,7 +109,7 @@ class TechnicalCard extends StatelessWidget {
                         children: <Widget>[
                           LabeledText(
                             caption: CarText.fuelType(),
-                            text: '${technicalData?.fuelType.toString()}',
+                            text: '${technicalData?.fuelTypeList}',
                             padding: const EdgeInsets.symmetric(vertical: 8),
                           ),
                         ],
