@@ -48,7 +48,7 @@ class GarageCubit extends Cubit<GarageState> with LoggerMixin {
     if (state is GarageLoadedState) {
       final DateTime? lastChangeDate =
           lastChangeDateString != null && lastChangeDateString.isNotEmpty
-              ? DateFormat('dd.MM.y').parse(lastChangeDateString)
+              ? DateFormat('M.y').parse(lastChangeDateString)
               : null;
       final double? lastChangeMileage =
           lastChangeMileageString != null && lastChangeMileageString.isNotEmpty

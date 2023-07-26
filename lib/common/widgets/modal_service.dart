@@ -143,7 +143,7 @@ class ModalService with LoggerMixin {
                         ),
                         CarDataInput(
                           inputDecoration: defaultInputDecorationBlack(
-                            label: Text(CarText.tuevUntil()),
+                            label: Text(CarText.motUntil()),
                           ),
                           textInputType: TextInputType.datetime,
                           readOnly: true,

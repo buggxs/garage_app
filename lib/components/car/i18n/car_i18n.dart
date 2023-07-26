@@ -25,7 +25,7 @@ enum CarText {
   uploadDocument,
   upload,
   errorLoadingDocuments,
-  tuevUntil,
+  motUntil,
   mileage,
   vintage,
   changedOn,
